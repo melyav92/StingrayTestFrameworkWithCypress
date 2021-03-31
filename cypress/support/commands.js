@@ -1,3 +1,13 @@
+
+/*Cypress.Commands.add("LoginToTreatmentRegisterPage", function (){
+    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
+    cy.get('#Username').type('bolacslu')
+    cy.get('#Password').type(123456)
+    cy.get('#login-button').click()
+})
+*/
+
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
