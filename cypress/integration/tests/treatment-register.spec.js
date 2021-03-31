@@ -18,7 +18,11 @@ describe('Treatment register',function (){
         console.log(cy.get('.scp-title'))
 
        let treatmentRegister = new TreatmentRegister();
+
        treatmentRegister.addNewTreatmentButton().click();
+       treatmentRegister.openDatePicker();
+
+
 
 
     })

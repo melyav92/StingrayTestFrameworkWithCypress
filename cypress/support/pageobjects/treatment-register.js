@@ -1,8 +1,17 @@
 class TreatmentRegister {
     addNewTreatmentButton(){
         return cy.get('#add-new-treatment-btn')
+    };
+
+    openDatePicker(){
+        return cy.get('#counted-date-date-picker').click()
     }
+
+
+
+
 }
+
 
 /*Cypress.Commands.add("LoginToTreatmentRegisterPage", function (){
     cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
