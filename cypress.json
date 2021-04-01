@@ -1,7 +1,9 @@
 {"baseUrl": "https://192.168.10.49:8101",
   "pageLoadTimeout": 60000,
-  "defaultCommandTimeout": 20000,
-  "reporter": "mochawesome",
+  "defaultCommandTimeout": 15000,
+  "viewportWidth": 1360,
+  "viewportHeight": 980,
+    "reporter": "mochawesome",
   "reporterOptions": {
     "reportDir": "cypress/results",
     "overwrite": false,

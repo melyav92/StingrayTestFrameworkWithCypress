@@ -12,18 +12,26 @@ before(function (){
 })
 
 describe('Treatment register',function (){
+    let treatmentRegister = new TreatmentRegister();
     it('should register treatment report for the current date',function (){
-        let title = cy.get('.scp-title')
-        console.log(title)
-        console.log(cy.get('.scp-title'))
-
-       let treatmentRegister = new TreatmentRegister();
-
+       treatmentRegister.pageIsLoaded();
        treatmentRegister.addNewTreatmentButton().click();
+       treatmentRegister.reportDetailsTableIsEmpty()
        treatmentRegister.openDatePicker();
+       treatmentRegister.selectCurrentDate().click()
+       treatmentRegister.openPensDropdown()
+       treatmentRegister.selectPen('M1')
+       treatmentRegister.openPensDropdown()
+       treatmentRegister.selectPen('M2')
+       treatmentRegister.selectTreatmentTypeForAllPens('Slice (Emamectin)')
+       treatmentRegister.addPensButton().click()
+       treatmentRegister.addCommentForPen('M1').click().clear().type('Comment for pen M1')
+       treatmentRegister.addCommentForPen('M2').click().clear().type('Comment for pen M2')
+       treatmentRegister.addFishpenCount('M1').click().clear().type('1000')
+       treatmentRegister.addFishpenCount('M2').click().clear().type('2000')
+       treatmentRegister.saveReport()
 
-
-
+       treatmentRegister.toasterPopup().should('have.text',"Treatment was saved successfully")
 
     })
 
