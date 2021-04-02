@@ -7,7 +7,7 @@ Cypress.Commands.add("Login", function (username, password) {
 })
 
 
-class TreatmentRegister {
+export class TreatmentRegister {
 
     addNewTreatmentButton(){
         let pensDropdownIsLoaded = cy.get('li.search-choice').contains('All pens')
@@ -49,7 +49,7 @@ class TreatmentRegister {
      // cy.log(cy.get('div.scp-pen-code').contains(penName).parent().next().next())
      //return cy.get('input.comment-input[data-pen-id="4043"]').click()
    }
-   addFishpenCount(penName){
+   addFishPenCount(penName){
        return cy.get('div.scp-pen-code').contains(penName).parent().next().next().next()
    }
    saveReport(){
@@ -74,4 +74,4 @@ class TreatmentRegister {
 
 
 //export default (TreatmentRegister, login);
-export default TreatmentRegister
+//export default TreatmentRegister
