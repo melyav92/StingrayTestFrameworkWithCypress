@@ -1,6 +1,4 @@
-import TreatmentRegister from "../../support/pageobjects/treatment-register";
-import Login from "../../support/pageobjects/treatment-register";
-
+import {TreatmentRegister} from "../../support/pageobjects/treatment-register";
 /*
 before(function (){
     cy.LoginToTreatmentRegisterPage()
@@ -27,8 +25,8 @@ describe('Treatment register',function (){
        treatmentRegister.addPensButton().click()
        treatmentRegister.addCommentForPen('M1').click().clear().type('Comment for pen M1')
        treatmentRegister.addCommentForPen('M2').click().clear().type('Comment for pen M2')
-       treatmentRegister.addFishpenCount('M1').click().clear().type('1000')
-       treatmentRegister.addFishpenCount('M2').click().clear().type('2000')
+       treatmentRegister.addFishPenCount('M1').click().clear().type('1000')
+       treatmentRegister.addFishPenCount('M2').click().clear().type('2000')
        treatmentRegister.saveReport()
 
        treatmentRegister.toasterPopup().should('have.text',"Treatment was saved successfully")
