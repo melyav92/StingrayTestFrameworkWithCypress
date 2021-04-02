@@ -31,4 +31,9 @@ describe('Treatment register',function (){
 
     })
 
+    it('should verify treatment report data for just created report',function (){
+
+
+    })
+
 })
