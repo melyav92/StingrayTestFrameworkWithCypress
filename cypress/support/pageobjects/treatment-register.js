@@ -77,9 +77,4 @@ export class TreatmentRegister {
     cy.get('#Password').type(123456)
     cy.get('#login-button').click()
 })
-
  */
-
-
-//export default (TreatmentRegister, login);
-//export default TreatmentRegister
