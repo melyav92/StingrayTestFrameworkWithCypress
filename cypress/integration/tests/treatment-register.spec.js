@@ -14,7 +14,7 @@ before(function (){
 describe('Treatment register',function (){
     let treatmentRegister = new TreatmentRegister();
     it('should register treatment report for the current date',function (){
-       treatmentRegister.pageIsLoaded();
+
        treatmentRegister.addNewTreatmentButton().click();
        treatmentRegister.reportDetailsTableIsEmpty()
        treatmentRegister.openDatePicker();

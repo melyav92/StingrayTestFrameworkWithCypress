@@ -8,11 +8,10 @@ Cypress.Commands.add("Login", function (username, password) {
 
 
 class TreatmentRegister {
-    pageIsLoaded(){
-        let pageIsLoaded = cy.get('li.search-choice').contains('All pens')
-        return pageIsLoaded.should('be.visible')
-    }
+
     addNewTreatmentButton(){
+        let pensDropdownIsLoaded = cy.get('li.search-choice').contains('All pens')
+        pensDropdownIsLoaded.should('be.visible')
         return cy.get('#add-new-treatment-btn')
     };
     reportDetailsTableIsEmpty(){
@@ -56,9 +55,7 @@ class TreatmentRegister {
    saveReport(){
        return cy.get('#save-btn').click()
    }
-
    toasterPopup(){
-
        return cy.get('div.toast-title').contains('Treatment was saved successfully')
    }
 
