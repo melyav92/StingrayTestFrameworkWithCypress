@@ -42,7 +42,7 @@ export class TreatmentRegister {
         return cy.get('#add-new-treatment-for-pens-btn')
     }
 
-   addCommentForPen(penName){
+   commentForPen(penName){
         return cy.get('div.scp-pen-code').contains(penName).parent().next().next()
        //const penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).invoke('attr', 'data-pen-id')
        //const penIdDataAttribute = cy.get('[data-pen-id]').should('have.text', penName)
@@ -66,7 +66,13 @@ export class TreatmentRegister {
    toasterPopup(){
        return cy.get('div.toast-title').contains('Treatment was saved successfully')
    }
+   penExistsInReportsTable(penName){
+        return cy.get('div.scp-pen-code').contains(penName)
+   }
 
+   treatmentTypeForThePen(penName) {
+       return cy.get('div.scp-pen-code').contains(penName).parent().next().children('select')
+   }
 
 }
 
