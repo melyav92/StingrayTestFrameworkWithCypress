@@ -6,6 +6,14 @@ Cypress.Commands.add("Login", function (username, password) {
     cy.get('#login-button').click()
 })
 
+/*Cypress.Commands.add("LoginToTreatmentRegisterPage", function (){
+    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
+    cy.get('#Username').type('bolacslu')
+    cy.get('#Password').type(123456)
+    cy.get('#login-button').click()
+})
+ */
+
 export class TreatmentRegister {
     addNewTreatmentButton(){
         let pensDropdownIsLoaded = cy.get('li.search-choice').contains('All pens')
@@ -74,13 +82,9 @@ export class TreatmentRegister {
        return cy.get('div.scp-pen-code').contains(penName).parent().next().children('select')
    }
 
+
+
 }
 
 
-/*Cypress.Commands.add("LoginToTreatmentRegisterPage", function (){
-    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
-    cy.get('#Username').type('bolacslu')
-    cy.get('#Password').type(123456)
-    cy.get('#login-button').click()
-})
- */
+
