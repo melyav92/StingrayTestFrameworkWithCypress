@@ -1,8 +1,8 @@
-{"baseUrl": "https://192.168.10.49:8101",
+{"baseUrl": "http://192.168.10.49:8106",
   "pageLoadTimeout": 60000,
   "defaultCommandTimeout": 15000,
-  "viewportWidth": 1360,
-  "viewportHeight": 980,
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
     "reporter": "mochawesome",
   "reporterOptions": {
     "reportDir": "cypress/results",
