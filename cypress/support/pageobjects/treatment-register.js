@@ -19,6 +19,10 @@ export class TreatmentRegister {
         let pensDropdownIsLoaded = cy.get('li.search-choice').contains('All pens')
         pensDropdownIsLoaded.should('be.visible')
         return cy.get('#add-new-treatment-btn')
+
+    }
+    getPenObjectByName(penName){
+        return cy.get('div.scp-pen-code').contains(penName)
     }
 
     reportDetailsTableIsEmpty(){
@@ -51,8 +55,8 @@ export class TreatmentRegister {
     }
 
    commentForPen(penName){
-        return cy.get('div.scp-pen-code').contains(penName).parent().next().next()
-       //const penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).invoke('attr', 'data-pen-id')
+        return this.getPenObjectByName(penName).parent().next().next()
+       //const penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).invoke('attr', 'data-pen-id').toString()
        //const penIdDataAttribute = cy.get('[data-pen-id]').should('have.text', penName)
        /*let penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).then(elem => {
            let dataPenId = elem.attr("data-pen-id");
@@ -62,9 +66,9 @@ export class TreatmentRegister {
      // cy.log(cy.get('div.scp-pen-code').contains(penName).parent().next().next())
      //return cy.get('input.comment-input[data-pen-id="4043"]').click()
    }
-
+//addFishPenCountInput
    addFishPenCount(penName){
-       return cy.get('div.scp-pen-code').contains(penName).parent().next().next().next()
+       return this.getPenObjectByName(penName).parent().next().next().next()
    }
 
    saveReport(){
@@ -74,12 +78,10 @@ export class TreatmentRegister {
    toasterPopup(){
        return cy.get('div.toast-title').contains('Treatment was saved successfully')
    }
-   penExistsInReportsTable(penName){
-        return cy.get('div.scp-pen-code').contains(penName)
-   }
+
 
    treatmentTypeForThePen(penName) {
-       return cy.get('div.scp-pen-code').contains(penName).parent().next().children('select')
+       return this.getPenObjectByName(penName).parent().next().children('select')
    }
 
 

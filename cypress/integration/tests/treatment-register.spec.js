@@ -28,7 +28,7 @@ describe('Treatment register',function (){
        treatmentRegister.saveReport()
 
        treatmentRegister.toasterPopup()
-           .should('have.text',"Treatment was saved successfully")
+           .should('have.text',"Treatment was saved successfully")//
 
     })
 
@@ -47,7 +47,9 @@ describe('Treatment register',function (){
             .should('have.value', 'Comment for pen M1')
     })
 
-    it('should verify that fish/pen count value for pen M1 is 1000',function (){
+    it.only('should verify that fish/pen count value for pen M1 is 1000',function (){
+        //const penIdDataAttribute = cy.get('div.scp-pen-code').contains('M1').invoke('attr', 'data-pen-id').toString()
+        //cy.log(penIdDataAttribute)
         treatmentRegister.addFishPenCount('M1').children('input')
             .should('have.value', '1000')
     })
