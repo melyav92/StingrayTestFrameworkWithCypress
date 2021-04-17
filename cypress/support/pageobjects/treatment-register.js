@@ -18,6 +18,8 @@ export class TreatmentRegister {
     addNewTreatmentButton(){
         let pensDropdownIsLoaded = cy.get('li.search-choice').contains('All pens')
         pensDropdownIsLoaded.should('be.visible')
+        let loadingSpinner = cy.get('#loading-spinner-overlay')
+        loadingSpinner.should('not.be.visible')
         return cy.get('#add-new-treatment-btn')
 
     }
@@ -25,12 +27,10 @@ export class TreatmentRegister {
         return cy.get('div.scp-pen-code').contains(penName)
     }
 
-    reportDetailsTableIsEmpty(){
-        return cy.get('.dataTables_empty').contains('No data available in table').should('have.text','No data available in table')
-    }
-
     openDatePicker(){
-        return cy.get('#counted-date-date-picker').click()
+        let dataTableIsEmpty = cy.get('.dataTables_empty').contains('No data available in table')
+            dataTableIsEmpty.should('be.visible')
+        return cy.get('#counted-date-date-picker')
     }
 
     selectCurrentDate(){
@@ -39,11 +39,11 @@ export class TreatmentRegister {
     }
 
     openPensDropdown(){
-        return cy.get('#pens_selector_chosen').click()
+        return cy.get('#pens_selector_chosen')
     }
 
     selectPen(penName){
-       return cy.get('li.active-result').contains(penName).click()
+       return cy.get('li.active-result').contains(penName)
     }
 
      selectTreatmentTypeForAllPens(treatmentType){
@@ -56,35 +56,46 @@ export class TreatmentRegister {
 
    commentForPen(penName){
         return this.getPenObjectByName(penName).parent().next().next()
-       //const penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).invoke('attr', 'data-pen-id').toString()
-       //const penIdDataAttribute = cy.get('[data-pen-id]').should('have.text', penName)
+      // let penIdDataAttribute = this.getPenObjectByName(penName).invoke('attr', 'data-pen-id').toString()
+       //const penIdDataAttribute = this.getPenObjectByName(penName).get('[data-pen-id]')
+
        /*let penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).then(elem => {
            let dataPenId = elem.attr("data-pen-id");
            cy.log(dataPenId);
        })
         */
      // cy.log(cy.get('div.scp-pen-code').contains(penName).parent().next().next())
-     //return cy.get('input.comment-input[data-pen-id="4043"]').click()
+       //const penIdDataAttribute  = this.getPenObjectByName(penName).attribute('data-pen-id')
+      // cy.log(typeof(penIdDataAttribute))
+       //cy.log(penIdDataAttribute.length)
+       //cy.log(penIdDataAttribute)
+
+
+       //return cy.get('input.comment-input[data-pen-id="4042"]')
+     //return cy.get(`input.comment-input[data-pen-id='${penIdDataAttribute}']`)
+      // return cy.get('input.comment-input[data-pen-id="4042"]')
    }
+
 //addFishPenCountInput
    addFishPenCount(penName){
        return this.getPenObjectByName(penName).parent().next().next().next()
    }
 
-   saveReport(){
-       return cy.get('#save-btn').click()
+   saveButton(){
+       return cy.get('#save-btn')
    }
 
    toasterPopup(){
-       return cy.get('div.toast-title').contains('Treatment was saved successfully')
+       return cy.get('div.toast-title')
    }
-
 
    treatmentTypeForThePen(penName) {
-       return this.getPenObjectByName(penName).parent().next().children('select')
+       return this.getPenObjectByName(penName).parent().next().children('select').find('option:selected')
    }
 
-
+  fishCountValueInTable (penName){
+      return this.getPenObjectByName(penName).parent().next().next().next().children().children('input')
+  }
 
 }
 
