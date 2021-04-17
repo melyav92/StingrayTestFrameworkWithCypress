@@ -97,6 +97,21 @@ export class TreatmentRegister {
       return this.getPenObjectByName(penName).parent().next().next().next().children().children('input')
   }
 
+    expandTreatmentReportsList (){
+        return cy.get('.scp-expandable-area-button-text')
+    }
+  deleteTreatmentReportItem(){
+        return cy.get('a.scp-registered-date.scp-treatment-date.selected').prev()
+  }
+  confirmDeleteButton(){
+        cy.wait(1000)
+        return cy.get('.confirm')
+    }
+
+
+
+
+
 }
 
 

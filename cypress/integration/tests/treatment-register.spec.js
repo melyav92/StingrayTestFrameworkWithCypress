@@ -20,7 +20,7 @@ const toasterPopupMessage = 'Treatment was saved successfully';
 
 describe('Treatment register',function (){
     let treatmentRegister = new TreatmentRegister();
-    it.skip('should register treatment report for the current date',function (){
+    it('should register treatment report for the current date',function (){
 
        treatmentRegister.addNewTreatmentButton().click();
        treatmentRegister.openDatePicker().click();
@@ -41,6 +41,34 @@ describe('Treatment register',function (){
            .should('have.text',toasterPopupMessage)
     })
 
+    it("should verify just created data in the report",function (){
+        treatmentRegister.getPenObjectByName(penM1)
+            .should('contain.text', penM1)
+        treatmentRegister.getPenObjectByName(penM2)
+            .should('contain.text', penM2)
+        treatmentRegister.treatmentTypeForThePen(penM1)
+            .should('have.text', treatmentTypeForAllPens);
+        treatmentRegister.treatmentTypeForThePen(penM2)
+            .should('have.text', treatmentTypeForAllPens);
+        treatmentRegister.commentForPen(penM1).children('input')
+            .should('have.value', penM1Comment)
+        treatmentRegister.commentForPen(penM2).children('input')
+            .should('have.value', penM2Comment)
+        treatmentRegister.fishCountValueInTable(penM1)
+            .should('have.value', penM1FishPenCount)
+        treatmentRegister.fishCountValueInTable(penM2)
+            .should('have.value', penM2FishPenCount)
+
+    })
+
+    it("should delete just created report",function (){
+        treatmentRegister.expandTreatmentReportsList().click();
+        treatmentRegister.deleteTreatmentReportItem().click()
+        treatmentRegister.confirmDeleteButton().click()
+        treatmentRegister.deleteTreatmentReportItem().next()
+            .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
+    })
+    /*
     it('should verify that pen M1 and M2 exist in the reports details section after saving',function (){
         treatmentRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
@@ -69,7 +97,14 @@ describe('Treatment register',function (){
             .should('have.value', penM2FishPenCount)
     })
 
+     */
 
+/*
+    it.only("should delete just created report",function (){
+        treatmentRegister.addNewTreatmentReport()
+    })
+
+ */
 
 
 
