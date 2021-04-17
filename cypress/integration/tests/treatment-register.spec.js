@@ -8,48 +8,65 @@ beforeEach(function (){
     cy.Login('bolacslu', 123456)
 })
 
+const penM1 = 'M1';
+const penM1Comment = 'Comment for pen M1';
+const penM1FishPenCount = '1000';
+const penM2 = 'M2';
+const penM2Comment = 'Comment for pen M2';
+const penM2FishPenCount = '2000';
+const treatmentTypeForAllPens =  'Slice (Emamectin)';
+const toasterPopupMessage = 'Treatment was saved successfully';
+
+
 describe('Treatment register',function (){
     let treatmentRegister = new TreatmentRegister();
-    it('should register treatment report for the current date',function (){
+    it.skip('should register treatment report for the current date',function (){
+
        treatmentRegister.addNewTreatmentButton().click();
-       treatmentRegister.reportDetailsTableIsEmpty()
-       treatmentRegister.openDatePicker();
+       treatmentRegister.openDatePicker().click();
        treatmentRegister.selectCurrentDate().click()
-       treatmentRegister.openPensDropdown()
-       treatmentRegister.selectPen('M1')
-       treatmentRegister.openPensDropdown()
-       treatmentRegister.selectPen('M2')
-       treatmentRegister.selectTreatmentTypeForAllPens('Slice (Emamectin)')
+       treatmentRegister.openPensDropdown().click()
+       treatmentRegister.selectPen(penM1).click()
+       treatmentRegister.openPensDropdown().click()
+       treatmentRegister.selectPen(penM2).click()
+       treatmentRegister.selectTreatmentTypeForAllPens(treatmentTypeForAllPens)
        treatmentRegister.addPensButton().click()
-       treatmentRegister.commentForPen('M1').click().clear().type('Comment for pen M1')
-       treatmentRegister.commentForPen('M2').click().clear().type('Comment for pen M2')
-       treatmentRegister.addFishPenCount('M1').click().clear().type('1000')
-       treatmentRegister.addFishPenCount('M2').click().clear().type('2000')
-       treatmentRegister.saveReport()
+       treatmentRegister.commentForPen(penM1).type(penM1Comment)
+       treatmentRegister.commentForPen(penM2).type(penM2Comment)
+       treatmentRegister.addFishPenCount(penM1).clear().type(penM1FishPenCount)
+       treatmentRegister.addFishPenCount(penM2).clear().type(penM2FishPenCount)
+       treatmentRegister.saveButton().click()
 
        treatmentRegister.toasterPopup()
-           .should('have.text',"Treatment was saved successfully")
-
+           .should('have.text',toasterPopupMessage)
     })
 
-    it('should verify that pen M1 exists in the reports details section',function (){
-        treatmentRegister.penExistsInReportsTable('M1')
-            .should('contain.text', 'M1')
+    it('should verify that pen M1 and M2 exist in the reports details section after saving',function (){
+        treatmentRegister.getPenObjectByName(penM1)
+            .should('contain.text', penM1)
+        treatmentRegister.getPenObjectByName(penM2)
+            .should('contain.text', penM2)
     })
 
-    it('should verify that treatment type for pen is correct',function (){
-        treatmentRegister.treatmentTypeForThePen('M1').find('option:selected')
-            .should('have.text', 'Slice (Emamectin)');
+    it('should verify that treatment type for pens is correct',function (){
+        treatmentRegister.treatmentTypeForThePen(penM1)
+            .should('have.text', treatmentTypeForAllPens);
+        treatmentRegister.treatmentTypeForThePen(penM2)
+            .should('have.text', treatmentTypeForAllPens);
     })
 
-    it('should verify that comment value for pen M1 is "Comment for pen M1"',function (){
-        treatmentRegister.commentForPen('M1').children('input')
-            .should('have.value', 'Comment for pen M1')
+    it('should verify that comment value for pens are correct',function (){
+        treatmentRegister.commentForPen(penM1).children('input')
+            .should('have.value', penM1Comment)
+        treatmentRegister.commentForPen(penM2).children('input')
+            .should('have.value', penM2Comment)
     })
 
-    it('should verify that fish/pen count value for pen M1 is 1000',function (){
-        treatmentRegister.addFishPenCount('M1').children('input')
-            .should('have.value', '1000')
+    it('should verify that fish/pen count value for pens',function (){
+        treatmentRegister.fishCountValueInTable(penM1)
+            .should('have.value', penM1FishPenCount)
+        treatmentRegister.fishCountValueInTable(penM2)
+            .should('have.value', penM2FishPenCount)
     })
 
 
