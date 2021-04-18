@@ -53,6 +53,7 @@ describe('Treatment register',function (){
 
     it("should verify just created data in the report",function (){
         treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
+
         treatmentRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
         treatmentRegister.getPenObjectByName(penM2)
@@ -70,11 +71,11 @@ describe('Treatment register',function (){
         treatmentRegister.fishCountValueInTable(penM2)
             .should('have.value', penM2FishPenCount)
         treatmentRegister.deleteReport()
-
     })
 
     it("should delete just created report",function (){
         treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
+
         treatmentRegister.expandTreatmentReportsList().click();
         treatmentRegister.deleteTreatmentReportItem().click()
         treatmentRegister.confirmDeleteButton().click()
@@ -119,7 +120,7 @@ describe('Treatment register',function (){
 
      */
 /*
-       it("add report",function (){
+       it("delete report",function (){
 
         treatmentRegister.deleteReport()
     })
