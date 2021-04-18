@@ -1,4 +1,5 @@
 import {TreatmentRegister} from "../../support/pageobjects/treatment-register";
+import {NewReport} from "../../support/pageobjects/treatment-register";
 /*
 before(function (){
     cy.LoginToTreatmentRegisterPage()
@@ -14,14 +15,13 @@ const penM1FishPenCount = '1000';
 const penM2 = 'M2';
 const penM2Comment = 'Comment for pen M2';
 const penM2FishPenCount = '2000';
-const treatmentTypeForAllPens =  'Slice (Emamectin)';
+const treatmentTypeForAllPens =  "Slice (Emamectin)";
 const toasterPopupMessage = 'Treatment was saved successfully';
 
 
 describe('Treatment register',function (){
     let treatmentRegister = new TreatmentRegister();
     it('should register treatment report for the current date',function (){
-
        treatmentRegister.addNewTreatmentButton().click();
        treatmentRegister.openDatePicker().click();
        treatmentRegister.selectCurrentDate().click()
@@ -39,9 +39,20 @@ describe('Treatment register',function (){
 
        treatmentRegister.toasterPopup()
            .should('have.text',toasterPopupMessage)
+
+        treatmentRegister.expandTreatmentReportsList().click();
+        treatmentRegister.deleteTreatmentReportItem().next()
+            .should('contain.text', Cypress.moment().format("DD/MM/YYYY"))
+        treatmentRegister.deleteTreatmentReportItem().click()
+        treatmentRegister.confirmDeleteButton().click()
+        treatmentRegister.deleteTreatmentReportItem().next()
+            .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
+
     })
 
+
     it("should verify just created data in the report",function (){
+        treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
         treatmentRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
         treatmentRegister.getPenObjectByName(penM2)
@@ -58,10 +69,12 @@ describe('Treatment register',function (){
             .should('have.value', penM1FishPenCount)
         treatmentRegister.fishCountValueInTable(penM2)
             .should('have.value', penM2FishPenCount)
+        treatmentRegister.deleteReport()
 
     })
 
     it("should delete just created report",function (){
+        treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
         treatmentRegister.expandTreatmentReportsList().click();
         treatmentRegister.deleteTreatmentReportItem().click()
         treatmentRegister.confirmDeleteButton().click()
@@ -98,13 +111,22 @@ describe('Treatment register',function (){
     })
 
      */
+    /*
+    before(function (){
+        treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
 
+    })
+
+     */
 /*
-    it.only("should delete just created report",function (){
-        treatmentRegister.addNewTreatmentReport()
+       it("add report",function (){
+
+        treatmentRegister.deleteReport()
     })
 
  */
+
+
 
 
 
