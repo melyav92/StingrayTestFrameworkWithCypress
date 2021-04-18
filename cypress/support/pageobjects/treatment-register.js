@@ -97,6 +97,42 @@ export class TreatmentRegister {
       return this.getPenObjectByName(penName).parent().next().next().next().children().children('input')
   }
 
+    expandTreatmentReportsList (){
+        return cy.get('.scp-expandable-area-button-text')
+    }
+  deleteTreatmentReportItem(){
+        return cy.get('a.scp-registered-date.scp-treatment-date.selected').prev()
+  }
+  confirmDeleteButton(){
+        cy.wait(500)
+        return cy.get('.confirm')
+    }
+addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount){
+        this.addNewTreatmentButton().click()
+        this.openDatePicker().click();
+        this.selectCurrentDate().click()
+        this.openPensDropdown().click()
+        this.selectPen(penM1).click()
+        this.openPensDropdown().click()
+        this.selectPen(penM2).click()
+        this.selectTreatmentTypeForAllPens(treatmentTypeForAllPens)
+        this.addPensButton().click()
+        this.commentForPen(penM1).type(penM1Comment)
+        this.commentForPen(penM2).type(penM2Comment)
+        this.addFishPenCount(penM1).clear().type(penM1FishPenCount)
+        this.addFishPenCount(penM2).clear().type(penM2FishPenCount)
+        this.saveButton().click()
+}
+deleteReport(){
+    this.expandTreatmentReportsList().click();
+    this.deleteTreatmentReportItem().click()
+    this.confirmDeleteButton().click()
+}
+
+
+
+
+
 }
 
 
