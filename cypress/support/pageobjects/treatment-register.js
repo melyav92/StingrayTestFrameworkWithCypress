@@ -1,6 +1,5 @@
 //login and go to the treatment register
 Cypress.Commands.add("Login", function (username, password) {
-    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
     cy.get('#Username').type(username)
     cy.get('#Password').type(password)
     cy.get('#login-button').click()
@@ -124,9 +123,9 @@ addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment
         this.saveButton().click()
 }
 deleteReport(){
-    this.expandTreatmentReportsList().click();
-    this.deleteTreatmentReportItem().click()
-    this.confirmDeleteButton().click()
+        this.expandTreatmentReportsList().click();
+        this.deleteTreatmentReportItem().click()
+        this.confirmDeleteButton().click()
 }
 
 
