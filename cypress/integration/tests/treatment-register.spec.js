@@ -6,6 +6,7 @@ before(function (){
 })
  */
 beforeEach(function (){
+    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
     cy.Login('bolacslu', 123456)
 })
 
@@ -49,7 +50,6 @@ describe('Treatment register',function (){
             .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
 
     })
-
 
     it("should verify just created data in the report",function (){
         treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
