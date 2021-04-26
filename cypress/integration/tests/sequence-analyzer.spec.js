@@ -12,7 +12,7 @@ describe('Sequence analyzer  ', () => {
         sequenceAnalyzer.gotItButton().click()
     })
     //approve count of sequences in the loop
-    for( let i = 0; i < 150; i++  ){
+    for( let i = 0; i < 10; i++  ){
             it('Add and approve observation', () => {
                 //sequenceAnalyzer.loadingSpinner()
             // const selectNotAnalyzedSequence = $('.scp-sa-fish-item:not(.scp-sa-accepted)')
