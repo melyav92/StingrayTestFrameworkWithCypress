@@ -14,14 +14,18 @@ Cypress.Commands.add("Login", function (username, password) {
  */
 
 export class TreatmentRegister {
-    addNewTreatmentButton(){
-        let pensDropdownIsLoaded = cy.get('li.search-choice').contains('All pens')
-        pensDropdownIsLoaded.should('be.visible')
+    pageDataIsLoaded(){
+        cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
+        cy.intercept('GET', '/api/pen/pens-latest-fish-stock-before-date').as('getPenFishStock')
+        cy.wait('@getAllTreatments').its('response.statusCode').should('eq', 200);
+        cy.wait('@getPenFishStock').its('response.statusCode').should('eq', 200);
         let loadingSpinner = cy.get('#loading-spinner-overlay')
         loadingSpinner.should('not.be.visible')
-        return cy.get('#add-new-treatment-btn')
-
     }
+
+    addNewTreatmentButton(){
+              return cy.get('#add-new-treatment-btn')
+    };
     getPenObjectByName(penName){
         return cy.get('div.scp-pen-code').contains(penName)
     }
