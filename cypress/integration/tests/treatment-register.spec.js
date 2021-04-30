@@ -21,11 +21,14 @@ let treatmentRegister = new TreatmentRegister();
 beforeEach(function (){
     cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
     cy.Login('bolacslu', 123456)
+    treatmentRegister.pageDataIsLoaded()
 })
-
+/*
 beforeEach(function (){
     treatmentRegister.pageDataIsLoaded()
 })
+
+ */
 
 describe('Treatment register',function (){
        it('should register treatment report for the current date',function (){
