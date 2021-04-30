@@ -5,10 +5,7 @@ before(function (){
     cy.LoginToTreatmentRegisterPage()
 })
  */
-beforeEach(function (){
-    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
-    cy.Login('bolacslu', 123456)
-})
+
 
 const penM1 = 'M1';
 const penM1Comment = 'Comment for pen M1';
@@ -20,9 +17,18 @@ const treatmentTypeForAllPens =  "Slice (Emamectin)";
 const toasterPopupMessage = 'Treatment was saved successfully';
 
 
+let treatmentRegister = new TreatmentRegister();
+beforeEach(function (){
+    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
+    cy.Login('bolacslu', 123456)
+})
+
+beforeEach(function (){
+    treatmentRegister.pageDataIsLoaded()
+})
+
 describe('Treatment register',function (){
-    let treatmentRegister = new TreatmentRegister();
-    it('should register treatment report for the current date',function (){
+       it('should register treatment report for the current date',function (){
        treatmentRegister.addNewTreatmentButton().click();
        treatmentRegister.openDatePicker().click();
        treatmentRegister.selectCurrentDate().click()
@@ -49,10 +55,14 @@ describe('Treatment register',function (){
         treatmentRegister.deleteTreatmentReportItem().next()
             .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
 
+
+
     })
 
+
+
     it("should verify just created data in the report",function (){
-        treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
+       treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
 
         treatmentRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
