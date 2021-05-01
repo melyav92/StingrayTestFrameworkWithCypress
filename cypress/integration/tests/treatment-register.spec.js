@@ -23,12 +23,6 @@ beforeEach(function (){
     cy.Login('bolacslu', 123456)
     treatmentRegister.pageDataIsLoaded()
 })
-/*
-beforeEach(function (){
-    treatmentRegister.pageDataIsLoaded()
-})
-
- */
 
 describe('Treatment register',function (){
        it('should register treatment report for the current date',function (){
