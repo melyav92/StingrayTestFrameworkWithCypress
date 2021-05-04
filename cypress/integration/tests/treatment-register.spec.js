@@ -69,9 +69,9 @@ describe('Treatment register',function (){
             .should('have.text', treatmentTypeForAllPens);
         treatmentRegister.treatmentTypeForThePen(penM2)
             .should('have.text', treatmentTypeForAllPens);
-        treatmentRegister.commentForPen(penM1).children('input')
+        treatmentRegister.commentForPen(penM1)
             .should('have.value', penM1Comment)
-        treatmentRegister.commentForPen(penM2).children('input')
+        treatmentRegister.commentForPen(penM2)
             .should('have.value', penM2Comment)
         treatmentRegister.fishCountValueInTable(penM1)
             .should('have.value', penM1FishPenCount)

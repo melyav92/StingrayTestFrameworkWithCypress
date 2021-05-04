@@ -27,11 +27,12 @@ export class TreatmentRegister {
               return cy.get('#add-new-treatment-btn')
     };
     getPenObjectByName(penName){
-        return cy.get('div.scp-pen-code').contains(penName)
+        return cy.contains('.scp-pen-code', penName)
     }
 
     openDatePicker(){
-        let dataTableIsEmpty = cy.get('.dataTables_empty').contains('No data available in table')
+        let dataTableIsEmpty = cy.get('.dataTables_empty')
+            .contains('No data available in table')
             dataTableIsEmpty.should('be.visible')
         return cy.get('#counted-date-date-picker')
     }
@@ -58,30 +59,40 @@ export class TreatmentRegister {
     }
 
    commentForPen(penName){
-        return this.getPenObjectByName(penName).parent().next().next()
-      // let penIdDataAttribute = this.getPenObjectByName(penName).invoke('attr', 'data-pen-id').toString()
-       //const penIdDataAttribute = this.getPenObjectByName(penName).get('[data-pen-id]')
+       return this.getPenObjectByName(penName)
+           .parents("tr")
+           .find('.comment-input')
 
-       /*let penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).then(elem => {
-           let dataPenId = elem.attr("data-pen-id");
-           cy.log(dataPenId);
-       })
-        */
-     // cy.log(cy.get('div.scp-pen-code').contains(penName).parent().next().next())
+       // return this.getPenObjectByName(penName).parent().next().next()
+       //return this.getPenObjectByName(penName).parent().cy.get('#DataTables_Table_0 > tbody > tr > td:nth-child(4)')
+
+       //return cy.get('#DataTables_Table_0 > tbody > tr > td:nth-child(4)')
+           //const penIdDataAttribute = this.getPenObjectByName(penName).get('[data-pen-id]')
+/*
+       let penIdDataAttribute = cy.get('div.scp-pen-code').contains(penName).then($elem => {
+               $elem.attr("data-pen-id");
+               cy.log($elem.attr("data-pen-id"));
+
+           })
+       cy.log(penIdDataAttribute)
+ */     // cy.log(cy.get('div.scp-pen-code').contains(penName).parent().next().next())
        //const penIdDataAttribute  = this.getPenObjectByName(penName).attribute('data-pen-id')
-      // cy.log(typeof(penIdDataAttribute))
+
+      // let penIdDataAttribute = this.getPenObjectByName(penName).invoke('attr', 'data-pen-id').toString()
+       //cy.log(typeof(penIdDataAttribute))
        //cy.log(penIdDataAttribute.length)
-       //cy.log(penIdDataAttribute)
-
-
+       //penIdDataAttribute.should('have.value','4042')
        //return cy.get('input.comment-input[data-pen-id="4042"]')
-     //return cy.get(`input.comment-input[data-pen-id='${penIdDataAttribute}']`)
+      // cy.log(cy.get(`input.comment-input[data-pen-id=${penIdDataAttribute}]`))
+     //return cy.get(`input.comment-input[data-pen-id=${penIdDataAttribute}]`)
       // return cy.get('input.comment-input[data-pen-id="4042"]')
    }
 
 //addFishPenCountInput
    addFishPenCount(penName){
-       return this.getPenObjectByName(penName).parent().next().next().next()
+       return this.getPenObjectByName(penName)
+           .parents("tr")
+           .find('.scp-fish-per-pen-input')
    }
 
    saveButton(){
