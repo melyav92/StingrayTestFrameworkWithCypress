@@ -6,6 +6,20 @@ Cypress.Commands.add("Login", function (username, password) {
 })
 
 export class TreatmentRegister {
+    // treatmentReportIsLoaded(){
+        //cy.intercept('POST', 'api/treatments/treatment').as('postTreatment')
+        //cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
+        // cy.intercept('GET', '/api/treatments/treatment').as('getPenFishStock')
+        // cy.wait('@getAllTreatments').its('response.statusCode')
+        //     .should('eq', 200);
+        // cy.wait('@getPenFishStock').its('response.statusCode')
+        //      .should('eq', 200);
+        //cy.wait('@postTreatment').its('response.statusCode')
+        //     .should('eq', 200);
+
+    // };
+
+
     pageDataIsLoaded(){
         cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
         cy.intercept('GET', '/api/pen/pens-latest-fish-stock-before-date').as('getPenFishStock')
@@ -13,8 +27,7 @@ export class TreatmentRegister {
             .should('eq', 200);
         cy.wait('@getPenFishStock').its('response.statusCode')
             .should('eq', 200);
-        let loadingSpinner = cy.get('#loading-spinner-overlay')
-        loadingSpinner.should('not.be.visible')
+        cy.get('#loading-spinner-overlay').should('not.be.visible')
     };
 
     addNewTreatmentButton(){
@@ -74,11 +87,16 @@ export class TreatmentRegister {
    };
 
    treatmentTypeForThePen(penName) {
-       return this.getPenObjectByName(penName).parent().next().children('select').find('option:selected')
+       return this.getPenObjectByName(penName)
+           .parents("tr")
+           .find('.scp-white-select option:selected')
+
    };
 
   fishCountValueInTable (penName){
-      return this.getPenObjectByName(penName).parent().next().next().next().children().children('input')
+      return this.getPenObjectByName(penName)
+          .parents("tr")
+          .find('.scp-fish-per-pen-input')
   };
 
   expandTreatmentReportsList (){
@@ -92,8 +110,15 @@ export class TreatmentRegister {
         cy.wait(500)
         return cy.get('.confirm')
   };
+    selectTreatmentTypeForPen(penName,treatmentType){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.scp-white-select')
+            .select(treatmentType)
+    };
 
-  addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount){
+
+    addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount){
         this.addNewTreatmentButton().click()
         this.openDatePicker().click();
         this.selectCurrentDate().click()
@@ -108,12 +133,13 @@ export class TreatmentRegister {
         this.addFishPenCount(penM1).clear().type(penM1FishPenCount)
         this.addFishPenCount(penM2).clear().type(penM2FishPenCount)
         this.saveButton().click()
-  };
+    };
 
   deleteReport(){
         this.expandTreatmentReportsList().click();
         this.deleteTreatmentReportItem().click()
         this.confirmDeleteButton().click()
+
   };
 
 
