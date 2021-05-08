@@ -12,8 +12,8 @@ const updatePenM1Comment = 'Updated Comment for pen M1';
 const updatePenM2Comment = 'Updated Comment for pen M2';
 const updatePenM1FishPenCount = '5000';
 const updatePenM2FishPenCount = '8000';
-const treatmentTypeForPenM1 = 'Hydrolizer';
-const treatmentTypeForPenM2 = 'Thermolicer';
+const updateTreatmentTypeForPenM1 = 'Hydrolizer';
+const updateTreatmentTypeForPenM2 = 'Thermolicer';
 
 let treatmentRegister = new TreatmentRegister();
 
@@ -35,8 +35,8 @@ describe('Treatment register',function (){
        treatmentRegister.selectTreatmentTypeForAllPens(treatmentTypeForAllPens)
        treatmentRegister.addPensButton().click()
        treatmentRegister.commentForPen(penM1).type(penM1Comment)
-       treatmentRegister.commentForPen(penM2).type(penM2Comment)
        treatmentRegister.addFishPenCount(penM1).clear().type(penM1FishPenCount)
+       treatmentRegister.commentForPen(penM2).type(penM2Comment)
        treatmentRegister.addFishPenCount(penM2).clear().type(penM2FishPenCount)
        treatmentRegister.saveButton().click()
 
@@ -58,18 +58,18 @@ describe('Treatment register',function (){
 
         treatmentRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
-        treatmentRegister.getPenObjectByName(penM2)
-            .should('contain.text', penM2)
         treatmentRegister.treatmentTypeForThePen(penM1)
-            .should('have.text', treatmentTypeForAllPens);
-        treatmentRegister.treatmentTypeForThePen(penM2)
             .should('have.text', treatmentTypeForAllPens);
         treatmentRegister.commentForPen(penM1)
             .should('have.value', penM1Comment)
-        treatmentRegister.commentForPen(penM2)
-            .should('have.value', penM2Comment)
         treatmentRegister.fishCountValueInTable(penM1)
             .should('have.value', penM1FishPenCount)
+        treatmentRegister.getPenObjectByName(penM2)
+            .should('contain.text', penM2)
+        treatmentRegister.treatmentTypeForThePen(penM2)
+            .should('have.text', treatmentTypeForAllPens);
+        treatmentRegister.commentForPen(penM2)
+            .should('have.value', penM2Comment)
         treatmentRegister.fishCountValueInTable(penM2)
             .should('have.value', penM2FishPenCount)
         treatmentRegister.deleteReport()
@@ -85,32 +85,30 @@ describe('Treatment register',function (){
             .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
     })
 
-    it.only('should verify updated data in the report',function (){
+    it('should verify updated data in the report',function (){
         treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
-        //treatmentRegister.pageDataIsLoaded()
-        // treatmentRegister.treatmentReportIsLoaded()
-         cy.wait(5000)
-
-         treatmentRegister.selectTreatmentTypeForPen(penM1,treatmentTypeForPenM1)
-         treatmentRegister.selectTreatmentTypeForPen(penM2,treatmentTypeForPenM2)
-         treatmentRegister.commentForPen(penM1).clear().type(updatePenM1Comment)
-         treatmentRegister.commentForPen(penM2).clear().type(updatePenM2Comment)
-        treatmentRegister.addFishPenCount(penM2).clear().type(updatePenM2FishPenCount)
+        //update report
+        treatmentRegister.selectTreatmentTypeForPen(penM1,updateTreatmentTypeForPenM1)
+        treatmentRegister.commentForPen(penM1).clear().type(updatePenM1Comment)
         treatmentRegister.addFishPenCount(penM1).clear().type(updatePenM1FishPenCount)
-         treatmentRegister.saveButton().click()
+        treatmentRegister.selectTreatmentTypeForPen(penM2,updateTreatmentTypeForPenM2)
+        treatmentRegister.commentForPen(penM2).clear().type(updatePenM2Comment)
+        treatmentRegister.addFishPenCount(penM2).clear().type(updatePenM2FishPenCount)
+        treatmentRegister.saveButton().click()
+        treatmentRegister.treatmentReportIsLoaded()
 
         treatmentRegister.toasterPopup()
             .should('have.text',toasterPopupMessage)
         treatmentRegister.treatmentTypeForThePen(penM1)
-            .should('have.text', treatmentTypeForPenM1);
-        treatmentRegister.treatmentTypeForThePen(penM2)
-            .should('have.text', treatmentTypeForPenM2);
+            .should('have.text', updateTreatmentTypeForPenM1);
         treatmentRegister.commentForPen(penM1)
             .should('have.value', updatePenM1Comment)
-        treatmentRegister.commentForPen(penM2)
-            .should('have.value', updatePenM2Comment)
         treatmentRegister.fishCountValueInTable(penM1)
             .should('have.value', updatePenM1FishPenCount)
+        treatmentRegister.treatmentTypeForThePen(penM2)
+            .should('have.text', updateTreatmentTypeForPenM2);
+        treatmentRegister.commentForPen(penM2)
+            .should('have.value', updatePenM2Comment)
         treatmentRegister.fishCountValueInTable(penM2)
             .should('have.value', updatePenM2FishPenCount)
         treatmentRegister.deleteReport()

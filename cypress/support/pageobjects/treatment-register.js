@@ -6,20 +6,6 @@ Cypress.Commands.add("Login", function (username, password) {
 })
 
 export class TreatmentRegister {
-    // treatmentReportIsLoaded(){
-        //cy.intercept('POST', 'api/treatments/treatment').as('postTreatment')
-        //cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
-        // cy.intercept('GET', '/api/treatments/treatment').as('getPenFishStock')
-        // cy.wait('@getAllTreatments').its('response.statusCode')
-        //     .should('eq', 200);
-        // cy.wait('@getPenFishStock').its('response.statusCode')
-        //      .should('eq', 200);
-        //cy.wait('@postTreatment').its('response.statusCode')
-        //     .should('eq', 200);
-
-    // };
-
-
     pageDataIsLoaded(){
         cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
         cy.intercept('GET', '/api/pen/pens-latest-fish-stock-before-date').as('getPenFishStock')
@@ -90,7 +76,6 @@ export class TreatmentRegister {
        return this.getPenObjectByName(penName)
            .parents("tr")
            .find('.scp-white-select option:selected')
-
    };
 
   fishCountValueInTable (penName){
@@ -117,6 +102,16 @@ export class TreatmentRegister {
             .select(treatmentType)
     };
 
+    treatmentReportIsLoaded(){
+        cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
+        cy.intercept('GET', '/api/treatments/treatment?locationId').as('getTreatment')
+        cy.wait('@getAllTreatments').its('response.statusCode')
+            .should('eq', 200);
+        cy.wait('@getTreatment').its('response.statusCode')
+            .should('eq', 200);
+        cy.get('#loading-spinner-overlay').should('not.be.visible')
+    };
+
 
     addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount){
         this.addNewTreatmentButton().click()
@@ -129,10 +124,11 @@ export class TreatmentRegister {
         this.selectTreatmentTypeForAllPens(treatmentTypeForAllPens)
         this.addPensButton().click()
         this.commentForPen(penM1).type(penM1Comment)
-        this.commentForPen(penM2).type(penM2Comment)
         this.addFishPenCount(penM1).clear().type(penM1FishPenCount)
+        this.commentForPen(penM2).type(penM2Comment)
         this.addFishPenCount(penM2).clear().type(penM2FishPenCount)
         this.saveButton().click()
+        this.treatmentReportIsLoaded()
     };
 
   deleteReport(){
