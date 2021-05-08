@@ -1,12 +1,12 @@
 export class LoginPage {
     userName(){
-        cy.get('#Username');
+       return cy.get('#Username');
     }
     password(){
-        cy.get('#Password');
+       return cy.get('#Password');
     }
     loginButton(){
-        cy.get('#login-button');
+        return cy.get('#login-button');
     }
 
     loginToThePage(username, password){
