@@ -1,10 +1,3 @@
-//login
-Cypress.Commands.add("Login", function (username, password) {
-    cy.get('#Username').type(username)
-    cy.get('#Password').type(password)
-    cy.get('#login-button').click()
-})
-
 export class TreatmentRegister {
     pageDataIsLoaded(){
         cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')

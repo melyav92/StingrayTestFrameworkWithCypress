@@ -1,4 +1,5 @@
 import {TreatmentRegister} from "../../support/pageobjects/treatment-register";
+import {LoginPage} from "../../support/pageobjects/login-page";
 
 const penM1 = 'M1';
 const penM1Comment = 'Comment for pen M1';
@@ -16,10 +17,11 @@ const updateTreatmentTypeForPenM1 = 'Hydrolizer';
 const updateTreatmentTypeForPenM2 = 'Thermolicer';
 
 let treatmentRegister = new TreatmentRegister();
+let login = new LoginPage()
 
 beforeEach(function (){
     cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
-    cy.Login('bolacslu', 123456)
+    login.loginToThePage('bolacslu', 123456)
     treatmentRegister.pageDataIsLoaded()
 })
 
