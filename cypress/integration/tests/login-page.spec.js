@@ -9,6 +9,10 @@ describe('Login page tests',function (){
          login.password().type('123456')
          login.loginButton().click()
 
+         cy.get('a.btn.btn-link').contains('Logout')
+
+
+
      })
 
  })
