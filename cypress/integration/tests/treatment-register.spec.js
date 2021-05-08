@@ -1,6 +1,8 @@
 import {TreatmentRegister} from "../../support/pageobjects/treatment-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
+const username = 'bolacslu';
+const password = 123456;
 const penM1 = 'M1';
 const penM1Comment = 'Comment for pen M1';
 const penM1FishPenCount = '1000';
@@ -21,7 +23,7 @@ let login = new LoginPage()
 
 beforeEach(function (){
     cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
-    login.loginToThePage('bolacslu', 123456)
+    login.loginToThePage(username, password)
     treatmentRegister.pageDataIsLoaded()
 })
 
@@ -52,7 +54,6 @@ describe('Treatment register',function (){
         treatmentRegister.confirmDeleteReportButton().click()
         treatmentRegister.deleteTreatmentReportItem().next()
             .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
-
     })
 
     it("should verify just created data in the report",function (){
@@ -114,7 +115,6 @@ describe('Treatment register',function (){
         treatmentRegister.verifyFishCountValueInTable(penM2)
             .should('have.value', updatePenM2FishPenCount)
         treatmentRegister.deleteReport()
-
     })
     /*
     it('should verify that pen M1 and M2 exist in the reports details section after saving',function (){
