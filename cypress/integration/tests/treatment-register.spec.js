@@ -116,6 +116,10 @@ describe('Treatment register',function (){
             .should('have.value', updatePenM2FishPenCount)
         treatmentRegister.deleteReport()
     })
+
+    it("s",function (){
+
+    })
     /*
     it('should verify that pen M1 and M2 exist in the reports details section after saving',function (){
         treatmentRegister.getPenObjectByName(penM1)
