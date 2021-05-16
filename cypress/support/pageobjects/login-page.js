@@ -1,4 +1,8 @@
 export class LoginPage {
+    loadingSpinner(){
+        return cy.get('#loading-spinner-overlay').should('not.be.visible')
+    }
+
     userName(){
        return cy.get('#Username');
     }
@@ -8,6 +12,12 @@ export class LoginPage {
     loginButton(){
         return cy.get('#login-button');
     }
+    validationMessage(){
+        this.loadingSpinner()
+        return cy.get('.field-validation-error')
+    }
+
+
 
     loginToThePage(username, password){
         this.userName().type(username)

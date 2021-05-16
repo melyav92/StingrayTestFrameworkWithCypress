@@ -17,6 +17,7 @@ const updatePenM1FishPenCount = '5000';
 const updatePenM2FishPenCount = '8000';
 const updateTreatmentTypeForPenM1 = 'Hydrolizer';
 const updateTreatmentTypeForPenM2 = 'Thermolicer';
+const penM3 = 'M3';
 
 let treatmentRegister = new TreatmentRegister();
 let login = new LoginPage()
@@ -116,6 +117,39 @@ describe('Treatment register',function (){
             .should('have.value', updatePenM2FishPenCount)
         treatmentRegister.deleteReport()
     })
+
+    it("should delete one pen from the report",function (){
+        treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
+        treatmentRegister.deletePenItemFromTable(penM2).click()
+        treatmentRegister.saveButton().click()
+        treatmentRegister.treatmentReportIsLoaded()
+
+        treatmentRegister.getPenObjectByName(penM2).should('not.exist')
+        treatmentRegister.deleteReport()
+    })
+
+    it("should add one more pen to the report",function (){
+        treatmentRegister.addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount)
+        treatmentRegister.openPensDropdown().click()
+        treatmentRegister.selectPen(penM3).click()
+        treatmentRegister.selectTreatmentTypeForAllPens(treatmentTypeForAllPens)
+        treatmentRegister.addPensButton().click()
+        treatmentRegister.addCommentForPen(penM3).type(penM2Comment)
+        treatmentRegister.addFishPenCount(penM3).clear().type(penM2FishPenCount)
+
+        treatmentRegister.saveButton().click()
+        treatmentRegister.treatmentReportIsLoaded()
+
+        treatmentRegister.getPenObjectByName(penM1)
+            .should('exist')
+        treatmentRegister.getPenObjectByName(penM2)
+            .should('exist')
+        treatmentRegister.getPenObjectByName(penM3)
+            .should('exist')
+
+        treatmentRegister.deleteReport()
+    })
+
     /*
     it('should verify that pen M1 and M2 exist in the reports details section after saving',function (){
         treatmentRegister.getPenObjectByName(penM1)

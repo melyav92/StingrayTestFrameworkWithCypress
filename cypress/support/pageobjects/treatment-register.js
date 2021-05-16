@@ -105,6 +105,12 @@ export class TreatmentRegister {
         cy.get('#loading-spinner-overlay').should('not.be.visible')
     };
 
+    deletePenItemFromTable(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.icon-cross')
+    }
+
     addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount){
         this.addNewTreatmentButton().click()
         this.openDatePicker().click();
