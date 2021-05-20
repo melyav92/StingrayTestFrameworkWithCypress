@@ -51,5 +51,27 @@ export class BiomassRegister{
     toasterPopup(){
         return cy.get('div.toast-title')
     };
+    expandBiomassReportsListItem (){
+        return cy.get('.scp-expandable-area-button-text')
+    };
+
+    deleteBiomassReportItem(){
+        return cy.get('a.scp-registered-date.scp-biomass-date.selected').prev()
+    };
+    confirmDeleteReportButton(){
+        cy.wait(500)
+        return cy.get('.confirm')
+    };
+
+    biomassReportNotExistInTheList (reportDate){
+        // cy.intercept('GET', ' /api/biomass/get').as('getReports')
+        // cy.wait('@getReports').its('response.statusCode')
+        //     .should('eq', 200);
+        //const reportDate = Cypress.moment().format("DD/MM/YYYY")
+        cy.wait(2000)
+        return  cy.get(`[data-counted-date="${reportDate}"]`)
+    }
+
+
 
 }

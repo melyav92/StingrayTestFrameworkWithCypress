@@ -13,6 +13,7 @@ const numberOfFishValueForPenM2 = 60000;
 const averageWeightValueForM2 = 6500;
 const penM2Comment = 'Comment for pen M2';
 const successfulToasterPopupMessage = 'Biomass saved';
+const reportDate = Cypress.moment().format("DD/MM/YYYY");
 
 let biomassRegister = new BiomassRegister();
 let login = new LoginPage()
@@ -42,8 +43,14 @@ describe('Biomass register',function (){
         biomassRegister.saveButton().click()
 
         biomassRegister.toasterPopup()
-            .should('have.text',successfulToasterPopupMessage)
+           .should('have.text',successfulToasterPopupMessage)
 
+        biomassRegister.expandBiomassReportsListItem().click()
+        biomassRegister.deleteBiomassReportItem().click()
+        biomassRegister.confirmDeleteReportButton().click()
+
+        biomassRegister.biomassReportNotExistInTheList(reportDate)
+            .should('not.exist')
 
 
 
