@@ -50,19 +50,16 @@ describe('Biomass register',function (){
         biomassRegister.confirmDeleteReportButton().click()
 
         biomassRegister.biomassReportNotExistInTheList(reportDate)
-            .should('not.exist')
+            .should('not.contain', reportDate)
+    })
+
+    it.only("should verify just created data in the report",function (){
+        biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
+            penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
 
 
 
-
-
-
-
-
-
-
-
-
+        biomassRegister.deleteBiomassReport(reportDate)
     })
 
 })
