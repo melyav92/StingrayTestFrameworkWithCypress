@@ -22,6 +22,8 @@ describe('Biomass register',function (){
     beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
         login.loginToThePage(username, password)
+        biomassRegister.pageDataIsLoaded()
+        //biomassRegister.deleteBiomassReport(reportDate)
     })
 
     it('should register biomass report for the current date',function (){
@@ -34,8 +36,8 @@ describe('Biomass register',function (){
         biomassRegister.openPensDropdown().click();
         biomassRegister.selectPen(penM2).click();
         biomassRegister.addPensButton().click();
-        biomassRegister.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1);
         biomassRegister.addAverageWeightValue(penM1).type(averageWeightValueForM1)
+        biomassRegister.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1);
         biomassRegister.addCommentForPen(penM1).type(penM1Comment)
         biomassRegister.addNumberOfFishValue(penM2).clear().type(numberOfFishValueForPenM2);
         biomassRegister.addAverageWeightValue(penM2).type(averageWeightValueForM2)
@@ -44,13 +46,15 @@ describe('Biomass register',function (){
 
         biomassRegister.toasterPopup()
            .should('have.text',successfulToasterPopupMessage)
+        biomassRegister.biomassReportExistInTheList(reportDate).next()
+            .should("contain", reportDate)
 
-        biomassRegister.expandBiomassReportsListItem().click()
-        biomassRegister.deleteBiomassReportItem().click()
-        biomassRegister.confirmDeleteReportButton().click()
+         biomassRegister.expandBiomassReportsListItem().click()
+         biomassRegister.deleteBiomassReportItem().click()
+         biomassRegister.confirmDeleteReportButton().click()
 
-        biomassRegister.biomassReportNotExistInTheList(reportDate)
-            .should('not.contain', reportDate)
+         biomassRegister.biomassReportExistInTheList(reportDate)
+             .should('not.contain', reportDate)
     })
 
     it.only("should verify just created data in the report",function (){

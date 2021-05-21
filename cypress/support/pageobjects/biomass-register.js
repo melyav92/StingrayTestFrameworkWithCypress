@@ -2,6 +2,14 @@ export class BiomassRegister{
     addNewBiomassCountButton(){
         return cy.get('#add-new-biomass-btn')
     }
+    pageDataIsLoaded(){
+        cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
+        cy.wait('@getPens').its('response.statusCode')
+            .should('eq', 200);
+
+        this.loadingSpinner()
+            .should('not.be.visible')
+    };
     getPenObjectByName(penName){
         return cy.contains('.scp-pen-code', penName)
     };
@@ -67,13 +75,27 @@ export class BiomassRegister{
         return cy.get('.confirm')
     };
 
-    biomassReportNotExistInTheList (reportDate){
+    biomassReportExistInTheList (reportDate){
         this.loadingSpinner().should('not.be.visible')
         return  cy.get(`[data-counted-date="${reportDate}"]`)
     }
 
+    biomassReportIsLoaded(){
+        // cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
+        cy.intercept('GET', '/api/biomass/get').as('getBiomasses')
+        // cy.wait('@getPens').its('response.statusCode')
+        //     .should('eq', 200);
+        cy.wait('@getBiomasses').its('response.statusCode')
+            .should('eq', 200);
+        this.loadingSpinner()
+            .should('not.be.visible')
+    };
+
+
+
     addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
                      penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate   ){
+
         this.addNewBiomassCountButton().click()
         this.openDatePicker().click()
         this.selectCurrentDate().click()
@@ -83,8 +105,9 @@ export class BiomassRegister{
         this.openPensDropdown().click()
         this.selectPen(penM2).click()
         this.addPensButton().click()
-        this.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1)
         this.addAverageWeightValue(penM1).type(averageWeightValueForM1)
+        this.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1)
+
         this.addCommentForPen(penM1).type(penM1Comment)
         this.addNumberOfFishValue(penM2).clear().type(numberOfFishValueForPenM2);
         this.addAverageWeightValue(penM2).type(averageWeightValueForM2)
@@ -92,14 +115,16 @@ export class BiomassRegister{
         this.saveButton().click()
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
+        this.biomassReportIsLoaded()
     }
 
     deleteBiomassReport(reportDate){
         this.expandBiomassReportsListItem().click()
         this.deleteBiomassReportItem().click()
         this.confirmDeleteReportButton().click()
-        this.biomassReportNotExistInTheList(reportDate)
+        this.biomassReportExistInTheList(reportDate)
             .should('not.contain', reportDate)
+
     }
 
 
