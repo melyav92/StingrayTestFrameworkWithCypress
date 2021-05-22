@@ -26,7 +26,7 @@ describe('Biomass register',function (){
         //biomassRegister.deleteBiomassReport(reportDate)
     })
 
-    it('should register biomass report for the current date',function (){
+    it.only('should register biomass report for the current date',function (){
         biomassRegister.addNewBiomassCountButton().click();
         biomassRegister.openDatePicker().click();
         biomassRegister.selectCurrentDate().click();
@@ -46,18 +46,20 @@ describe('Biomass register',function (){
 
         biomassRegister.toasterPopup()
            .should('have.text',successfulToasterPopupMessage)
-        biomassRegister.biomassReportExistInTheList(reportDate).next()
+
+        biomassRegister.deleteBiomassReportItem(reportDate).next()
             .should("contain", reportDate)
 
-         biomassRegister.expandBiomassReportsListItem().click()
-         biomassRegister.deleteBiomassReportItem().click()
-         biomassRegister.confirmDeleteReportButton().click()
+        biomassRegister.expandBiomassReportsListItem().click()
+        biomassRegister.deleteBiomassReportItem(reportDate).click()
+        biomassRegister.confirmDeleteReportButton().click()
 
-         biomassRegister.biomassReportExistInTheList(reportDate)
-             .should('not.contain', reportDate)
+        biomassRegister.deleteBiomassReportItem(reportDate)
+           .should('not.contain', reportDate)
+
     })
 
-    it.only("should verify just created data in the report",function (){
+    it("should verify just created data in the report",function (){
         biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
             penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
 

@@ -67,26 +67,26 @@ export class BiomassRegister{
         return cy.get('.scp-expandable-area-button-text')
     };
 
-    deleteBiomassReportItem(){
-        return cy.get('a.scp-registered-date.scp-biomass-date.selected').prev()
+    deleteBiomassReportItem(reportDate){
+        return  cy.get(`[data-counted-date="${reportDate}"]`)
     };
     confirmDeleteReportButton(){
         cy.wait(500)
         return cy.get('.confirm')
     };
 
-    biomassReportExistInTheList (reportDate){
+   /* biomassReportExistInTheList (reportDate){
         this.loadingSpinner().should('not.be.visible')
         return  cy.get(`[data-counted-date="${reportDate}"]`)
     }
 
+    */
+
     biomassReportIsLoaded(){
-        // cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
-        cy.intercept('GET', '/api/biomass/get').as('getBiomasses')
-        // cy.wait('@getPens').its('response.statusCode')
-        //     .should('eq', 200);
-        cy.wait('@getBiomasses').its('response.statusCode')
-            .should('eq', 200);
+        cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
+        cy.wait('@getPens').its('response.statusCode')
+             .should('eq', 200);
+
         this.loadingSpinner()
             .should('not.be.visible')
     };
@@ -120,9 +120,9 @@ export class BiomassRegister{
 
     deleteBiomassReport(reportDate){
         this.expandBiomassReportsListItem().click()
-        this.deleteBiomassReportItem().click()
+        this.deleteBiomassReportItem(reportDate).click()
         this.confirmDeleteReportButton().click()
-        this.biomassReportExistInTheList(reportDate)
+        this.deleteBiomassReportItem(reportDate)
             .should('not.contain', reportDate)
 
     }
