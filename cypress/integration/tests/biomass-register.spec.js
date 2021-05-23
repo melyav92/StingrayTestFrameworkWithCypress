@@ -1,6 +1,7 @@
 import {BiomassRegister} from "../../support/pageobjects/biomass-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
+const locationId = 2127;
 const username = 'bolacslu';
 const password = 123456;
 const seaTemperature = '8';
@@ -22,6 +23,12 @@ describe('Biomass register',function (){
     beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
         login.loginToThePage(username, password)
+        biomassRegister.pageDataIsLoaded()
+
+        cy.request({method: 'DELETE',
+            url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
+            failOnStatusCode: false
+        })
     })
 
     it('should register biomass report for the current date',function (){
@@ -34,8 +41,8 @@ describe('Biomass register',function (){
         biomassRegister.openPensDropdown().click();
         biomassRegister.selectPen(penM2).click();
         biomassRegister.addPensButton().click();
-        biomassRegister.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1);
         biomassRegister.addAverageWeightValue(penM1).type(averageWeightValueForM1)
+        biomassRegister.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1);
         biomassRegister.addCommentForPen(penM1).type(penM1Comment)
         biomassRegister.addNumberOfFishValue(penM2).clear().type(numberOfFishValueForPenM2);
         biomassRegister.addAverageWeightValue(penM2).type(averageWeightValueForM2)
@@ -45,15 +52,19 @@ describe('Biomass register',function (){
         biomassRegister.toasterPopup()
            .should('have.text',successfulToasterPopupMessage)
 
+        biomassRegister.deleteBiomassReportItem(reportDate).next()
+            .should("contain", reportDate)
+
         biomassRegister.expandBiomassReportsListItem().click()
-        biomassRegister.deleteBiomassReportItem().click()
+        biomassRegister.deleteBiomassReportItem(reportDate).click()
         biomassRegister.confirmDeleteReportButton().click()
 
-        biomassRegister.biomassReportNotExistInTheList(reportDate)
-            .should('not.contain', reportDate)
+        biomassRegister.deleteBiomassReportItem(reportDate)
+           .should('not.contain', reportDate)
+
     })
 
-    it.only("should verify just created data in the report",function (){
+    it("should verify just created data in the report",function (){
         biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
             penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
 
