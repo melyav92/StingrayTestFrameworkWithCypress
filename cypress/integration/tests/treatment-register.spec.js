@@ -1,6 +1,7 @@
 import {TreatmentRegister} from "../../support/pageobjects/treatment-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
+const locationId = 2127;
 const username = 'bolacslu';
 const password = 123456;
 const penM1 = 'M1';
@@ -18,6 +19,7 @@ const updatePenM2FishPenCount = '8000';
 const updateTreatmentTypeForPenM1 = 'Hydrolizer';
 const updateTreatmentTypeForPenM2 = 'Thermolicer';
 const penM3 = 'M3';
+const reportDate = Cypress.moment().format('DD/MM/YYYY');
 
 let treatmentRegister = new TreatmentRegister();
 let login = new LoginPage()
@@ -26,6 +28,7 @@ beforeEach(function (){
     cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
     login.loginToThePage(username, password)
     treatmentRegister.pageDataIsLoaded()
+    treatmentRegister.sendDeleteTreatmentRequest(reportDate,locationId)
 })
 
 describe('Treatment register',function (){
