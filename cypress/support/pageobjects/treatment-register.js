@@ -136,6 +136,15 @@ export class TreatmentRegister {
 
   };
 
+  sendDeleteTreatmentRequest(reportDate, locationId){
+      cy.request({
+          method: 'DELETE',
+          url: `/api/treatments/treatment?locationId=${locationId}&date=${reportDate}`,
+          failOnStatusCode: false
+
+      })
+  }
+
 }
 
 
