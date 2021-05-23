@@ -59,6 +59,13 @@ export class BiomassRegister{
         return cy.get('div.toast-title')
     };
 
+    biomassForPenValue(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.biomass-value-input')
+
+
+    }
 
 
 
@@ -84,6 +91,14 @@ export class BiomassRegister{
         this.loadingSpinner()
             .should('not.be.visible')
     };
+
+    sendDeleteReportRequest(reportDate, locationId){
+        cy.request({
+            method: 'DELETE',
+            url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
+            failOnStatusCode: false
+        })
+    }
 
     addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
                      penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate   ){

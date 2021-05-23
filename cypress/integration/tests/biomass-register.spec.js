@@ -15,6 +15,13 @@ const averageWeightValueForM2 = 6500;
 const penM2Comment = 'Comment for pen M2';
 const successfulToasterPopupMessage = 'Biomass saved';
 const reportDate = Cypress.moment().format("DD/MM/YYYY");
+/*function biomassForPenM1Value(numberOfFishValueForPenM1, averageWeightValueForM1){
+    let a = (numberOfFishValueForPenM1 * averageWeightValueForM1)/1000;
+    return    a.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+}
+
+ */
+const biomassForPenM1Value = (numberOfFishValueForPenM1 * averageWeightValueForM1)/1000;
 
 let biomassRegister = new BiomassRegister();
 let login = new LoginPage()
@@ -22,13 +29,9 @@ let login = new LoginPage()
 describe('Biomass register',function (){
     beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
-        login.loginToThePage(username, password)
-        biomassRegister.pageDataIsLoaded()
-
-        cy.request({method: 'DELETE',
-            url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
-            failOnStatusCode: false
-        })
+       login.loginToThePage(username, password)
+       biomassRegister.pageDataIsLoaded()
+       biomassRegister.sendDeleteReportRequest(reportDate,locationId)
     })
 
     it('should register biomass report for the current date',function (){
@@ -64,9 +67,18 @@ describe('Biomass register',function (){
 
     })
 
-    it("should verify just created data in the report",function (){
+    it.only("should verify just created data in the report",function (){
         biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
-            penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
+           penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
+
+
+
+        cy.log(typeof(biomassRegister.biomassForPenValue(penM1)))
+        cy.log(typeof(biomassForPenM1Value.toString().split(/(\d{3})/).join(' ').trim()  ))
+
+        biomassRegister.biomassForPenValue(penM1)
+            .should('have.value',biomassForPenM1Value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "))
+
 
 
 
