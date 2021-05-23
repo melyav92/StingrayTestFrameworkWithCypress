@@ -23,10 +23,14 @@ describe('Biomass register',function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
         login.loginToThePage(username, password)
         biomassRegister.pageDataIsLoaded()
-        //biomassRegister.deleteBiomassReport(reportDate)
+
+        cy.request({method: 'DELETE',
+            url: `/api/biomass/delete?locationId=2127&date=${reportDate}`,
+            failOnStatusCode: false
+        })
     })
 
-    it.only('should register biomass report for the current date',function (){
+    it('should register biomass report for the current date',function (){
         biomassRegister.addNewBiomassCountButton().click();
         biomassRegister.openDatePicker().click();
         biomassRegister.selectCurrentDate().click();

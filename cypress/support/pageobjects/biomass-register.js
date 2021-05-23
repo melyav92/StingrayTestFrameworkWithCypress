@@ -68,19 +68,13 @@ export class BiomassRegister{
     };
 
     deleteBiomassReportItem(reportDate){
+        this.loadingSpinner().should('not.be.visible')
         return  cy.get(`[data-counted-date="${reportDate}"]`)
     };
     confirmDeleteReportButton(){
         cy.wait(500)
         return cy.get('.confirm')
     };
-
-   /* biomassReportExistInTheList (reportDate){
-        this.loadingSpinner().should('not.be.visible')
-        return  cy.get(`[data-counted-date="${reportDate}"]`)
-    }
-
-    */
 
     biomassReportIsLoaded(){
         cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
@@ -90,8 +84,6 @@ export class BiomassRegister{
         this.loadingSpinner()
             .should('not.be.visible')
     };
-
-
 
     addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
                      penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate   ){
@@ -126,7 +118,6 @@ export class BiomassRegister{
             .should('not.contain', reportDate)
 
     }
-
 
 
 }
