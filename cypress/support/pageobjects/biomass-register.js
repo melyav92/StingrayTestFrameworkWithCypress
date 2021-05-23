@@ -59,6 +59,13 @@ export class BiomassRegister{
         return cy.get('div.toast-title')
     };
 
+    biomassForPenValue(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.biomass-value-input')
+
+
+    }
 
 
 
