@@ -1,6 +1,7 @@
 import {BiomassRegister} from "../../support/pageobjects/biomass-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
+const locationId = 2127;
 const username = 'bolacslu';
 const password = 123456;
 const seaTemperature = '8';
@@ -25,7 +26,7 @@ describe('Biomass register',function (){
         biomassRegister.pageDataIsLoaded()
 
         cy.request({method: 'DELETE',
-            url: `/api/biomass/delete?locationId=2127&date=${reportDate}`,
+            url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
             failOnStatusCode: false
         })
     })
