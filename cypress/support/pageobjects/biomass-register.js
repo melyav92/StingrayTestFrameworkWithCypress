@@ -85,6 +85,14 @@ export class BiomassRegister{
             .should('not.be.visible')
     };
 
+    sendDeleteReportRequest(reportDate, locationId){
+        cy.request({
+            method: 'DELETE',
+            url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
+            failOnStatusCode: false
+        })
+    }
+
     addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
                      penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate   ){
 

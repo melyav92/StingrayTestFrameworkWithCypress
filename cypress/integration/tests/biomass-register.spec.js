@@ -22,13 +22,9 @@ let login = new LoginPage()
 describe('Biomass register',function (){
     beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
-        login.loginToThePage(username, password)
-        biomassRegister.pageDataIsLoaded()
-
-        cy.request({method: 'DELETE',
-            url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
-            failOnStatusCode: false
-        })
+       login.loginToThePage(username, password)
+       biomassRegister.pageDataIsLoaded()
+       biomassRegister.sendDeleteReportRequest(reportDate,locationId)
     })
 
     it('should register biomass report for the current date',function (){
