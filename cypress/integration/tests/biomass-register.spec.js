@@ -52,7 +52,8 @@ describe('Biomass register',function (){
 
         biomassRegister.expandBiomassReportsListItem().click()
         biomassRegister.deleteBiomassReportItem(reportDate).next()
-            .should("contain", reportDate)
+            .should('be.visible')
+            .and("contain", reportDate)
 
 
     })
