@@ -125,14 +125,5 @@ export class BiomassRegister{
         this.biomassReportIsLoaded()
     }
 
-    deleteBiomassReport(reportDate){
-        this.expandBiomassReportsListItem().click()
-        this.deleteBiomassReportItem(reportDate).click()
-        this.confirmDeleteReportButton().click()
-        this.deleteBiomassReportItem(reportDate)
-            .should('not.contain', reportDate)
-
-    }
-
 
 }
