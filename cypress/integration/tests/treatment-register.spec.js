@@ -19,7 +19,7 @@ const updatePenM2FishPenCount = '8000';
 const updateTreatmentTypeForPenM1 = 'Hydrolizer';
 const updateTreatmentTypeForPenM2 = 'Thermolicer';
 const penM3 = 'M3';
-const reportDate = Cypress.moment().format('DD/MM/YYYY');
+const reportDate = Cypress.moment().format('YYYY-MM-DD');
 
 let treatmentRegister = new TreatmentRegister();
 let login = new LoginPage()
@@ -54,10 +54,7 @@ describe('Treatment register',function (){
         treatmentRegister.expandTreatmentReportsListItem().click();
         treatmentRegister.deleteTreatmentReportItem().next()
             .should('contain.text', Cypress.moment().format("DD/MM/YYYY"))
-        treatmentRegister.deleteTreatmentReportItem().click()
-        treatmentRegister.confirmDeleteReportButton().click()
-        treatmentRegister.deleteTreatmentReportItem().next()
-            .should('not.eq', Cypress.moment().format("DD/MM/YYYY"))
+
     })
 
     it("should verify just created data in the report",function (){
@@ -79,7 +76,7 @@ describe('Treatment register',function (){
             .should('have.value', penM2Comment)
         treatmentRegister.verifyFishCountValueInTable(penM2)
             .should('have.value', penM2FishPenCount)
-        treatmentRegister.deleteReport()
+
     })
 
     it("should delete just created report",function (){
@@ -118,7 +115,7 @@ describe('Treatment register',function (){
             .should('have.value', updatePenM2Comment)
         treatmentRegister.verifyFishCountValueInTable(penM2)
             .should('have.value', updatePenM2FishPenCount)
-        treatmentRegister.deleteReport()
+
     })
 
     it("should delete one pen from the report",function (){
@@ -128,7 +125,7 @@ describe('Treatment register',function (){
         treatmentRegister.treatmentReportIsLoaded()
 
         treatmentRegister.getPenObjectByName(penM2).should('not.exist')
-        treatmentRegister.deleteReport()
+
     })
 
     it("should add one more pen to the report",function (){
@@ -150,7 +147,7 @@ describe('Treatment register',function (){
         treatmentRegister.getPenObjectByName(penM3)
             .should('exist')
 
-        treatmentRegister.deleteReport()
+
     })
 
     /*
