@@ -66,6 +66,15 @@ export class BiomassRegister{
 
 
     }
+    fishType(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.scp-iradio.checked')
+            .next()
+
+
+    }
+
 
 
 
