@@ -20,6 +20,9 @@ const reportDate = Cypress.moment().format("DD/MM/YYYY");
 let biomassForPenM1Value = ((numberOfFishValueForPenM1 * averageWeightValueForM1)/1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 let biomassForPenM2Value = ((numberOfFishValueForPenM2 * averageWeightValueForM2)/1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 
+
+
+
 let biomassRegister = new BiomassRegister();
 let login = new LoginPage()
 
@@ -63,7 +66,6 @@ describe('Biomass register',function (){
     it.only("should verify added data in the report",function (){
         biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
            penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
-        biomassRegister.expandBiomassReportsListItem().click()
 
         biomassRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
@@ -91,7 +93,11 @@ describe('Biomass register',function (){
         biomassRegister.addCommentForPen(penM2)
             .should('have.value', penM2Comment)
 
+    })
 
+    it("should update the report with new values",function (){
+        biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
+            penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
 
 
     })
