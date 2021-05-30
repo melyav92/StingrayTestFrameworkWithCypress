@@ -28,7 +28,7 @@ const averageWeightValueForM2Update = 3500;
 const penM2CommentUpdate = "Updated Comment for pen M2";
 let biomassForPenM1ValueUpdated = ((numberOfFishValueForPenM1Update * averageWeightValueForM1Update)/1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
 let biomassForPenM2ValueUpdated = ((numberOfFishValueForPenM2Update * averageWeightValueForM2Update)/1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")
-
+const penM3 = "M3";
 
 
 
@@ -66,7 +66,7 @@ describe('Biomass register',function (){
            .should('have.text',successfulToasterPopupMessage)
 
         biomassRegister.expandBiomassReportsListItem().click()
-        biomassRegister.deleteBiomassReportItem(reportDate).next()
+        biomassRegister.reportExistsInTheList(reportDate).next()
             .should('be.visible')
             .and("contain", reportDate)
 
@@ -149,19 +149,53 @@ describe('Biomass register',function (){
 
     })
 
-    it.only("should delete the report", function (){
+    it("should delete the report", function (){
         biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
             penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
-
+        biomassRegister.biomassReportIsLoaded()
         biomassRegister.expandBiomassReportsListItem().click()
-        biomassRegister.deleteBiomassReportItem(reportDate).click()
+        biomassRegister.deleteBiomassReportItem().click()
         biomassRegister.confirmDeleteReportButton().click()
         biomassRegister.biomassReportIsLoaded()
 
-        biomassRegister.deleteBiomassReportItem(reportDate)
+        biomassRegister.reportExistsInTheList(reportDate)
             .should("not.contain", reportDate)
 
+    })
 
+    it("should delete one pen from the report",function (){
+        biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
+            penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
+        biomassRegister.biomassReportIsLoaded()
+
+        biomassRegister.deletePenItemFromTable(penM2).click()
+        biomassRegister.saveButton().click()
+        biomassRegister.biomassReportIsLoaded()
+
+        biomassRegister.getPenObjectByName(penM2)
+            .should('not.exist')
+    })
+
+    it("should add one more pen to the report",function (){
+        biomassRegister.addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
+            penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate)
+
+        biomassRegister.biomassReportIsLoaded()
+        biomassRegister.openPensDropdown().click();
+        biomassRegister.selectPen(penM3).click();
+        biomassRegister.addPensButton().click();
+        biomassRegister.addAverageWeightValue(penM3).clear().type(averageWeightValueForM1)
+        biomassRegister.addNumberOfFishValue(penM3).clear().type(numberOfFishValueForPenM1);
+        biomassRegister.addCommentForPen(penM3).type(penM1Comment)
+        biomassRegister.saveButton().click()
+        biomassRegister.biomassReportIsLoaded()
+
+        biomassRegister.getPenObjectByName(penM1)
+            .should('exist')
+        biomassRegister.getPenObjectByName(penM2)
+            .should('exist')
+        biomassRegister.getPenObjectByName(penM3)
+            .should('exist')
     })
 
 })
