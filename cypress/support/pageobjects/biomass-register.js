@@ -63,22 +63,24 @@ export class BiomassRegister{
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.biomass-value-input')
-
-
     }
-    fishType(penName){
+    selectTroutFishType(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.scp-pen-fish-type-radio-group-container')
+            .contains('Trout')
+    }
+    selectSalmonFishType(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.scp-pen-fish-type-radio-group-container')
+    }
+    fishTypeValue(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.scp-iradio.checked')
             .next()
-
-
     }
-
-
-
-
-
     expandBiomassReportsListItem (){
         return cy.get('.scp-expandable-area-button-text')
     };
