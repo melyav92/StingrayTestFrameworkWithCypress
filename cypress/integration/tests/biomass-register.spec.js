@@ -44,6 +44,11 @@ describe('Biomass register',function (){
        biomassRegister.sendDeleteReportRequest(reportDate,locationId)
     })
 
+    after(function (){
+        biomassRegister.sendDeleteReportRequest(reportDate,locationId)
+    })
+
+
     it('should register biomass report for the current date',function (){
         biomassRegister.addNewBiomassCountButton().click();
         biomassRegister.openDatePicker().click();
