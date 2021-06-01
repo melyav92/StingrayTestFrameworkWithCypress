@@ -63,30 +63,36 @@ export class BiomassRegister{
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.biomass-value-input')
-
-
     }
-    fishType(penName){
+    selectTroutFishType(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.scp-pen-fish-type-radio-group-container')
+            .contains('Trout')
+    }
+    selectSalmonFishType(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.scp-pen-fish-type-radio-group-container')
+    }
+    fishTypeValue(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.scp-iradio.checked')
             .next()
-
-
     }
-
-
-
-
-
     expandBiomassReportsListItem (){
         return cy.get('.scp-expandable-area-button-text')
     };
 
-    deleteBiomassReportItem(reportDate){
+    reportExistsInTheList(reportDate){
         this.loadingSpinner().should('not.be.visible')
         return  cy.get(`[data-counted-date="${reportDate}"]`)
     };
+    deleteBiomassReportItem(){
+        return cy.get('.scp-registered-date.scp-biomass-date.selected').prev()
+    }
+
     confirmDeleteReportButton(){
         cy.wait(500)
         return cy.get('.confirm')
@@ -107,6 +113,11 @@ export class BiomassRegister{
             url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
             failOnStatusCode: false
         })
+    }
+    deletePenItemFromTable(penName){
+     return this.getPenObjectByName(penName)
+         .parents("tr")
+         .find('.icon-cross')
     }
 
     addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
