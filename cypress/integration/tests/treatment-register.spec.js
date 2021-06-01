@@ -31,6 +31,10 @@ beforeEach(function (){
     treatmentRegister.sendDeleteTreatmentRequest(reportDate,locationId)
 })
 
+after(function (){
+    treatmentRegister.sendDeleteTreatmentRequest(reportDate,locationId)
+})
+
 describe('Treatment register',function (){
     it('should register treatment report for the current date',function (){
        treatmentRegister.addNewTreatmentButton().click();
