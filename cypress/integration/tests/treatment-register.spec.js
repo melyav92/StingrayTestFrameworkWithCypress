@@ -150,36 +150,6 @@ describe('Treatment register',function (){
         treatmentRegister.deleteReport()
     })
 
-    /*
-    it('should verify that pen M1 and M2 exist in the reports details section after saving',function (){
-        treatmentRegister.getPenObjectByName(penM1)
-            .should('contain.text', penM1)
-        treatmentRegister.getPenObjectByName(penM2)
-            .should('contain.text', penM2)
-    })
-
-    it('should verify that treatment type for pens is correct',function (){
-        treatmentRegister.treatmentTypeForThePen(penM1)
-            .should('have.text', treatmentTypeForAllPens);
-        treatmentRegister.treatmentTypeForThePen(penM2)
-            .should('have.text', treatmentTypeForAllPens);
-    })
-
-    it('should verify that comment value for pens are correct',function (){
-        treatmentRegister.commentForPen(penM1).children('input')
-            .should('have.value', penM1Comment)
-        treatmentRegister.commentForPen(penM2).children('input')
-            .should('have.value', penM2Comment)
-    })
-
-    it('should verify that fish/pen count value for pens',function (){
-        treatmentRegister.fishCountValueInTable(penM1)
-            .should('have.value', penM1FishPenCount)
-        treatmentRegister.fishCountValueInTable(penM2)
-            .should('have.value', penM2FishPenCount)
-    })
-
-     */
 
 
 
