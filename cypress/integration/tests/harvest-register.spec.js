@@ -16,7 +16,7 @@ const averageHarvestWeightValueForM2 = 4500;
 const fishPenAfterHarvestValueForM2 = 64000;
 const penM2Comment = "Comment for pen M2";
 const successfulToasterPopupMessage = 'Saved successfully';
-const reportDate = Cypress.moment().format("YYYY-MM-DD");
+const reportDate = Cypress.moment().format("DD/MM/YYYY");
 
 let harvestRegister = new HarvestRegister();
 let login = new LoginPage()
@@ -28,12 +28,12 @@ describe('Harvest register',function (){
        cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fHarvest%2fRegister')
        login.loginToThePage(username, password)
        harvestRegister.pageDataIsLoaded(locationId)
-       harvestRegister.sendDeleteReportRequest(locationId, reportDate)
+       harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
 
         })
-    after(function (){
-        harvestRegister.sendDeleteReportRequest(locationId,reportDate)
-    })
+    // after(function (){
+    //     harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
+    // })
 
     it('should register harvest harvest report for the current date',function (){
         harvestRegister.addNewHarvestCountBtn().click()
@@ -57,8 +57,9 @@ describe('Harvest register',function (){
         harvestRegister.toasterPopup()
              .should('have.text',successfulToasterPopupMessage)
         harvestRegister.expandHarvestReportsListItem().click()
-        harvestRegister.deleteHarvestReportItem().next()
-            .should('contain.text', Cypress.moment().format("DD/MM/YYYY"))
+        harvestRegister.reportExistsInTheList(reportDate).next()
+            .should('be.visible')
+            .and("contain", reportDate)
 
 })
 

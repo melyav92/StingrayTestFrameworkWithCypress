@@ -11,18 +11,19 @@ export class HarvestRegister{
     loadingSpinner(){
         return  cy.get('#loading-spinner-overlay')
     };
-    sendDeleteReportRequest(locationId,reportDate){
+    sendDeleteReportRequestForTheCurrentDate(locationId){
+        const deleteReportDate = Cypress.moment().format("YYYY-MM-DD");
         cy.request({
             method: 'DELETE',
-            url: `/api/harvests/harvest?locationId=${locationId}&date=${reportDate}`,
-            failOnStatusCode: false
+            url: `/api/harvests/harvest?locationId=${locationId}&date=${deleteReportDate}`,
+            //failOnStatusCode: false
         })
     }
     addNewHarvestCountBtn(){
         return cy.get('#add-new-harvest-btn')
     };
    openDatePicker(){
-       cy.wait(250)
+       cy.wait(400)
         return  cy.get('#counted-date-date-picker')
     };
     selectCurrentDate(){
@@ -69,6 +70,10 @@ export class HarvestRegister{
     };
     expandHarvestReportsListItem(){
         return cy.get('.scp-expandable-area-button-text')
+    };
+    reportExistsInTheList(reportDate){
+        this.loadingSpinner().should('not.be.visible')
+        return  cy.get(`[data-counted-date="${reportDate}"]`)
     };
     deleteHarvestReportItem(){
         return cy.get('a.scp-registered-date.scp-harvest-date.selected').prev()
