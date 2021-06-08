@@ -23,7 +23,7 @@ export class HarvestRegister{
         return cy.get('#add-new-harvest-btn')
     };
    openDatePicker(){
-       cy.wait(400)
+       cy.wait(500)
         return  cy.get('#counted-date-date-picker')
     };
     selectCurrentDate(){
