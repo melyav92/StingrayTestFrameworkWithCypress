@@ -78,6 +78,7 @@ export class HarvestRegister{
     deleteHarvestReportItem(){
         return cy.get('a.scp-registered-date.scp-harvest-date.selected').prev()
     };
+
     addHarvestReport(penM1
                      ,fishHarvestedValueForPenM1
                      ,averageHarvestWeightValueForM1
@@ -90,7 +91,6 @@ export class HarvestRegister{
                      ,penM2Comment
                      ,successfulToasterPopupMessage
                      ){
-
         this.addNewHarvestCountBtn().click()
         this.openDatePicker().click()
         this.selectCurrentDate().click()
@@ -111,10 +111,6 @@ export class HarvestRegister{
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
         this.pageDataIsLoaded()
-
-
-
-
     }
 
 
