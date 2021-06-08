@@ -64,5 +64,23 @@ describe('Harvest register',function (){
 
 })
 
+    it.only('should verify added data in the report',function (){
+        harvestRegister.addHarvestReport(penM1
+            ,fishHarvestedValueForPenM1
+            ,averageHarvestWeightValueForM1
+            ,fishPenAfterHarvestValueForM1
+            ,penM1Comment
+            ,penM2
+            ,fishHarvestedValueForPenM2
+            ,averageHarvestWeightValueForM2
+            ,fishPenAfterHarvestValueForM2
+            ,penM2Comment
+            ,successfulToasterPopupMessage)
+
+
+
+
+    })
+
 
 })

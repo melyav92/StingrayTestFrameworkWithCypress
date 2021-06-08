@@ -78,6 +78,45 @@ export class HarvestRegister{
     deleteHarvestReportItem(){
         return cy.get('a.scp-registered-date.scp-harvest-date.selected').prev()
     };
+    addHarvestReport(penM1
+                     ,fishHarvestedValueForPenM1
+                     ,averageHarvestWeightValueForM1
+                     ,fishPenAfterHarvestValueForM1
+                     ,penM1Comment
+                     ,penM2
+                     ,fishHarvestedValueForPenM2
+                     ,averageHarvestWeightValueForM2
+                     ,fishPenAfterHarvestValueForM2
+                     ,penM2Comment
+                     ,successfulToasterPopupMessage
+                     ){
+
+        this.addNewHarvestCountBtn().click()
+        this.openDatePicker().click()
+        this.selectCurrentDate().click()
+        this.openPensDropdown().click()
+        this.selectPen(penM1).click()
+        this.openPensDropdown().click()
+        this.selectPen(penM2).click()
+        this.addPensButton().click()
+        this.addFishHarvestedValue(penM1).type(fishHarvestedValueForPenM1)
+        this.addAverageHarvestWeightValue(penM1).type(averageHarvestWeightValueForM1)
+        this.addFishPenAfterHarvestValue(penM1).clear().type(fishPenAfterHarvestValueForM1)
+        this.addCommentForPen(penM1).type(penM1Comment)
+        this.addFishHarvestedValue(penM2).type(fishHarvestedValueForPenM2)
+        this.addAverageHarvestWeightValue(penM2).type(averageHarvestWeightValueForM2)
+        this.addFishPenAfterHarvestValue(penM2).clear().type(fishPenAfterHarvestValueForM2)
+        this.addCommentForPen(penM2).type(penM2Comment)
+        this.saveButton().click()
+        this.toasterPopup()
+            .should('have.text',successfulToasterPopupMessage)
+        this.pageDataIsLoaded()
+
+
+
+
+    }
+
 
 
 
