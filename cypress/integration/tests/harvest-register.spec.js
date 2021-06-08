@@ -18,6 +18,7 @@ const penM2Comment = "Comment for pen M2";
 const successfulToasterPopupMessage = 'Saved successfully';
 const reportDate = Cypress.moment().format("DD/MM/YYYY");
 
+
 let harvestRegister = new HarvestRegister();
 let login = new LoginPage()
 
