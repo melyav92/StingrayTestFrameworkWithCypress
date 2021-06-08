@@ -31,9 +31,9 @@ describe('Harvest register',function (){
        harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
 
         })
-    // after(function (){
-    //     harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
-    // })
+     after(function (){
+         harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
+     })
 
     it('should register harvest harvest report for the current date',function (){
         harvestRegister.addNewHarvestCountBtn().click()
