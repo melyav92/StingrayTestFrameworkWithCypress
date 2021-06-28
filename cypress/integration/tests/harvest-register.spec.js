@@ -151,7 +151,7 @@ describe('Harvest register',function (){
             .should('have.value', updatedPenM2Comment)
     })
 
-    it.only('should delete the report', function (){
+    it('should delete the report', function (){
         harvestRegister.addHarvestReport(penM1
             ,fishHarvestedValueForPenM1
             ,averageHarvestWeightValueForM1
@@ -164,7 +164,14 @@ describe('Harvest register',function (){
             ,penM2Comment
             ,successfulToasterPopupMessage)
 
+        harvestRegister.expandHarvestReportsListItem().click()
+        harvestRegister.deleteHarvestReportItem().click()
+        harvestRegister.confirmDeleteReportButton().click()
+        harvestRegister.pageDataIsLoaded()
+        harvestRegister.reportExistsInTheList(reportDate)
+            .should('not.exist')
     })
+
 
 
 })

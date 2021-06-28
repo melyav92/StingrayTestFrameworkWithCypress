@@ -78,6 +78,10 @@ export class HarvestRegister{
     deleteHarvestReportItem(){
         return cy.get('a.scp-registered-date.scp-harvest-date.selected').prev()
     };
+    confirmDeleteReportButton(){
+        cy.wait(500)
+        return cy.get('.confirm')
+    };
 
     addHarvestReport(penM1
                      ,fishHarvestedValueForPenM1
