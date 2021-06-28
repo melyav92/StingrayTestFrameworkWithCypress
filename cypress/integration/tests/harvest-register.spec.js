@@ -25,6 +25,7 @@ const updatedFishHarvestedValueForPenM2 = 80000;
 const updatedAverageHarvestWeightValueForM2 = 4500;
 const updatedFishPenAfterHarvestValueForM2 = 10000;
 const updatedPenM2Comment = "Updated Comment for pen M2";
+const penM3 = "M3";
 
 let harvestRegister = new HarvestRegister();
 let login = new LoginPage()
@@ -169,6 +170,26 @@ describe('Harvest register',function (){
         harvestRegister.confirmDeleteReportButton().click()
         harvestRegister.pageDataIsLoaded()
         harvestRegister.reportExistsInTheList(reportDate)
+            .should('not.exist')
+    })
+
+    it.only('should delete one pen from the report', function (){
+        harvestRegister.addHarvestReport(penM1
+            ,fishHarvestedValueForPenM1
+            ,averageHarvestWeightValueForM1
+            ,fishPenAfterHarvestValueForM1
+            ,penM1Comment
+            ,penM2
+            ,fishHarvestedValueForPenM2
+            ,averageHarvestWeightValueForM2
+            ,fishPenAfterHarvestValueForM2
+            ,penM2Comment
+            ,successfulToasterPopupMessage)
+
+        harvestRegister.deletePenItemFromTable(penM2).click()
+        harvestRegister.saveButton().click()
+        harvestRegister.pageDataIsLoaded()
+        harvestRegister.getPenObjectByName(penM2)
             .should('not.exist')
     })
 

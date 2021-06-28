@@ -82,6 +82,11 @@ export class HarvestRegister{
         cy.wait(500)
         return cy.get('.confirm')
     };
+    deletePenItemFromTable(penName){
+        return this.getPenObjectByName(penName)
+            .parents("tr")
+            .find('.icon-cross')
+    }
 
     addHarvestReport(penM1
                      ,fishHarvestedValueForPenM1
