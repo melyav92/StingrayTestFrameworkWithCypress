@@ -11,7 +11,7 @@ export class HarvestRegister{
     loadingSpinner(){
         return  cy.get('#loading-spinner-overlay')
     };
-    sendDeleteReportRequestForTheCurrentDate(locationId){
+    sendDeleteReportRequest(locationId){
         const deleteReportDate = Cypress.moment().format("YYYY-MM-DD");
         cy.request({
             method: 'DELETE',
@@ -22,7 +22,7 @@ export class HarvestRegister{
     addNewHarvestCountBtn(){
         return cy.get('#add-new-harvest-btn')
     };
-   openDatePicker(){
+   datePicker(){
        cy.wait(400)
         return  cy.get('#counted-date-date-picker')
     };
@@ -30,10 +30,10 @@ export class HarvestRegister{
         const currentDate =  Cypress.moment().format('D')
         return cy.get('.day:not(.new):not(.old)').contains(currentDate)
     };
-    openPensDropdown(){
+    pensDropdown(){
         return cy.get('#pens_selector_chosen')
     };
-    selectPen(penName){
+    penItem(penName){
         return cy.get('li.active-result').contains(penName)
     };
     addPensButton (){
@@ -42,22 +42,22 @@ export class HarvestRegister{
     getPenObjectByName(penName){
         return cy.contains('.scp-pen-code', penName)
     };
-    addFishHarvestedValue(penName){
+    fishHarvestedInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('[data-type="fish-harvested"]')
     }
-    addAverageHarvestWeightValue(penName){
+    averageHarvestWeightInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('[data-type="average-weight"]')
     }
-    addFishPenAfterHarvestValue(penName){
+    fishPenAfterHarvestInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('[data-type="fish-per-pen"]')
     }
-    addCommentForPen(penName){
+    commentForPenInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('[data-type="comment"]')
@@ -82,40 +82,40 @@ export class HarvestRegister{
         cy.wait(500)
         return cy.get('.confirm')
     };
-    deletePenItemFromTable(penName){
+    deletePenItem(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.icon-cross')
     }
 
-    addHarvestReport(penM1
-                     ,fishHarvestedValueForPenM1
-                     ,averageHarvestWeightValueForM1
-                     ,fishPenAfterHarvestValueForM1
-                     ,penM1Comment
-                     ,penM2
-                     ,fishHarvestedValueForPenM2
-                     ,averageHarvestWeightValueForM2
-                     ,fishPenAfterHarvestValueForM2
-                     ,penM2Comment
-                     ,successfulToasterPopupMessage
+    addHarvestReport(penM1,
+                     fishHarvestedValueForPenM1,
+                     averageHarvestWeightValueForM1,
+                     fishPenAfterHarvestValueForM1,
+                     penM1Comment,
+                     penM2,
+                     fishHarvestedValueForPenM2,
+                     averageHarvestWeightValueForM2,
+                     fishPenAfterHarvestValueForM2,
+                     penM2Comment,
+                     successfulToasterPopupMessage
                      ){
         this.addNewHarvestCountBtn().click()
-        this.openDatePicker().click()
+        this.datePicker().click()
         this.selectCurrentDate().click()
-        this.openPensDropdown().click()
-        this.selectPen(penM1).click()
-        this.openPensDropdown().click()
-        this.selectPen(penM2).click()
+        this.pensDropdown().click()
+        this.penItem(penM1).click()
+        this.pensDropdown().click()
+        this.penItem(penM2).click()
         this.addPensButton().click()
-        this.addFishHarvestedValue(penM1).type(fishHarvestedValueForPenM1)
-        this.addAverageHarvestWeightValue(penM1).type(averageHarvestWeightValueForM1)
-        this.addFishPenAfterHarvestValue(penM1).clear().type(fishPenAfterHarvestValueForM1)
-        this.addCommentForPen(penM1).type(penM1Comment)
-        this.addFishHarvestedValue(penM2).type(fishHarvestedValueForPenM2)
-        this.addAverageHarvestWeightValue(penM2).type(averageHarvestWeightValueForM2)
-        this.addFishPenAfterHarvestValue(penM2).clear().type(fishPenAfterHarvestValueForM2)
-        this.addCommentForPen(penM2).type(penM2Comment)
+        this.fishHarvestedInput(penM1).type(fishHarvestedValueForPenM1)
+        this.averageHarvestWeightInput(penM1).type(averageHarvestWeightValueForM1)
+        this.fishPenAfterHarvestInput(penM1).clear().type(fishPenAfterHarvestValueForM1)
+        this.commentForPenInput(penM1).type(penM1Comment)
+        this.fishHarvestedInput(penM2).type(fishHarvestedValueForPenM2)
+        this.averageHarvestWeightInput(penM2).type(averageHarvestWeightValueForM2)
+        this.fishPenAfterHarvestInput(penM2).clear().type(fishPenAfterHarvestValueForM2)
+        this.commentForPenInput(penM2).type(penM2Comment)
         this.saveButton().click()
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)

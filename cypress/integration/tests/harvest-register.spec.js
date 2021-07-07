@@ -16,7 +16,7 @@ const averageHarvestWeightValueForM2 = 4500;
 const fishPenAfterHarvestValueForM2 = 64000;
 const penM2Comment = "Comment for pen M2";
 const successfulToasterPopupMessage = 'Saved successfully';
-const reportDate = Cypress.moment().format("DD/MM/YYYY");
+let reportDate = Cypress.moment().format("DD/MM/YYYY");
 const updatedFishHarvestedValueForPenM1 = 70000;
 const updatedAverageHarvestWeightValueForM1 = 7500;
 const updatedFishPenAfterHarvestValueForM1 = 50000;
@@ -27,7 +27,7 @@ const updatedFishPenAfterHarvestValueForM2 = 10000;
 const updatedPenM2Comment = "Updated Comment for pen M2";
 
 let harvestRegister = new HarvestRegister();
-let login = new LoginPage()
+let login = new LoginPage();
 
 
 
@@ -37,30 +37,30 @@ describe('Harvest register',function (){
        //cy.visit('https://192.168.10.49:8100/en/Harvest/Register')
        login.loginToThePage(username, password)
        harvestRegister.pageDataIsLoaded(locationId)
-       harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
+       harvestRegister.sendDeleteReportRequest(locationId)
 
         })
      after(function (){
-         harvestRegister.sendDeleteReportRequestForTheCurrentDate(locationId)
+         harvestRegister.sendDeleteReportRequest(locationId)
     })
 
     it('should register harvest harvest report for the current date',function (){
         harvestRegister.addNewHarvestCountBtn().click()
-        harvestRegister.openDatePicker().click()
+        harvestRegister.datePicker().click()
         harvestRegister.selectCurrentDate().click()
-        harvestRegister.openPensDropdown().click()
-        harvestRegister.selectPen(penM1).click()
-        harvestRegister.openPensDropdown().click()
-        harvestRegister.selectPen(penM2).click()
+        harvestRegister.pensDropdown().click()
+        harvestRegister.penItem(penM1).click()
+        harvestRegister.pensDropdown().click()
+        harvestRegister.penItem(penM2).click()
         harvestRegister.addPensButton().click()
-        harvestRegister.addFishHarvestedValue(penM1).type(fishHarvestedValueForPenM1)
-        harvestRegister.addAverageHarvestWeightValue(penM1).type(averageHarvestWeightValueForM1)
-        harvestRegister.addFishPenAfterHarvestValue(penM1).clear().type(fishPenAfterHarvestValueForM1)
-        harvestRegister.addCommentForPen(penM1).type(penM1Comment)
-        harvestRegister.addFishHarvestedValue(penM2).type(fishHarvestedValueForPenM2)
-        harvestRegister.addAverageHarvestWeightValue(penM2).type(averageHarvestWeightValueForM2)
-        harvestRegister.addFishPenAfterHarvestValue(penM2).clear().type(fishPenAfterHarvestValueForM2)
-        harvestRegister.addCommentForPen(penM2).type(penM2Comment)
+        harvestRegister.fishHarvestedInput(penM1).type(fishHarvestedValueForPenM1)
+        harvestRegister.averageHarvestWeightInput(penM1).type(averageHarvestWeightValueForM1)
+        harvestRegister.fishPenAfterHarvestInput(penM1).clear().type(fishPenAfterHarvestValueForM1)
+        harvestRegister.commentForPenInput(penM1).type(penM1Comment)
+        harvestRegister.fishHarvestedInput(penM2).type(fishHarvestedValueForPenM2)
+        harvestRegister.averageHarvestWeightInput(penM2).type(averageHarvestWeightValueForM2)
+        harvestRegister.fishPenAfterHarvestInput(penM2).clear().type(fishPenAfterHarvestValueForM2)
+        harvestRegister.commentForPenInput(penM2).type(penM2Comment)
         harvestRegister.saveButton().click()
 
         harvestRegister.toasterPopup()
@@ -86,23 +86,23 @@ describe('Harvest register',function (){
 
         harvestRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
-        harvestRegister.addFishHarvestedValue(penM1)
+        harvestRegister.fishHarvestedInput(penM1)
             .should('have.value', fishHarvestedValueForPenM1)
-        harvestRegister.addAverageHarvestWeightValue(penM1)
+        harvestRegister.averageHarvestWeightInput(penM1)
             .should('have.value', averageHarvestWeightValueForM1)
-        harvestRegister.addFishPenAfterHarvestValue(penM1)
+        harvestRegister.fishPenAfterHarvestInput(penM1)
             .should('have.value', fishPenAfterHarvestValueForM1)
-        harvestRegister.addCommentForPen(penM1)
+        harvestRegister.commentForPenInput(penM1)
             .should('have.value', penM1Comment)
         harvestRegister.getPenObjectByName(penM2)
             .should('contain.text', penM2)
-        harvestRegister.addFishHarvestedValue(penM2)
+        harvestRegister.fishHarvestedInput(penM2)
             .should('have.value', fishHarvestedValueForPenM2)
-        harvestRegister.addAverageHarvestWeightValue(penM2)
+        harvestRegister.averageHarvestWeightInput(penM2)
             .should('have.value', averageHarvestWeightValueForM2)
-        harvestRegister.addFishPenAfterHarvestValue(penM2)
+        harvestRegister.fishPenAfterHarvestInput(penM2)
             .should('have.value', fishPenAfterHarvestValueForM2)
-        harvestRegister.addCommentForPen(penM2)
+        harvestRegister.commentForPenInput(penM2)
             .should('have.value', penM2Comment)
     })
 
@@ -119,50 +119,50 @@ describe('Harvest register',function (){
             ,penM2Comment
             ,successfulToasterPopupMessage)
 
-        harvestRegister.addFishHarvestedValue(penM1).clear().type(updatedFishHarvestedValueForPenM1)
-        harvestRegister.addAverageHarvestWeightValue(penM1).clear().type(updatedAverageHarvestWeightValueForM1)
-        harvestRegister.addFishPenAfterHarvestValue(penM1).clear().type(updatedFishPenAfterHarvestValueForM1)
-        harvestRegister.addCommentForPen(penM1).clear().type(updatedPenM1Comment)
-        harvestRegister.addFishHarvestedValue(penM2).clear().type(updatedFishHarvestedValueForPenM2)
-        harvestRegister.addAverageHarvestWeightValue(penM2).clear().type(updatedAverageHarvestWeightValueForM2)
-        harvestRegister.addFishPenAfterHarvestValue(penM2).clear().type(updatedFishPenAfterHarvestValueForM2)
-        harvestRegister.addCommentForPen(penM2).clear().type(updatedPenM2Comment)
+        harvestRegister.fishHarvestedInput(penM1).clear().type(updatedFishHarvestedValueForPenM1)
+        harvestRegister.averageHarvestWeightInput(penM1).clear().type(updatedAverageHarvestWeightValueForM1)
+        harvestRegister.fishPenAfterHarvestInput(penM1).clear().type(updatedFishPenAfterHarvestValueForM1)
+        harvestRegister.commentForPenInput(penM1).clear().type(updatedPenM1Comment)
+        harvestRegister.fishHarvestedInput(penM2).clear().type(updatedFishHarvestedValueForPenM2)
+        harvestRegister.averageHarvestWeightInput(penM2).clear().type(updatedAverageHarvestWeightValueForM2)
+        harvestRegister.fishPenAfterHarvestInput(penM2).clear().type(updatedFishPenAfterHarvestValueForM2)
+        harvestRegister.commentForPenInput(penM2).clear().type(updatedPenM2Comment)
         harvestRegister.saveButton().click()
 
         harvestRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
-        harvestRegister.addFishHarvestedValue(penM1)
+        harvestRegister.fishHarvestedInput(penM1)
             .should('have.value', updatedFishHarvestedValueForPenM1)
-        harvestRegister.addAverageHarvestWeightValue(penM1)
+        harvestRegister.averageHarvestWeightInput(penM1)
             .should('have.value', updatedAverageHarvestWeightValueForM1)
-        harvestRegister.addFishPenAfterHarvestValue(penM1)
+        harvestRegister.fishPenAfterHarvestInput(penM1)
             .should('have.value', updatedFishPenAfterHarvestValueForM1)
-        harvestRegister.addCommentForPen(penM1)
+        harvestRegister.commentForPenInput(penM1)
             .should('have.value', updatedPenM1Comment)
         harvestRegister.getPenObjectByName(penM2)
             .should('contain.text', penM2)
-        harvestRegister.addFishHarvestedValue(penM2)
+        harvestRegister.fishHarvestedInput(penM2)
             .should('have.value', updatedFishHarvestedValueForPenM2)
-        harvestRegister.addAverageHarvestWeightValue(penM2)
+        harvestRegister.averageHarvestWeightInput(penM2)
             .should('have.value', updatedAverageHarvestWeightValueForM2)
-        harvestRegister.addFishPenAfterHarvestValue(penM2)
+        harvestRegister.fishPenAfterHarvestInput(penM2)
             .should('have.value', updatedFishPenAfterHarvestValueForM2)
-        harvestRegister.addCommentForPen(penM2)
+        harvestRegister.commentForPenInput(penM2)
             .should('have.value', updatedPenM2Comment)
     })
 
     it('should delete the report', function (){
-        harvestRegister.addHarvestReport(penM1
-            ,fishHarvestedValueForPenM1
-            ,averageHarvestWeightValueForM1
-            ,fishPenAfterHarvestValueForM1
-            ,penM1Comment
-            ,penM2
-            ,fishHarvestedValueForPenM2
-            ,averageHarvestWeightValueForM2
-            ,fishPenAfterHarvestValueForM2
-            ,penM2Comment
-            ,successfulToasterPopupMessage)
+        harvestRegister.addHarvestReport(penM1,
+            fishHarvestedValueForPenM1,
+            averageHarvestWeightValueForM1,
+            fishPenAfterHarvestValueForM1,
+            penM1Comment,
+            penM2,
+            fishHarvestedValueForPenM2,
+            averageHarvestWeightValueForM2,
+            fishPenAfterHarvestValueForM2,
+            penM2Comment,
+            successfulToasterPopupMessage)
 
         harvestRegister.expandHarvestReportsListItem().click()
         harvestRegister.deleteHarvestReportItem().click()
@@ -185,7 +185,7 @@ describe('Harvest register',function (){
             ,penM2Comment
             ,successfulToasterPopupMessage)
 
-        harvestRegister.deletePenItemFromTable(penM2).click()
+        harvestRegister.deletePenItem(penM2).click()
         harvestRegister.saveButton().click()
         harvestRegister.pageDataIsLoaded()
         harvestRegister.getPenObjectByName(penM2)
