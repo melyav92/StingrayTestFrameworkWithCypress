@@ -72,17 +72,17 @@ describe('Harvest register',function (){
     })
 
     it('should verify added data in the report',function (){
-        harvestRegister.addHarvestReport(penM1
-            ,fishHarvestedValueForPenM1
-            ,averageHarvestWeightValueForM1
-            ,fishPenAfterHarvestValueForM1
-            ,penM1Comment
-            ,penM2
-            ,fishHarvestedValueForPenM2
-            ,averageHarvestWeightValueForM2
-            ,fishPenAfterHarvestValueForM2
-            ,penM2Comment
-            ,successfulToasterPopupMessage)
+        harvestRegister.addHarvestReport(penM1,
+            fishHarvestedValueForPenM1,
+            averageHarvestWeightValueForM1,
+            fishPenAfterHarvestValueForM1,
+            penM1Comment,
+            penM2,
+            fishHarvestedValueForPenM2,
+            averageHarvestWeightValueForM2,
+            fishPenAfterHarvestValueForM2,
+            penM2Comment,
+            successfulToasterPopupMessage)
 
         harvestRegister.getPenObjectByName(penM1)
             .should('contain.text', penM1)
@@ -107,17 +107,17 @@ describe('Harvest register',function (){
     })
 
     it("should update and verify the report with new values", function (){
-        harvestRegister.addHarvestReport(penM1
-            ,fishHarvestedValueForPenM1
-            ,averageHarvestWeightValueForM1
-            ,fishPenAfterHarvestValueForM1
-            ,penM1Comment
-            ,penM2
-            ,fishHarvestedValueForPenM2
-            ,averageHarvestWeightValueForM2
-            ,fishPenAfterHarvestValueForM2
-            ,penM2Comment
-            ,successfulToasterPopupMessage)
+        harvestRegister.addHarvestReport(penM1,
+            fishHarvestedValueForPenM1,
+            averageHarvestWeightValueForM1,
+            fishPenAfterHarvestValueForM1,
+            penM1Comment,
+            penM2,
+            fishHarvestedValueForPenM2,
+            averageHarvestWeightValueForM2,
+            fishPenAfterHarvestValueForM2,
+            penM2Comment,
+            successfulToasterPopupMessage)
 
         harvestRegister.fishHarvestedInput(penM1).clear().type(updatedFishHarvestedValueForPenM1)
         harvestRegister.averageHarvestWeightInput(penM1).clear().type(updatedAverageHarvestWeightValueForM1)
@@ -173,17 +173,17 @@ describe('Harvest register',function (){
     })
 
     it('should delete one pen from the report', function (){
-        harvestRegister.addHarvestReport(penM1
-            ,fishHarvestedValueForPenM1
-            ,averageHarvestWeightValueForM1
-            ,fishPenAfterHarvestValueForM1
-            ,penM1Comment
-            ,penM2
-            ,fishHarvestedValueForPenM2
-            ,averageHarvestWeightValueForM2
-            ,fishPenAfterHarvestValueForM2
-            ,penM2Comment
-            ,successfulToasterPopupMessage)
+        harvestRegister.addHarvestReport(penM1,
+            fishHarvestedValueForPenM1,
+            averageHarvestWeightValueForM1,
+            fishPenAfterHarvestValueForM1,
+            penM1Comment,
+            penM2,
+            fishHarvestedValueForPenM2,
+            averageHarvestWeightValueForM2,
+            fishPenAfterHarvestValueForM2,
+            penM2Comment,
+            successfulToasterPopupMessage)
 
         harvestRegister.deletePenItem(penM2).click()
         harvestRegister.saveButton().click()
