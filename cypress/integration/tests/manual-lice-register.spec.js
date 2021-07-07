@@ -46,7 +46,6 @@ describe("Manual lice count register page",function (){
 
     it("should register new manual lice count report by using 'Add new' button'",function (){
         manualLiceRegister.addNewButton().click()
-        //manualLiceRegister.datePicker().click()
         manualLiceRegister.selectCurrentDate()
         manualLiceRegister.seaTemperatureInput().type(seaTemperature)
         manualLiceRegister.triggerLevelInput().clear().type(triggerLevel)
