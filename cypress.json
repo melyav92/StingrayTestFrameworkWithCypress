@@ -3,7 +3,8 @@
   "defaultCommandTimeout": 15000,
   "env": {
     "username": "bolacslu",
-    "password": "123456"
+    "password": "123456",
+    "thirdItem": "1245"
   },
   "viewportWidth": 1920,
   "viewportHeight": 1080,
