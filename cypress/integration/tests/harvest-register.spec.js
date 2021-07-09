@@ -1,16 +1,11 @@
 import{HarvestRegister} from "../../support/pageobjects/harvest-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
-
-const locationId = 2127;
-const username = "bolacslu";
-const password = 123456;
-const penM1 = "M1";
 const fishHarvestedValueForPenM1 = 40000;
 const averageHarvestWeightValueForM1 = 6500;
 const fishPenAfterHarvestValueForM1 = 60000;
 const penM1Comment = "Comment for pen M1";
-const penM2 = "M2";
+
 const fishHarvestedValueForPenM2 = 30000;
 const averageHarvestWeightValueForM2 = 4500;
 const fishPenAfterHarvestValueForM2 = 64000;
@@ -35,13 +30,13 @@ describe('Harvest register',function (){
     beforeEach(function (){
        cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fHarvest%2fRegister')
        //cy.visit('https://192.168.10.49:8100/en/Harvest/Register')
-       login.loginToThePage(username, password)
-       harvestRegister.pageDataIsLoaded(locationId)
-       harvestRegister.sendDeleteReportRequest(locationId)
+       login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
+       harvestRegister.pageDataIsLoaded(Cypress.env('locationId'))
+       harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
 
         })
      after(function (){
-         harvestRegister.sendDeleteReportRequest(locationId)
+         harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
     })
 
     it('should register harvest report for the current date',function (){
@@ -49,18 +44,18 @@ describe('Harvest register',function (){
         harvestRegister.datePicker().click()
         harvestRegister.selectCurrentDate().click()
         harvestRegister.pensDropdown().click()
-        harvestRegister.penItem(penM1).click()
+        harvestRegister.penItem(Cypress.env('penM1')).click()
         harvestRegister.pensDropdown().click()
-        harvestRegister.penItem(penM2).click()
+        harvestRegister.penItem(Cypress.env('penM2')).click()
         harvestRegister.addPensButton().click()
-        harvestRegister.fishHarvestedInput(penM1).type(fishHarvestedValueForPenM1)
-        harvestRegister.averageHarvestWeightInput(penM1).type(averageHarvestWeightValueForM1)
-        harvestRegister.fishPenAfterHarvestInput(penM1).clear().type(fishPenAfterHarvestValueForM1)
-        harvestRegister.commentForPenInput(penM1).type(penM1Comment)
-        harvestRegister.fishHarvestedInput(penM2).type(fishHarvestedValueForPenM2)
-        harvestRegister.averageHarvestWeightInput(penM2).type(averageHarvestWeightValueForM2)
-        harvestRegister.fishPenAfterHarvestInput(penM2).clear().type(fishPenAfterHarvestValueForM2)
-        harvestRegister.commentForPenInput(penM2).type(penM2Comment)
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(fishHarvestedValueForPenM1)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM1')).type(averageHarvestWeightValueForM1)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1')).clear().type(fishPenAfterHarvestValueForM1)
+        harvestRegister.commentForPenInput(Cypress.env('penM1')).type(penM1Comment)
+        harvestRegister.fishHarvestedInput(Cypress.env('penM2')).type(fishHarvestedValueForPenM2)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM2')).type(averageHarvestWeightValueForM2)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM2')).clear().type(fishPenAfterHarvestValueForM2)
+        harvestRegister.commentForPenInput(Cypress.env('penM2')).type(penM2Comment)
         harvestRegister.saveButton().click()
 
         harvestRegister.toasterPopup()
@@ -72,92 +67,92 @@ describe('Harvest register',function (){
     })
 
     it('should verify added data in the report',function (){
-        harvestRegister.addHarvestReport(penM1,
+        harvestRegister.addHarvestReport(Cypress.env('penM1'),
             fishHarvestedValueForPenM1,
             averageHarvestWeightValueForM1,
             fishPenAfterHarvestValueForM1,
             penM1Comment,
-            penM2,
+            Cypress.env('penM2'),
             fishHarvestedValueForPenM2,
             averageHarvestWeightValueForM2,
             fishPenAfterHarvestValueForM2,
             penM2Comment,
             successfulToasterPopupMessage)
 
-        harvestRegister.getPenObjectByName(penM1)
-            .should('contain.text', penM1)
-        harvestRegister.fishHarvestedInput(penM1)
+        harvestRegister.getPenObjectByName(Cypress.env('penM1'))
+            .should('contain.text', Cypress.env('penM1'))
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1'))
             .should('have.value', fishHarvestedValueForPenM1)
-        harvestRegister.averageHarvestWeightInput(penM1)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM1'))
             .should('have.value', averageHarvestWeightValueForM1)
-        harvestRegister.fishPenAfterHarvestInput(penM1)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1'))
             .should('have.value', fishPenAfterHarvestValueForM1)
-        harvestRegister.commentForPenInput(penM1)
+        harvestRegister.commentForPenInput(Cypress.env('penM1'))
             .should('have.value', penM1Comment)
-        harvestRegister.getPenObjectByName(penM2)
-            .should('contain.text', penM2)
-        harvestRegister.fishHarvestedInput(penM2)
+        harvestRegister.getPenObjectByName(Cypress.env('penM2'))
+            .should('contain.text', Cypress.env('penM2'))
+        harvestRegister.fishHarvestedInput(Cypress.env('penM2'))
             .should('have.value', fishHarvestedValueForPenM2)
-        harvestRegister.averageHarvestWeightInput(penM2)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM2'))
             .should('have.value', averageHarvestWeightValueForM2)
-        harvestRegister.fishPenAfterHarvestInput(penM2)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM2'))
             .should('have.value', fishPenAfterHarvestValueForM2)
-        harvestRegister.commentForPenInput(penM2)
+        harvestRegister.commentForPenInput(Cypress.env('penM2'))
             .should('have.value', penM2Comment)
     })
 
     it("should update and verify the report with new values", function (){
-        harvestRegister.addHarvestReport(penM1,
+        harvestRegister.addHarvestReport(Cypress.env('penM1'),
             fishHarvestedValueForPenM1,
             averageHarvestWeightValueForM1,
             fishPenAfterHarvestValueForM1,
             penM1Comment,
-            penM2,
+            Cypress.env('penM2'),
             fishHarvestedValueForPenM2,
             averageHarvestWeightValueForM2,
             fishPenAfterHarvestValueForM2,
             penM2Comment,
             successfulToasterPopupMessage)
 
-        harvestRegister.fishHarvestedInput(penM1).clear().type(updatedFishHarvestedValueForPenM1)
-        harvestRegister.averageHarvestWeightInput(penM1).clear().type(updatedAverageHarvestWeightValueForM1)
-        harvestRegister.fishPenAfterHarvestInput(penM1).clear().type(updatedFishPenAfterHarvestValueForM1)
-        harvestRegister.commentForPenInput(penM1).clear().type(updatedPenM1Comment)
-        harvestRegister.fishHarvestedInput(penM2).clear().type(updatedFishHarvestedValueForPenM2)
-        harvestRegister.averageHarvestWeightInput(penM2).clear().type(updatedAverageHarvestWeightValueForM2)
-        harvestRegister.fishPenAfterHarvestInput(penM2).clear().type(updatedFishPenAfterHarvestValueForM2)
-        harvestRegister.commentForPenInput(penM2).clear().type(updatedPenM2Comment)
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).clear().type(updatedFishHarvestedValueForPenM1)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM1')).clear().type(updatedAverageHarvestWeightValueForM1)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1')).clear().type(updatedFishPenAfterHarvestValueForM1)
+        harvestRegister.commentForPenInput(Cypress.env('penM1')).clear().type(updatedPenM1Comment)
+        harvestRegister.fishHarvestedInput(Cypress.env('penM2')).clear().type(updatedFishHarvestedValueForPenM2)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM2')).clear().type(updatedAverageHarvestWeightValueForM2)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM2')).clear().type(updatedFishPenAfterHarvestValueForM2)
+        harvestRegister.commentForPenInput(Cypress.env('penM2')).clear().type(updatedPenM2Comment)
         harvestRegister.saveButton().click()
 
-        harvestRegister.getPenObjectByName(penM1)
-            .should('contain.text', penM1)
-        harvestRegister.fishHarvestedInput(penM1)
+        harvestRegister.getPenObjectByName(Cypress.env('penM1'))
+            .should('contain.text', Cypress.env('penM1'))
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1'))
             .should('have.value', updatedFishHarvestedValueForPenM1)
-        harvestRegister.averageHarvestWeightInput(penM1)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM1'))
             .should('have.value', updatedAverageHarvestWeightValueForM1)
-        harvestRegister.fishPenAfterHarvestInput(penM1)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1'))
             .should('have.value', updatedFishPenAfterHarvestValueForM1)
-        harvestRegister.commentForPenInput(penM1)
+        harvestRegister.commentForPenInput(Cypress.env('penM1'))
             .should('have.value', updatedPenM1Comment)
-        harvestRegister.getPenObjectByName(penM2)
-            .should('contain.text', penM2)
-        harvestRegister.fishHarvestedInput(penM2)
+        harvestRegister.getPenObjectByName(Cypress.env('penM2'))
+            .should('contain.text', Cypress.env('penM2'))
+        harvestRegister.fishHarvestedInput(Cypress.env('penM2'))
             .should('have.value', updatedFishHarvestedValueForPenM2)
-        harvestRegister.averageHarvestWeightInput(penM2)
+        harvestRegister.averageHarvestWeightInput(Cypress.env('penM2'))
             .should('have.value', updatedAverageHarvestWeightValueForM2)
-        harvestRegister.fishPenAfterHarvestInput(penM2)
+        harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM2'))
             .should('have.value', updatedFishPenAfterHarvestValueForM2)
-        harvestRegister.commentForPenInput(penM2)
+        harvestRegister.commentForPenInput(Cypress.env('penM2'))
             .should('have.value', updatedPenM2Comment)
     })
 
     it('should delete the report', function (){
-        harvestRegister.addHarvestReport(penM1,
+        harvestRegister.addHarvestReport(Cypress.env('penM1'),
             fishHarvestedValueForPenM1,
             averageHarvestWeightValueForM1,
             fishPenAfterHarvestValueForM1,
             penM1Comment,
-            penM2,
+            Cypress.env('penM2'),
             fishHarvestedValueForPenM2,
             averageHarvestWeightValueForM2,
             fishPenAfterHarvestValueForM2,
@@ -173,22 +168,22 @@ describe('Harvest register',function (){
     })
 
     it('should delete one pen from the report', function (){
-        harvestRegister.addHarvestReport(penM1,
+        harvestRegister.addHarvestReport(Cypress.env('penM1'),
             fishHarvestedValueForPenM1,
             averageHarvestWeightValueForM1,
             fishPenAfterHarvestValueForM1,
             penM1Comment,
-            penM2,
+            Cypress.env('penM2'),
             fishHarvestedValueForPenM2,
             averageHarvestWeightValueForM2,
             fishPenAfterHarvestValueForM2,
             penM2Comment,
             successfulToasterPopupMessage)
 
-        harvestRegister.deletePenItem(penM2).click()
+        harvestRegister.deletePenItem(Cypress.env('penM2')).click()
         harvestRegister.saveButton().click()
         harvestRegister.pageDataIsLoaded()
-        harvestRegister.getPenObjectByName(penM2)
+        harvestRegister.getPenObjectByName(Cypress.env('penM2'))
             .should('not.exist')
     })
 
