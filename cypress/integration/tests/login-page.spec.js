@@ -4,35 +4,14 @@ import {LoginPage} from "../../support/pageobjects/login-page";
 const username = 'bolacslu';
 const password = 123456;
 
-
-Cypress.Commands.add('login', () => {
-
-    cy.request({
-
-        method: 'POST',
-
-        url: "https://192.168.10.49:8100",
-
-        form: true,
-
-        body: {
-
-            Username: Cypress.env('username'),
-            Password: Cypress.env('password')
-        }
-
-    });
-
-});`
-
 describe('Login page tests',function (){
     let login = new LoginPage();
 
-    /*beforeEach(function (){
+    beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen')
     })
 
-     */
+
     it('Should Login', () => {
 
         cy.login();
@@ -42,7 +21,7 @@ describe('Login page tests',function (){
 
 
 
-   /*  it('should login the user to the Customer portal',function (){
+     it('should login the user to the Customer portal',function (){
          login.userName().type(username)
          login.password().type(password)
          login.loginButton().click()
@@ -80,7 +59,7 @@ describe('Login page tests',function (){
 
     })
 
-    */
+
 
 
 
