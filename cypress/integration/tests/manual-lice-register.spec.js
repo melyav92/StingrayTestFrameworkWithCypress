@@ -3,6 +3,7 @@ import {ManualLiceRegister} from "../../support/pageobjects/manual-lice-register
 
 let currentYear = Cypress.moment( ).format("YYYY");
 let reportDate = Cypress.moment().format("DD/MM/YYYY");
+let deleteReportDate = Cypress.moment().format("YYYY-MM-DD");
 const seaTemperature = '8';
 const triggerLevel = '5';
 const fixedStagesForPenM1 = '2';
@@ -30,7 +31,7 @@ describe("Manual lice count register page",function (){
         cy.visit(`/en/Authentication/Login/?ReturnUrl=%2fen%2fLiceCount%2fRegisterManual%3flocationId%3d${Cypress.env('locationId')}%26year%3d${currentYear}`)
         login.loginToThePage(Cypress.env('username'),  Cypress.env('password'))
        manualLiceRegister.calendarPageIsLoaded()
-        manualLiceRegister.sendDeleteReportRequest(Cypress.env('locationId'))
+        manualLiceRegister.sendDeleteReportRequest(Cypress.env('locationId'), deleteReportDate)
     })
 
     /*after(function (){
