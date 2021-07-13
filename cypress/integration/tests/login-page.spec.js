@@ -1,17 +1,48 @@
 import {LoginPage} from "../../support/pageobjects/login-page";
 
+
 const username = 'bolacslu';
 const password = 123456;
 
 
+Cypress.Commands.add('login', () => {
+
+    cy.request({
+
+        method: 'POST',
+
+        url: "https://192.168.10.49:8100",
+
+        form: true,
+
+        body: {
+
+            Username: Cypress.env('username'),
+            Password: Cypress.env('password')
+        }
+
+    });
+
+});`
+
 describe('Login page tests',function (){
     let login = new LoginPage();
 
-    beforeEach(function (){
+    /*beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen')
     })
 
-     it('should login the user to the Customer portal',function (){
+     */
+    it('Should Login', () => {
+
+        cy.login();
+
+        cy.visit("https://192.168.10.49:8100/en");
+    })
+
+
+
+   /*  it('should login the user to the Customer portal',function (){
          login.userName().type(username)
          login.password().type(password)
          login.loginButton().click()
@@ -48,6 +79,8 @@ describe('Login page tests',function (){
             .and('contain.text', 'Username/Email or password is incorrect. Or user is disabled.')
 
     })
+
+    */
 
 
 
