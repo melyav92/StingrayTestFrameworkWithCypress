@@ -129,12 +129,14 @@ export class TreatmentRegister {
         this.treatmentReportIsLoaded()
     };
 
-  deleteReport(){
-        this.expandTreatmentReportsListItem().click();
-        this.deleteTreatmentReportItem().click()
-        this.confirmDeleteReportButton().click()
+  sendDeleteTreatmentRequest(reportDate, locationId){
+      cy.request({
+          method: 'DELETE',
+          url: `/api/treatments/treatment?locationId=${locationId}&date=${reportDate}`,
+          failOnStatusCode: false
 
-  };
+      })
+  }
 
 }
 
