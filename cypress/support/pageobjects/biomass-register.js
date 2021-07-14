@@ -74,7 +74,7 @@ export class BiomassRegister{
         return cy.get('div.toast-title')
     };
 
-    biomassForPenInput(penName){
+    biomassForPenReadOnly(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.biomass-value-input')
@@ -149,8 +149,8 @@ export class BiomassRegister{
                      numberOfFishValueForPenM2,
                      averageWeightValueForM2,
                      penM2Comment,
-                     successfulToasterPopupMessage,
-                     reportDate){
+                     successfulToasterPopupMessage
+                     ){
 
         this.addNewBiomassCountButton().click()
         this.selectCurrentDate()
