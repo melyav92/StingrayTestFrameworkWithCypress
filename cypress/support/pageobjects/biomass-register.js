@@ -134,7 +134,7 @@ export class BiomassRegister{
         })
     };
 
-    deletePenItemFromTable(penName){
+    deletePenItem(penName){
      return this.getPenObjectByName(penName)
          .parents("tr")
          .find('.icon-cross')
@@ -149,7 +149,7 @@ export class BiomassRegister{
                      numberOfFishValueForPenM2,
                      averageWeightValueForM2,
                      penM2Comment,
-                     successfulToasterPopupMessage
+                     successfulToasterPopupMessage,
                      ){
 
         this.addNewBiomassCountButton().click()

@@ -204,7 +204,7 @@ describe('Biomass register',function (){
 
         biomassRegister.biomassReportIsLoaded()
 
-        biomassRegister.deletePenItemFromTable(Cypress.env('penM2')).click()
+        biomassRegister.deletePenItem(Cypress.env('penM2')).click({timeout:5000})
         biomassRegister.saveButton().click()
         biomassRegister.biomassReportIsLoaded()
 
