@@ -2,6 +2,7 @@ export class BiomassRegister{
     addNewBiomassCountButton(){
         return cy.get('#add-new-biomass-btn')
     }
+
     pageDataIsLoaded(){
         cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
         cy.wait('@getPens').its('response.statusCode')
@@ -10,72 +11,89 @@ export class BiomassRegister{
         this.loadingSpinner()
             .should('not.be.visible')
     };
+
     getPenObjectByName(penName){
         return cy.contains('.scp-pen-code', penName)
     };
+
     loadingSpinner(){
        return  cy.get('#loading-spinner-overlay')
-    }
-    openDatePicker(){
+    };
+
+    datePicker(){
         return cy.get('#counted-date-date-picker')
     };
+
     selectCurrentDate(){
-        const currentDate =  Cypress.moment().format('D')
-        return cy.get('.day:not(.new):not(.old)').contains(currentDate)
+        this.datePicker().click()
+        let currentDate =  Cypress.moment().format('D')
+        return cy.get('.day:not(.new):not(.old)')
+            .contains(currentDate)
+            .click()
     };
 
     seaTemperatureInput(){
         return cy.get('#temperature-edit')
     }
-    openPensDropdown(){
+
+    pensDropdown(){
         return cy.get('#pens_selector_chosen')
     };
 
-    selectPen(penName){
+    penItem(penName){
         return cy.get('li.active-result').contains(penName)
     };
+
     addPensButton (){
         return cy.get('#add-new-biomass-for-pen-btn')
     };
-    addNumberOfFishValue(penName){
+
+    numberOfFishInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.scp-fish-per-pen-input')
     };
-    addAverageWeightValue(penName){
+
+    averageWeightInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('[data-type="biomass-average-weight"]')
     };
-    addCommentForPen(penName){
+
+    commentForPenInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('[data-type="biomass-comment"]')
     };
+
     saveButton(){
         return cy.get('#save-btn')
     };
+
     toasterPopup(){
         return cy.get('div.toast-title')
     };
 
-    biomassForPenValue(penName){
+    biomassForPenReadOnly(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.biomass-value-input')
-    }
-    selectTroutFishType(penName){
+    };
+
+    troutFishTypeCheckBox(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.scp-pen-fish-type-radio-group-container')
             .contains('Trout')
-    }
-    selectSalmonFishType(penName){
+    };
+
+    salmonFishTypeCheckBox(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.scp-pen-fish-type-radio-group-container')
-    }
-    fishTypeValue(penName){
+    };
+
+    fishTypeInput(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.scp-iradio.checked')
@@ -89,9 +107,10 @@ export class BiomassRegister{
         this.loadingSpinner().should('not.be.visible')
         return  cy.get(`[data-counted-date="${reportDate}"]`)
     };
+
     deleteBiomassReportItem(){
         return cy.get('.scp-registered-date.scp-biomass-date.selected').prev()
-    }
+    };
 
     confirmDeleteReportButton(){
         cy.wait(500)
@@ -113,32 +132,41 @@ export class BiomassRegister{
             url: `/api/biomass/delete?locationId=${locationId}&date=${reportDate}`,
             failOnStatusCode: false
         })
-    }
-    deletePenItemFromTable(penName){
+    };
+
+    deletePenItem(penName){
      return this.getPenObjectByName(penName)
          .parents("tr")
          .find('.icon-cross')
-    }
+    };
 
-    addBiomassReport(seaTemperature,penM1,numberOfFishValueForPenM1,averageWeightValueForM1,penM1Comment,
-                     penM2,numberOfFishValueForPenM2, averageWeightValueForM2,penM2Comment,successfulToasterPopupMessage,reportDate   ){
+    addBiomassReport(seaTemperature,
+                     penM1,
+                     numberOfFishValueForPenM1,
+                     averageWeightValueForM1,
+                     penM1Comment,
+                     penM2,
+                     numberOfFishValueForPenM2,
+                     averageWeightValueForM2,
+                     penM2Comment,
+                     successfulToasterPopupMessage,
+                     ){
 
         this.addNewBiomassCountButton().click()
-        this.openDatePicker().click()
-        this.selectCurrentDate().click()
+        this.selectCurrentDate()
         this.seaTemperatureInput().type(seaTemperature)
-        this.openPensDropdown().click()
-        this.selectPen(penM1).click()
-        this.openPensDropdown().click()
-        this.selectPen(penM2).click()
+        this.pensDropdown().click()
+        this.penItem(penM1).click()
+        this.pensDropdown().click()
+        this.penItem(penM2).click()
         this.addPensButton().click()
-        this.addAverageWeightValue(penM1).type(averageWeightValueForM1)
-        this.addNumberOfFishValue(penM1).clear().type(numberOfFishValueForPenM1)
+        this.averageWeightInput(penM1).type(averageWeightValueForM1)
+        this.numberOfFishInput(penM1).clear().type(numberOfFishValueForPenM1)
 
-        this.addCommentForPen(penM1).type(penM1Comment)
-        this.addNumberOfFishValue(penM2).clear().type(numberOfFishValueForPenM2);
-        this.addAverageWeightValue(penM2).type(averageWeightValueForM2)
-        this.addCommentForPen(penM2).type(penM2Comment)
+        this.commentForPenInput(penM1).type(penM1Comment)
+        this.numberOfFishInput(penM2).clear().type(numberOfFishValueForPenM2);
+        this.averageWeightInput(penM2).type(averageWeightValueForM2)
+        this.commentForPenInput(penM2).type(penM2Comment)
         this.saveButton().click()
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
