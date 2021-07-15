@@ -17,7 +17,7 @@ export class TreatmentRegister {
         return cy.contains('.scp-pen-code', penName)
     };
 
-    openDatePicker(){
+    datePicker(){
         let dataTableIsEmpty = cy.get('.dataTables_empty')
             .contains('No data available in table')
         dataTableIsEmpty.should('be.visible')
@@ -25,15 +25,15 @@ export class TreatmentRegister {
     };
 
     selectCurrentDate(){
-       const currentDate =  Cypress.moment().format('D')
-       return cy.get('.day:not(.new):not(.old)').contains(currentDate)
+       let currentDate =  Cypress.moment().format('D')
+       return cy.get('.day:not(.new):not(.old)').contains(currentDate).click()
     };
 
-    openPensDropdown(){
+    pensDropdown(){
         return cy.get('#pens_selector_chosen')
     };
 
-    selectPen(penName){
+    penItem(penName){
        return cy.get('li.active-result').contains(penName)
     };
 
@@ -45,13 +45,13 @@ export class TreatmentRegister {
         return cy.get('#add-new-treatment-for-pens-btn')
     };
 
-   addCommentForPen(penName){
+   commentForPenInput(penName){
        return this.getPenObjectByName(penName)
            .parents("tr")
            .find('.comment-input')
    };
 
-   addFishPenCount(penName){
+   fishPenInput(penName){
        return this.getPenObjectByName(penName)
            .parents("tr")
            .find('.scp-fish-per-pen-input')
@@ -71,12 +71,6 @@ export class TreatmentRegister {
            .find('.scp-white-select option:selected')
    };
 
-  verifyFishCountValueInTable (penName){
-      return this.getPenObjectByName(penName)
-          .parents("tr")
-          .find('.scp-fish-per-pen-input')
-  };
-
   expandTreatmentReportsListItem (){
         return cy.get('.scp-expandable-area-button-text')
     };
@@ -85,7 +79,6 @@ export class TreatmentRegister {
         return cy.get('a.scp-registered-date.scp-treatment-date.selected').prev()
   };
   confirmDeleteReportButton(){
-        cy.wait(500)
         return cy.get('.confirm')
   };
    selectTreatmentTypeForPen(penName,treatmentType){
@@ -105,7 +98,7 @@ export class TreatmentRegister {
         cy.get('#loading-spinner-overlay').should('not.be.visible')
     };
 
-    deletePenItemFromTable(penName){
+    deletePenItem(penName){
         return this.getPenObjectByName(penName)
             .parents("tr")
             .find('.icon-cross')
@@ -113,18 +106,18 @@ export class TreatmentRegister {
 
     addTreatmentReport(penM1,penM2,treatmentTypeForAllPens,penM1Comment,penM2Comment,penM1FishPenCount,penM2FishPenCount){
         this.addNewTreatmentButton().click()
-        this.openDatePicker().click();
-        this.selectCurrentDate().click()
-        this.openPensDropdown().click()
-        this.selectPen(penM1).click()
-        this.openPensDropdown().click()
-        this.selectPen(penM2).click()
+        this.datePicker().click();
+        this.selectCurrentDate()
+        this.pensDropdown().click()
+        this.penItem(penM1).click()
+        this.pensDropdown().click()
+        this.penItem(penM2).click()
         this.selectTreatmentTypeForAllPens(treatmentTypeForAllPens)
         this.addPensButton().click()
-        this.addCommentForPen(penM1).type(penM1Comment)
-        this.addFishPenCount(penM1).clear().type(penM1FishPenCount)
-        this.addCommentForPen(penM2).type(penM2Comment)
-        this.addFishPenCount(penM2).clear().type(penM2FishPenCount)
+        this.commentForPenInput(penM1).type(penM1Comment)
+        this.fishPenInput(penM1).clear().type(penM1FishPenCount)
+        this.commentForPenInput(penM2).type(penM2Comment)
+        this.fishPenInput(penM2).clear().type(penM2FishPenCount)
         this.saveButton().click()
         this.treatmentReportIsLoaded()
     };
