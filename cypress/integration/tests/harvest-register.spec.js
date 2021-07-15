@@ -41,8 +41,7 @@ describe('Harvest register',function (){
 
     it('should register harvest report for the current date',function (){
         harvestRegister.addNewHarvestCountBtn().click()
-        harvestRegister.datePicker().click()
-        harvestRegister.selectCurrentDate().click()
+        harvestRegister.selectCurrentDate()
         harvestRegister.pensDropdown().click()
         harvestRegister.penItem(Cypress.env('penM1')).click()
         harvestRegister.pensDropdown().click()

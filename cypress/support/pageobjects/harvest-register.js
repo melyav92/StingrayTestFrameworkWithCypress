@@ -12,7 +12,7 @@ export class HarvestRegister{
         return  cy.get('#loading-spinner-overlay')
     };
     sendDeleteReportRequest(locationId){
-        const deleteReportDate = Cypress.moment().format("YYYY-MM-DD");
+        let deleteReportDate = Cypress.moment().format("YYYY-MM-DD");
         cy.request({
             method: 'DELETE',
             url: `/api/harvests/harvest?locationId=${locationId}&date=${deleteReportDate}`,
@@ -20,15 +20,17 @@ export class HarvestRegister{
         })
     }
     addNewHarvestCountBtn(){
+        this.loadingSpinner().should('not.be.visible')
         return cy.get('#add-new-harvest-btn')
     };
    datePicker(){
        cy.wait(400)
-        return  cy.get('#counted-date-date-picker')
+       return  cy.get('#counted-date-date-picker')
     };
     selectCurrentDate(){
-        const currentDate =  Cypress.moment().format('D')
-        return cy.get('.day:not(.new):not(.old)').contains(currentDate)
+        let currentDate =  Cypress.moment().format('D')
+        this.datePicker().click()
+        return cy.get('.day:not(.new):not(.old)').contains(currentDate).click()
     };
     pensDropdown(){
         return cy.get('#pens_selector_chosen')
@@ -101,8 +103,7 @@ export class HarvestRegister{
                      successfulToasterPopupMessage
                      ){
         this.addNewHarvestCountBtn().click()
-        this.datePicker().click()
-        this.selectCurrentDate().click()
+        this.selectCurrentDate()
         this.pensDropdown().click()
         this.penItem(penM1).click()
         this.pensDropdown().click()
