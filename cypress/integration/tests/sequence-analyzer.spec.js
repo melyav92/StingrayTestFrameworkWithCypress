@@ -2,7 +2,7 @@ import {SequenceAnalyzer} from "../../support/pageobjects/sequence-analyzer";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
 
-describe('Sequence analyzer  ', () => {
+describe.skip('Sequence analyzer  ', () => {
         let sequenceAnalyzer = new SequenceAnalyzer();
         let login = new LoginPage()
 

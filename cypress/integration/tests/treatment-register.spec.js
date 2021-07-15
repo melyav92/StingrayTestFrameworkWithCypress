@@ -143,8 +143,6 @@ describe('Treatment register',function (){
         treatmentRegister.getPenObjectByName(Cypress.env('penM3'))
             .should('exist')
 
-    })
-
 
 
 })
