@@ -1,7 +1,7 @@
 import{HarvestRegister} from "../../support/pageobjects/harvest-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
-const fishHarvestedValueForPenM1 = 40000;
+//const fishHarvestedValueForPenM1 = 40000;
 const averageHarvestWeightValueForM1 = 6500;
 const fishPenAfterHarvestValueForM1 = 60000;
 const penM1Comment = "Comment for pen M1";
@@ -25,7 +25,6 @@ let harvestRegister = new HarvestRegister();
 let login = new LoginPage();
 
 
-
 describe('Harvest register',function (){
     beforeEach(function (){
        cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fHarvest%2fRegister')
@@ -35,9 +34,17 @@ describe('Harvest register',function (){
        harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
 
         })
-     after(function (){
+
+        after(function (){
          harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
     })
+
+    before(function () {
+        cy.fixture('test-data').then(function (data) {
+            this.data = data;
+        })
+    })
+
 
     it('should register harvest report for the current date',function (){
         harvestRegister.addNewHarvestCountBtn().click()
@@ -47,7 +54,8 @@ describe('Harvest register',function (){
         harvestRegister.pensDropdown().click()
         harvestRegister.penItem(Cypress.env('penM2')).click()
         harvestRegister.addPensButton().click()
-        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(fishHarvestedValueForPenM1)
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(this.data.fishHarvestedValueForPenM1)
+
         harvestRegister.averageHarvestWeightInput(Cypress.env('penM1')).type(averageHarvestWeightValueForM1)
         harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1')).clear().type(fishPenAfterHarvestValueForM1)
         harvestRegister.commentForPenInput(Cypress.env('penM1')).type(penM1Comment)
