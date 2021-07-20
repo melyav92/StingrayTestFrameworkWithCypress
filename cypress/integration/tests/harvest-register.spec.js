@@ -35,18 +35,16 @@ describe('Harvest register',function (){
 
         })
 
+    beforeEach(function () {
+        cy.fixture('harvest-register-test-data').as('harvestData')
+    })
+
         after(function (){
          harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
     })
 
-    before(function () {
-        cy.fixture('test-data').then(function (data) {
-            this.data = data;
-        })
-    })
 
-
-    it('should register harvest report for the current date',function (){
+    it.only('should register harvest report for the current date',function (){
         harvestRegister.addNewHarvestCountBtn().click()
         harvestRegister.selectCurrentDate()
         harvestRegister.pensDropdown().click()
@@ -54,7 +52,7 @@ describe('Harvest register',function (){
         harvestRegister.pensDropdown().click()
         harvestRegister.penItem(Cypress.env('penM2')).click()
         harvestRegister.addPensButton().click()
-        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(this.data.fishHarvestedValueForPenM1)
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(this.harvestData.fishHarvestedValueForPenM1)
 
         harvestRegister.averageHarvestWeightInput(Cypress.env('penM1')).type(averageHarvestWeightValueForM1)
         harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1')).clear().type(fishPenAfterHarvestValueForM1)
