@@ -11,8 +11,7 @@ export class HarvestRegister{
     loadingSpinner(){
         return  cy.get('#loading-spinner-overlay')
     };
-    sendDeleteReportRequest(locationId, deleteReportDate){
-        //let deleteReportDate = Cypress.moment().format("YYYY-MM-DD");
+    sendDeleteReportRequest(locationId, deleteReportDate = Cypress.moment().format("YYYY-MM-DD")){
         cy.request({
             method: 'DELETE',
             url: `/api/harvests/harvest?locationId=${locationId}&date=${deleteReportDate}`,

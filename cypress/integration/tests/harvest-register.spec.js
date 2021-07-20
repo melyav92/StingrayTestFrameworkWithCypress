@@ -12,7 +12,7 @@ describe('Harvest register',function (){
        //cy.visit('https://192.168.10.49:8100/en/Harvest/Register')
        login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
        harvestRegister.pageDataIsLoaded(Cypress.env('locationId'))
-       harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'), Cypress.moment().format("YYYY-MM-DD"))
+       harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
 
         })
 
@@ -21,7 +21,7 @@ describe('Harvest register',function (){
     })
 
         after(function (){
-         harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'),Cypress.moment().format("YYYY-MM-DD"))
+         harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
     })
 
 
