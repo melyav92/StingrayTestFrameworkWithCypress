@@ -8,7 +8,7 @@ export class ManualLiceRegister{
             .should('be.visible')
     }
 
-    sendDeleteReportRequest(locationId, deleteReportDate){
+    sendDeleteReportRequest(locationId, deleteReportDate = Cypress.moment().format("YYYY-MM-DD")){
         cy.request({
             method: 'DELETE',
             url: `api/lice-count/delete?locationId=${locationId}&date=${deleteReportDate}`,
