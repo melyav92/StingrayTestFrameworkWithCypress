@@ -1,5 +1,22 @@
 {
-  "fishHarvestedValueForPenM1":  "40000"
+  "fishHarvestedValueForPenM1":  "40000",
+  "averageHarvestWeightValueForM1":  "6500",
+  "fishPenAfterHarvestValueForM1": "60000",
+  "penM1Comment": "Comment for pen M1",
 
+  "fishHarvestedValueForPenM2": "30000",
+  "averageHarvestWeightValueForM2": "4500",
+  "fishPenAfterHarvestValueForM2": "64000",
+  "penM2Comment": "Comment for pen M2",
+  "successfulToasterPopupMessage": "Saved successfully",
+
+  "updatedFishHarvestedValueForPenM1": "70000",
+  "updatedAverageHarvestWeightValueForM1": "7500",
+  "updatedFishPenAfterHarvestValueForM1": "50000",
+  "updatedPenM1Comment": "Updated Comment for pen M1",
+  "updatedFishHarvestedValueForPenM2": "80000",
+  "updatedAverageHarvestWeightValueForM2": "4500",
+  "updatedFishPenAfterHarvestValueForM2": "10000",
+  "updatedPenM2Comment": "Updated Comment for pen M2"
 
 }
