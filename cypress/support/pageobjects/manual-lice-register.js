@@ -24,9 +24,8 @@ export class ManualLiceRegister{
         return  cy.get('#counted-date-date-picker')
     };
 
-    selectCurrentDate(){
+    selectCurrentDate(currentDate =  Cypress.moment().format('D')){
       this.datePicker().click()
-      let currentDate =  Cypress.moment().format('D')
       return cy.get('.day:not(.new):not(.old)')
             .contains(currentDate)
             .click()

@@ -16,7 +16,6 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.sendDeleteReportRequest(Cypress.env('locationId'))
 
         cy.fixture('manual-lice-register-test-data').as('liceData')
-
     })
 
     after(function (){
