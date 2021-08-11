@@ -3,12 +3,13 @@ export class ManualLiceRegister{
         return  cy.get('.scp-data-loading-text')
     };
 
+
     calendarPageIsLoaded(){
-        return cy.get('.months-container')
+        return cy.get('#scp-lc-add-btn')
             .should('be.visible')
     }
 
-    sendDeleteReportRequest(locationId, deleteReportDate = Cypress.moment().format("YYYY-MM-DD")){
+    sendDeleteReportRequest(locationId = Cypress.env('locationId'), deleteReportDate = Cypress.moment().format("YYYY-MM-DD")){
         cy.request({
             method: 'DELETE',
             url: `api/lice-count/delete?locationId=${locationId}&date=${deleteReportDate}`,
@@ -101,6 +102,36 @@ export class ManualLiceRegister{
 
     reportCountedDate(){
        return cy.get('#scp-lice-count-date-value')
+    }
+    seaTemperatureValue(){
+        return cy.get('#scp-lice-count-temperature-value')
+    }
+
+    triggerLevelValue(){
+        return cy.get('#scp-lice-count-trigger-level-value')
+    }
+
+    addManualLiceCountReport(locationId = Cypress.env('locationId'),
+                             createReportDate = Cypress.moment().format("YYYY-MM-DD"),
+                             penM1 = Cypress.env('penM1'),
+                             penM1Id = Cypress.env('penM1Id'),
+                             penM2 = Cypress.env('penM2'),
+                             penM2Id = Cypress.env('penM2Id')
+    ){
+
+        cy.request(
+            {   method: 'POST',
+                url: 'api/lice-count/save',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "*/*",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: `LocationId=${locationId}&OriginalCountedDate=${createReportDate}&NewCountedDate=${createReportDate}&Temperature=&TriggerLevel=2&CountingMode=2&PenLiceCounts%5B0%5D%5BPenId%5D=${penM1Id}&PenLiceCounts%5B0%5D%5BPenName%5D=${penM1}&PenLiceCounts%5B0%5D%5BFishCount%5D=5&PenLiceCounts%5B1%5D%5BPenId%5D=${penM2Id}&PenLiceCounts%5B1%5D%5BPenName%5D=${penM2}&PenLiceCounts%5B1%5D%5BFishCount%5D=5`
+
+            })
+        cy.visit(`/en/LiceCount/Edit?locationId=${locationId}&countedDate=${createReportDate}`)
+
     }
 
 
