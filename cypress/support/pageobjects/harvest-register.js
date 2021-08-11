@@ -1,6 +1,6 @@
 export class HarvestRegister{
 
-    pageDataIsLoaded(locationId){
+    pageDataIsLoaded(locationId = Cypress.env('locationId')){
         cy.intercept('GET', `/api/harvests/harvest?locationId=${locationId}`).as('getHarvestReports')
         cy.wait('@getHarvestReports').its('response.statusCode')
             .should('eq', 200);
@@ -11,7 +11,7 @@ export class HarvestRegister{
     loadingSpinner(){
         return  cy.get('#loading-spinner-overlay')
     };
-    sendDeleteReportRequest(locationId, deleteReportDate = Cypress.moment().format("YYYY-MM-DD")){
+    sendDeleteReportRequest(locationId = Cypress.env('locationId'), deleteReportDate = Cypress.moment().format("YYYY-MM-DD")){
         cy.request({
             method: 'DELETE',
             url: `/api/harvests/harvest?locationId=${locationId}&date=${deleteReportDate}`,

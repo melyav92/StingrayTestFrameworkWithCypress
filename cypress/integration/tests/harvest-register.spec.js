@@ -11,14 +11,14 @@ describe('Harvest register',function (){
     beforeEach(function (){
        cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fHarvest%2fRegister')
        //cy.visit('https://192.168.10.49:8100/en/Harvest/Register')
-       login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
-       harvestRegister.pageDataIsLoaded(Cypress.env('locationId'))
-       harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
+       login.loginToThePage()
+       harvestRegister.pageDataIsLoaded()
+       harvestRegister.sendDeleteReportRequest()
 
         })
 
         after(function (){
-         harvestRegister.sendDeleteReportRequest(Cypress.env('locationId'))
+         harvestRegister.sendDeleteReportRequest()
     })
 
 
@@ -30,11 +30,11 @@ describe('Harvest register',function (){
         harvestRegister.pensDropdown().click()
         harvestRegister.penItem(Cypress.env('penM2')).click()
         harvestRegister.addPensButton().click()
-        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(harvestData.fishPenAfterHarvestValueForM1)
-
+        harvestRegister.fishHarvestedInput(Cypress.env('penM1')).type(harvestData.fishHarvestedValueForPenM1)
         harvestRegister.averageHarvestWeightInput(Cypress.env('penM1')).type(harvestData.averageHarvestWeightValueForM1)
         harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM1')).clear().type(harvestData.fishPenAfterHarvestValueForM1)
         harvestRegister.commentForPenInput(Cypress.env('penM1')).type(harvestData.penM1Comment)
+
         harvestRegister.fishHarvestedInput(Cypress.env('penM2')).type(harvestData.fishHarvestedValueForPenM2)
         harvestRegister.averageHarvestWeightInput(Cypress.env('penM2')).type(harvestData.averageHarvestWeightValueForM2)
         harvestRegister.fishPenAfterHarvestInput(Cypress.env('penM2')).clear().type(harvestData.fishPenAfterHarvestValueForM2)
