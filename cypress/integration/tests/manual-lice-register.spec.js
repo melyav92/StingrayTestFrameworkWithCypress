@@ -21,7 +21,7 @@ describe("Manual lice count register page",function (){
     })
 
  */
-    it("should register new manual lice count report by using 'Add new' button'",function (){
+    it("should register new manual lice count report by using 'Add new' button' and verify that all data in the report is saved correctly",function (){
         manualLiceRegister.addNewButton().click()
         manualLiceRegister.selectCurrentDate()
         manualLiceRegister.seaTemperatureInput().type(liceData.seaTemperature)
@@ -77,11 +77,18 @@ describe("Manual lice count register page",function (){
 
         manualLiceRegister.seaTemperatureValue().should('have.text', liceData.seaTemperature)
         manualLiceRegister.triggerLevelValue().should('have.text', liceData.triggerLevel)
+
         manualLiceRegister.fixedStagesInput(Cypress.env('penM1')).should('have.value', liceData.fixedStagesForPenM1)
         manualLiceRegister.mobilesInput(Cypress.env('penM1')).should('have.value', liceData.mobilesForPenM1)
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM1')).should('have.value', liceData.adultsFemalesForPenM1)
+        manualLiceRegister.calligusInput(Cypress.env('penM1')).should('have.value', liceData.calligusForPenM1)
+        manualLiceRegister.fishCountImput(Cypress.env('penM1')).should('have.value', liceData.fishCountForPenM1)
 
-
+        manualLiceRegister.fixedStagesInput(Cypress.env('penM2')).should('have.value', liceData.fixedStagesForPenM2)
+        manualLiceRegister.mobilesInput(Cypress.env('penM2')).should('have.value', liceData.mobilesForPenM2)
+        manualLiceRegister.adultsFemalesInput(Cypress.env('penM2')).should('have.value', liceData.adultsFemalesForPenM2)
+        manualLiceRegister.calligusInput(Cypress.env('penM2')).should('have.value', liceData.calligusForPenM2)
+        manualLiceRegister.fishCountImput(Cypress.env('penM2')).should('have.value', liceData.fishCountForPenM2)
 
     })
 
