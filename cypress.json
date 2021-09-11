@@ -1,7 +1,7 @@
 {"baseUrl": "https://192.168.10.49:8101",
-  "pageLoadTimeout": 60000,
-  "defaultCommandTimeout": 15000,
-  "env": {
+ "pageLoadTimeout": 60000,
+ "defaultCommandTimeout": 15000,
+ "env": {
     "username": "bolacslu",
     "password": "123456",
     "penM1": "M1",
@@ -12,7 +12,6 @@
     "penM2Id": "4043"
   },
   "pluginsFile": false,
-
   "viewportWidth": 1920,
   "viewportHeight": 1080,
   "reporter": "mochawesome",
