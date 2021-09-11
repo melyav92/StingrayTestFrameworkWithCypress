@@ -1,8 +1,8 @@
 import {LoginPage} from "../../support/pageobjects/login-page";
 
+
 const username = 'bolacslu';
 const password = 123456;
-
 
 describe('Login page tests',function (){
     let login = new LoginPage();
@@ -10,6 +10,16 @@ describe('Login page tests',function (){
     beforeEach(function (){
         cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen')
     })
+
+
+    it('Should Login', () => {
+
+        cy.login();
+
+        cy.visit("https://192.168.10.49:8100/en");
+    })
+
+
 
      it('should login the user to the Customer portal',function (){
          login.userName().type(username)
@@ -48,6 +58,8 @@ describe('Login page tests',function (){
             .and('contain.text', 'Username/Email or password is incorrect. Or user is disabled.')
 
     })
+
+
 
 
 

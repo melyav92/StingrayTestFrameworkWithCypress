@@ -22,9 +22,11 @@ export class HarvestRegister{
         this.loadingSpinner().should('not.be.visible')
         return cy.get('#add-new-harvest-btn')
     };
-   datePicker(){
-       cy.wait(400)
-       return  cy.get('#counted-date-date-picker')
+
+   openDatePicker(){
+       cy.wait(500)
+        return  cy.get('#counted-date-date-picker')
+
     };
     selectCurrentDate(){
         let currentDate =  Cypress.moment().format('D')

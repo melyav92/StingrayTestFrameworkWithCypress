@@ -17,7 +17,7 @@ describe('Harvest register',function (){
 
         })
 
-        after(function (){
+     after(function (){
          harvestRegister.sendDeleteReportRequest()
     })
 
