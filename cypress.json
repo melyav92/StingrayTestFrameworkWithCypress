@@ -7,7 +7,9 @@
     "penM1": "M1",
     "penM2": "M2",
     "penM3": "M3",
-    "locationId": "2127"
+    "locationId": "2127",
+    "penM1Id": "4042",
+    "penM2Id": "4043"
   },
   "pluginsFile": false,
 

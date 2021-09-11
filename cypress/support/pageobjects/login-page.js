@@ -19,7 +19,7 @@ export class LoginPage {
 
 
 
-    loginToThePage(username, password){
+    loginToThePage(username = Cypress.env('username'), password = Cypress.env('password')){
         this.userName().type(username)
         this.password().type(password)
         this.loginButton().click()
