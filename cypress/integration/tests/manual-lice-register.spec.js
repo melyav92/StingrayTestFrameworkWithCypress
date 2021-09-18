@@ -51,7 +51,7 @@ describe("Manual lice count register page",function (){
             .should('have.text', reportDate)
     })
 
-    it.only('should update the manual lice count report with new values ',function (){
+    it('should update the manual lice count report with new values ',function (){
         manualLiceRegister.addManualLiceCountReport()
         manualLiceRegister.seaTemperatureInput().type(liceData.seaTemperature)
         manualLiceRegister.triggerLevelInput().clear().type(liceData.triggerLevel)
@@ -89,6 +89,16 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM2')).should('have.value', liceData.adultsFemalesForPenM2)
         manualLiceRegister.calligusInput(Cypress.env('penM2')).should('have.value', liceData.calligusForPenM2)
         manualLiceRegister.fishCountImput(Cypress.env('penM2')).should('have.value', liceData.fishCountForPenM2)
+
+    })
+
+    it('should delete the report from the customer portal',function (){
+        manualLiceRegister.addManualLiceCountReport()
+        manualLiceRegister.deleteButton().click()
+        manualLiceRegister.confirmButton().click()
+
+        manualLiceRegister.currentDayInCalendar()
+            .should('not.have.class', 'scp-manual-lc-cell' )
 
     })
 
