@@ -1,8 +1,7 @@
 import {LoginPage} from "../../support/pageobjects/login-page";
 import {ManualLiceRegister} from "../../support/pageobjects/manual-lice-register";
-import liceData from "../../fixtures/manual-lice-register-test-data.json"
+import liceData from "../../fixtures/manual-lice-register-test-data.js"
 
-let reportDate = Cypress.moment().format("DD/MM/YYYY");
 let manualLiceRegister = new ManualLiceRegister();
 let login = new LoginPage()
 
@@ -48,7 +47,7 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.toasterPopup()
             .should('have.text', liceData.successfulToasterPopupMessage)
         manualLiceRegister.reportCountedDate()
-            .should('have.text', reportDate)
+            .should('have.text', liceData.reportDate)
     })
 
     it('should update the manual lice count report with new values ',function (){
@@ -73,7 +72,7 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.toasterPopup()
             .should('have.text', liceData.successfulToasterPopupMessage)
         manualLiceRegister.reportCountedDate()
-            .should('have.text', reportDate)
+            .should('have.text', liceData.reportDate)
 
         manualLiceRegister.seaTemperatureValue().should('have.text', liceData.seaTemperature)
         manualLiceRegister.triggerLevelValue().should('have.text', liceData.triggerLevel)
