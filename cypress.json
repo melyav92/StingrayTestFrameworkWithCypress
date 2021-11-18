@@ -12,7 +12,6 @@
     "penM2Id": "4043"
   },
   "pluginsFile": false,
-
   "viewportWidth": 1920,
   "viewportHeight": 1080,
   "reporter": "mochawesome",
