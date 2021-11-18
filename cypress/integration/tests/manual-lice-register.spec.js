@@ -14,12 +14,12 @@ describe("Manual lice count register page",function (){
 
     })
 
-/*
+
     after(function (){
         manualLiceRegister.sendDeleteReportRequest(Cypress.env('locationId'))
     })
 
- */
+
     it("should register new manual lice count report by using 'Add new' button' and verify that all data in the report is saved correctly",function (){
         manualLiceRegister.addNewButton().click()
         manualLiceRegister.selectCurrentDate()

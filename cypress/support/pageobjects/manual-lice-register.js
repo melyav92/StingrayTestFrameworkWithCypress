@@ -116,7 +116,7 @@ export class ManualLiceRegister{
     }
 
     confirmButton(){
-        return cy.get('.confirm').wait(500)
+        return cy.get('.confirm').wait(700)
     }
 
     currentDayInCalendar(){
