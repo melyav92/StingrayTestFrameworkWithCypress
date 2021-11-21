@@ -16,7 +16,7 @@ describe("Manual lice count register page",function (){
 
 
     after(function (){
-        manualLiceRegister.sendDeleteReportRequest(Cypress.env('locationId'))
+        manualLiceRegister.sendDeleteReportRequest()
     })
 
 
@@ -82,12 +82,14 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM1')).should('have.value', liceData.adultsFemalesForPenM1)
         manualLiceRegister.calligusInput(Cypress.env('penM1')).should('have.value', liceData.calligusForPenM1)
         manualLiceRegister.fishCountImput(Cypress.env('penM1')).should('have.value', liceData.fishCountForPenM1)
+        manualLiceRegister.commentForPenInput(Cypress.env('penM1')).should('have.value',liceData.penM1Comment)
 
         manualLiceRegister.fixedStagesInput(Cypress.env('penM2')).should('have.value', liceData.fixedStagesForPenM2)
         manualLiceRegister.mobilesInput(Cypress.env('penM2')).should('have.value', liceData.mobilesForPenM2)
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM2')).should('have.value', liceData.adultsFemalesForPenM2)
         manualLiceRegister.calligusInput(Cypress.env('penM2')).should('have.value', liceData.calligusForPenM2)
         manualLiceRegister.fishCountImput(Cypress.env('penM2')).should('have.value', liceData.fishCountForPenM2)
+        manualLiceRegister.commentForPenInput(Cypress.env('penM2')).should('have.value', liceData.penM2Comment)
 
     })
 
