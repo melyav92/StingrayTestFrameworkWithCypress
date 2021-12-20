@@ -1,4 +1,4 @@
-{
+module.exports = {
   "seaTemperature": "9",
   "triggerLevel": "5",
   "fixedStagesForPenM1": "2",
@@ -13,6 +13,6 @@
   "calligusForPenM2": "2",
   "fishCountForPenM2": "10",
   "penM2Comment": "Comment for pen M2",
-  "successfulToasterPopupMessage":  "Lice count was saved successfully"
-
+  "successfulToasterPopupMessage":  "Lice count was saved successfully",
+  "reportDate": Cypress.moment().format("DD/MM/YYYY")
 }

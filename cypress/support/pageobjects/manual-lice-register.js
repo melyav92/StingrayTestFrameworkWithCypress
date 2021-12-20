@@ -111,6 +111,20 @@ export class ManualLiceRegister{
         return cy.get('#scp-lice-count-trigger-level-value')
     }
 
+    deleteButton(){
+        return cy.get('#delete-btn')
+    }
+
+    confirmButton(){
+        return cy.get('.confirm').wait(500)
+    }
+
+    currentDayInCalendar(){
+        return  cy.get('.scp-calendar-current-date')
+
+    }
+
+
     addManualLiceCountReport(locationId = Cypress.env('locationId'),
                              createReportDate = Cypress.moment().format("YYYY-MM-DD"),
                              penM1 = Cypress.env('penM1'),

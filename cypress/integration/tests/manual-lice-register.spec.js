@@ -1,8 +1,7 @@
 import {LoginPage} from "../../support/pageobjects/login-page";
 import {ManualLiceRegister} from "../../support/pageobjects/manual-lice-register";
-import liceData from "../../fixtures/manual-lice-register-test-data.json"
+import liceData from "../../fixtures/manual-lice-register-test-data.js"
 
-let reportDate = Cypress.moment().format("DD/MM/YYYY");
 let manualLiceRegister = new ManualLiceRegister();
 let login = new LoginPage()
 
@@ -48,10 +47,10 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.toasterPopup()
             .should('have.text', liceData.successfulToasterPopupMessage)
         manualLiceRegister.reportCountedDate()
-            .should('have.text', reportDate)
+            .should('have.text', liceData.reportDate)
     })
 
-    it.only('should update the manual lice count report with new values ',function (){
+    it('should update the manual lice count report with new values ',function (){
         manualLiceRegister.addManualLiceCountReport()
         manualLiceRegister.seaTemperatureInput().type(liceData.seaTemperature)
         manualLiceRegister.triggerLevelInput().clear().type(liceData.triggerLevel)
@@ -73,7 +72,7 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.toasterPopup()
             .should('have.text', liceData.successfulToasterPopupMessage)
         manualLiceRegister.reportCountedDate()
-            .should('have.text', reportDate)
+            .should('have.text', liceData.reportDate)
 
         manualLiceRegister.seaTemperatureValue().should('have.text', liceData.seaTemperature)
         manualLiceRegister.triggerLevelValue().should('have.text', liceData.triggerLevel)
@@ -89,6 +88,16 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM2')).should('have.value', liceData.adultsFemalesForPenM2)
         manualLiceRegister.calligusInput(Cypress.env('penM2')).should('have.value', liceData.calligusForPenM2)
         manualLiceRegister.fishCountImput(Cypress.env('penM2')).should('have.value', liceData.fishCountForPenM2)
+
+    })
+
+    it('should delete the report from the customer portal',function (){
+        manualLiceRegister.addManualLiceCountReport()
+        manualLiceRegister.deleteButton().click()
+        manualLiceRegister.confirmButton().click()
+
+        manualLiceRegister.currentDayInCalendar()
+            .should('not.have.class', 'scp-manual-lc-cell' )
 
     })
 
