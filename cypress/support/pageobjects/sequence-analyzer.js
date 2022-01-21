@@ -8,7 +8,7 @@ export class SequenceAnalyzer {
     };
 
     selectItemInContextMenu(){
-      return cy.get('.scp-sa-ctx-menu-list-item')
+      return cy.get('.scp-sa-ctx-menu-list-item').first()
     }
 
    approveObservationBoundingBox(){

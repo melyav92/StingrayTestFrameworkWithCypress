@@ -1,25 +1,28 @@
 import {LoginPage} from "../../support/pageobjects/login-page";
 import {ManualLiceRegister} from "../../support/pageobjects/manual-lice-register";
 import liceData from "../../fixtures/manual-lice-register-test-data.js"
+import{ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
 
 let manualLiceRegister = new ManualLiceRegister();
 let login = new LoginPage()
+let manualLogin =new ManualLoginWithPasteCookies()
 
 describe("Manual lice count register page",function (){
+
     beforeEach(function (){
-        cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fLiceCount%2fRegisterManual')
-        login.loginToThePage()
+        manualLogin.manualLoginWithPasteCookies()
+        //cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fLiceCount%2fRegisterManual')
+        //login.loginToThePage()
+       cy.visit('/en/LiceCount/RegisterManual')
         manualLiceRegister.calendarPageIsLoaded()
         manualLiceRegister.sendDeleteReportRequest()
 
     })
 
-/*
     after(function (){
-        manualLiceRegister.sendDeleteReportRequest(Cypress.env('locationId'))
+        manualLiceRegister.sendDeleteReportRequest()
     })
 
- */
     it("should register new manual lice count report by using 'Add new' button' and verify that all data in the report is saved correctly",function (){
         manualLiceRegister.addNewButton().click()
         manualLiceRegister.selectCurrentDate()
@@ -82,12 +85,14 @@ describe("Manual lice count register page",function (){
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM1')).should('have.value', liceData.adultsFemalesForPenM1)
         manualLiceRegister.calligusInput(Cypress.env('penM1')).should('have.value', liceData.calligusForPenM1)
         manualLiceRegister.fishCountImput(Cypress.env('penM1')).should('have.value', liceData.fishCountForPenM1)
+        manualLiceRegister.commentForPenInput(Cypress.env('penM1')).should('have.value',liceData.penM1Comment)
 
         manualLiceRegister.fixedStagesInput(Cypress.env('penM2')).should('have.value', liceData.fixedStagesForPenM2)
         manualLiceRegister.mobilesInput(Cypress.env('penM2')).should('have.value', liceData.mobilesForPenM2)
         manualLiceRegister.adultsFemalesInput(Cypress.env('penM2')).should('have.value', liceData.adultsFemalesForPenM2)
         manualLiceRegister.calligusInput(Cypress.env('penM2')).should('have.value', liceData.calligusForPenM2)
         manualLiceRegister.fishCountImput(Cypress.env('penM2')).should('have.value', liceData.fishCountForPenM2)
+        manualLiceRegister.commentForPenInput(Cypress.env('penM2')).should('have.value', liceData.penM2Comment)
 
     })
 
@@ -100,6 +105,5 @@ describe("Manual lice count register page",function (){
             .should('not.have.class', 'scp-manual-lc-cell' )
 
     })
-
 
 })

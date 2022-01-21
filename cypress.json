@@ -1,6 +1,6 @@
-{"baseUrl": "http://192.168.10.49:8106",
+{"baseUrl": "https://192.168.10.49:8100",
   "pageLoadTimeout": 60000,
-  "defaultCommandTimeout": 15000,
+  "defaultCommandTimeout": 20000,
   "env": {
     "username": "bolacslu",
     "password": "123456",
@@ -12,13 +12,15 @@
     "penM2Id": "4043"
   },
   "pluginsFile": false,
+  "chromeWebSecurity": true,
+
   "viewportWidth": 1920,
   "viewportHeight": 1080,
   "reporter": "mochawesome",
   "reporterOptions": {
     "reportDir": "cypress/results",
     "overwrite": false,
-    "html": false,
+    "html": true,
     "json": true
   }
 }
