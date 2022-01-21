@@ -3,7 +3,6 @@ export class ManualLiceRegister{
         return  cy.get('.scp-data-loading-text')
     };
 
-
     calendarPageIsLoaded(){
         return cy.get('#scp-lc-add-btn')
             .should('be.visible')
@@ -103,6 +102,7 @@ export class ManualLiceRegister{
     reportCountedDate(){
        return cy.get('#scp-lice-count-date-value')
     }
+
     seaTemperatureValue(){
         return cy.get('#scp-lice-count-temperature-value')
     }
@@ -123,7 +123,6 @@ export class ManualLiceRegister{
         return  cy.get('.scp-calendar-current-date')
 
     }
-
 
     addManualLiceCountReport(locationId = Cypress.env('locationId'),
                              createReportDate = Cypress.moment().format("YYYY-MM-DD"),
