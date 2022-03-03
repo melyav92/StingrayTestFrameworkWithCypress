@@ -1,5 +1,6 @@
-import {BiomassRegister} from "../../support/pageobjects/biomass-register";
+import {BiomassRegister} from "../../support/pageobjects/ManualRegisterPages/biomass-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
+import {ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
 
 const seaTemperature = '8';
 const numberOfFishValueForPenM1 = 40000;
@@ -29,12 +30,16 @@ let biomassForPenM2ValueUpdated = ((numberOfFishValueForPenM2Update * averageWei
 
 let biomassRegister = new BiomassRegister();
 let login = new LoginPage()
+let manualLogin =new ManualLoginWithPasteCookies()
 
 describe('Biomass register',function (){
     beforeEach(function (){
-        cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
-       login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
-       biomassRegister.pageDataIsLoaded()
+        //cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fBiomass%2fRegister')
+      // login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
+        manualLogin.manualLoginWithPasteCookies()
+        cy.visit('/en/Biomass/Register')
+
+      // biomassRegister.pageDataIsLoaded()
        biomassRegister.sendDeleteReportRequest(reportDate,Cypress.env('locationId'))
     })
 

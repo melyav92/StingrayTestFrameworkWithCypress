@@ -170,7 +170,7 @@ export class BiomassRegister{
         this.saveButton().click()
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
-        this.biomassReportIsLoaded()
+        //this.biomassReportIsLoaded()
     }
 
 

@@ -1,19 +1,20 @@
 import {LoginPage} from "../../support/pageobjects/login-page";
-import {ManualLiceRegister} from "../../support/pageobjects/manual-lice-register";
+import {ManualLiceRegister} from "../../support/pageobjects/ManualRegisterPages/manual-lice-register";
 import liceData from "../../fixtures/manual-lice-register-test-data.js"
 import{ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
 
 let manualLiceRegister = new ManualLiceRegister();
 let login = new LoginPage()
-let manualLogin =new ManualLoginWithPasteCookies()
+let manualLogin = new ManualLoginWithPasteCookies()
+
 
 describe("Manual lice count register page",function (){
 
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies()
-        //cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fLiceCount%2fRegisterManual')
+       // cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fLiceCount%2fRegisterManual')
         //login.loginToThePage()
-       cy.visit('/en/LiceCount/RegisterManual')
+        cy.visit('/en/LiceCount/RegisterManual')
         manualLiceRegister.calendarPageIsLoaded()
         manualLiceRegister.sendDeleteReportRequest()
 

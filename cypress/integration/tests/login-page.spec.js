@@ -4,7 +4,7 @@ import {LoginPage} from "../../support/pageobjects/login-page";
 const username = 'bolacslu';
 const password = 123456;
 
-describe('Login page tests',function (){
+describe.skip('Login page tests',function (){
     let login = new LoginPage();
 
     beforeEach(function (){

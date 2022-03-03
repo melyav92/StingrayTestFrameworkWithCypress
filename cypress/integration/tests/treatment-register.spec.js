@@ -1,5 +1,6 @@
-import {TreatmentRegister} from "../../support/pageobjects/treatment-register";
+import {TreatmentRegister} from "../../support/pageobjects/ManualRegisterPages/treatment-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
+import {ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
 
 const penM1Comment = 'Comment for pen M1';
 const penM1FishPenCount = '1000';
@@ -17,11 +18,16 @@ let reportDate = Cypress.moment().format('YYYY-MM-DD');
 
 let treatmentRegister = new TreatmentRegister();
 let login = new LoginPage()
+let manualLogin = new ManualLoginWithPasteCookies()
+
 
 beforeEach(function (){
-    cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
-    login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
-    treatmentRegister.pageDataIsLoaded()
+    //cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
+   // login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
+    manualLogin.manualLoginWithPasteCookies()
+    cy.visit('/en/Treatment/Register')
+
+    //treatmentRegister.pageDataIsLoaded()
     treatmentRegister.sendDeleteTreatmentRequest(reportDate,Cypress.env('locationId'))
 })
 
@@ -144,5 +150,7 @@ describe('Treatment register',function (){
             .should('exist')
 
 
+
+})
 
 })
