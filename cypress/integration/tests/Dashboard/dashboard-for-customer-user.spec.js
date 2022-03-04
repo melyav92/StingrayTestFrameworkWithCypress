@@ -1,5 +1,5 @@
-import{ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
-import {Dashboard} from "../../support/pageobjects/Dashboard/dashboard";
+import{ManualLoginWithPasteCookies} from "../../../support/pageobjects/login-with-manually-paste-cookies";
+import {Dashboard} from "../../../support/pageobjects/Dashboard/dashboard";
 
 let manualLogin = new ManualLoginWithPasteCookies();
 let dashboard = new Dashboard();

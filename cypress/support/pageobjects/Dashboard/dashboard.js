@@ -1,4 +1,4 @@
-export class Dashboard{
+export class Dashboard {
     laserStatusWidgetTitle(){
        return cy.get('.scp-dashboard-laser-status-widget')
            .find('[data-loading-status="loaded"]')
