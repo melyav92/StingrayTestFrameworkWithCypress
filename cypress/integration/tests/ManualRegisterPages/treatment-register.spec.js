@@ -1,6 +1,6 @@
-import {TreatmentRegister} from "../../support/pageobjects/ManualRegisterPages/treatment-register";
-import {LoginPage} from "../../support/pageobjects/login-page";
-import {ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
+import {TreatmentRegister} from "../../../support/pageobjects/ManualRegisterPages/treatment-register";
+import {LoginPage} from "../../../support/pageobjects/login-page";
+import {ManualLoginWithPasteCookies} from "../../../support/pageobjects/login-with-manually-paste-cookies";
 
 const penM1Comment = 'Comment for pen M1';
 const penM1FishPenCount = '1000';

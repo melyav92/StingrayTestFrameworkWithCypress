@@ -1,6 +1,6 @@
-import {BiomassRegister} from "../../support/pageobjects/ManualRegisterPages/biomass-register";
-import {LoginPage} from "../../support/pageobjects/login-page";
-import {ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
+import {BiomassRegister} from "../../../support/pageobjects/ManualRegisterPages/biomass-register";
+import {LoginPage} from "../../../support/pageobjects/login-page";
+import {ManualLoginWithPasteCookies} from "../../../support/pageobjects/login-with-manually-paste-cookies";
 
 const seaTemperature = '8';
 const numberOfFishValueForPenM1 = 40000;
