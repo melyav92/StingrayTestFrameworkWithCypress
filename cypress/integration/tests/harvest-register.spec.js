@@ -1,18 +1,22 @@
-import{HarvestRegister} from "../../support/pageobjects/harvest-register";
+import{HarvestRegister} from "../../support/pageobjects/ManualRegisterPages/harvest-register";
 import {LoginPage} from "../../support/pageobjects/login-page";
 import harvestData from "../../fixtures/harvest-register-test-data.json"
+import {ManualLoginWithPasteCookies} from "../../support/pageobjects/login-with-manually-paste-cookies";
 
 let reportDate = Cypress.moment().format("DD/MM/YYYY");
 let harvestRegister = new HarvestRegister();
 let login = new LoginPage();
+let manualLogin = new ManualLoginWithPasteCookies()
 
 
 describe('Harvest register',function (){
     beforeEach(function (){
-       cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fHarvest%2fRegister')
-       //cy.visit('https://192.168.10.49:8100/en/Harvest/Register')
-       login.loginToThePage()
-       harvestRegister.pageDataIsLoaded()
+       //cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fHarvest%2fRegister')
+       //login.loginToThePage()
+
+        manualLogin.manualLoginWithPasteCookies()
+        cy.visit('/en/Harvest/Register')
+       //harvestRegister.pageDataIsLoaded()
        harvestRegister.sendDeleteReportRequest()
 
         })

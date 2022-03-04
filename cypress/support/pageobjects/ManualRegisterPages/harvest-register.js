@@ -30,7 +30,7 @@ export class HarvestRegister{
     };
     selectCurrentDate(){
         let currentDate =  Cypress.moment().format('D')
-        this.datePicker().click()
+        this.openDatePicker().click()
         return cy.get('.day:not(.new):not(.old)').contains(currentDate).click()
     };
     pensDropdown(){
@@ -121,7 +121,7 @@ export class HarvestRegister{
         this.saveButton().click()
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
-        this.pageDataIsLoaded()
+        //this.pageDataIsLoaded()
     }
 
 

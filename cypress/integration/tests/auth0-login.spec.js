@@ -1,4 +1,4 @@
-describe('login', () => {
+describe.skip('login', () => {
 
     it('should successfully log into our app', () => {
         cy.login()
