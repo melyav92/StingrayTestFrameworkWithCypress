@@ -12,18 +12,18 @@ export class LiveVideo {
         cy.get('.confirm')
     };
 
-    selectCustomerLocationOnPopupOpen(){
-        cy.wait(1000)
+    selectCustomerLocationOnPopupOpen(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
+        cy.wait(1500)
 
         cy.get('body').then((body)=>{
 
             if(body.find('#customer').length === 1){
-                this.customerDropdown().select(Cypress.env('demoCustomer'))
+                this.customerDropdown().select(customer)
                 cy.wait(600)
-                cy.get('#location').select(Cypress.env('demoLocation'))
+                cy.get('#location').select(location)
                 cy.get('.confirm').click()
             }else if (body.find('#location').length === 1){
-                cy.get('#location').select(Cypress.env('demoLocation'))
+                cy.get('#location').select(location)
                 cy.get('.confirm').click()
             }
         })
