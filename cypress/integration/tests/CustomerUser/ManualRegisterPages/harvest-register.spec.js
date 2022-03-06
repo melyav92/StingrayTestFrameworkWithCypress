@@ -1,7 +1,7 @@
-import{HarvestRegister} from "../../../support/pageobjects/ManualRegisterPages/harvest-register";
-import {LoginPage} from "../../../support/pageobjects/login-page";
-import harvestData from "../../../fixtures/ManualRegisterPages/harvest-register-test-data.json"
-import {ManualLoginWithPasteCookies} from "../../../support/pageobjects/login-with-manually-paste-cookies";
+import{HarvestRegister} from "../../../../support/pageobjects/ManualRegisterPages/harvest-register";
+import {LoginPage} from "../../../../support/pageobjects/login-page";
+import harvestData from "../../../../fixtures/ManualRegisterPages/harvest-register-test-data.json"
+import {ManualLoginWithPasteCookies} from "../../../../support/pageobjects/login-with-manually-paste-cookies";
 
 let reportDate = Cypress.moment().format("DD/MM/YYYY");
 let harvestRegister = new HarvestRegister();
