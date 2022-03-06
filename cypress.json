@@ -9,7 +9,9 @@
     "penM3": "M3",
     "locationId": "2127",
     "penM1Id": "4042",
-    "penM2Id": "4043"
+    "penM2Id": "4043",
+    "demoCustomer": "Demo Customer",
+    "demoLocation": "Demo Location"
   },
   "pluginsFile": false,
   "chromeWebSecurity": true,
