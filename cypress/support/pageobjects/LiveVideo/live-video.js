@@ -1,4 +1,34 @@
 export class LiveVideo {
+
+    customerDropdown(){
+        return cy.get('#customer')
+    };
+
+    locationDropdown(){
+        cy.get('#location')
+    };
+
+    oKButton(){
+        cy.get('.confirm')
+    };
+
+    selectCustomerLocationOnPopupOpen(){
+        cy.wait(1000)
+
+        cy.get('body').then((body)=>{
+
+            if(body.find('#customer').length === 1){
+                this.customerDropdown().select(Cypress.env('demoCustomer'))
+                cy.wait(600)
+                cy.get('#location').select(Cypress.env('demoLocation'))
+                cy.get('.confirm').click()
+            }else if (body.find('#location').length === 1){
+                cy.get('#location').select(Cypress.env('demoLocation'))
+                cy.get('.confirm').click()
+            }
+        })
+    };
+
      selectSuDetectionCameraFilter(){
          return cy.get('.scp-navigation-group-menu button ')
              .contains('SU Detection Camera')
@@ -35,7 +65,7 @@ export class LiveVideo {
             .click()
     };
 
-    nodeCameraBox(){
+    nodeCameraBoxWithStreaming(){
            return cy.get('.scp-camera-stream-block')
                .children('div')
     };
