@@ -5,11 +5,11 @@ export class LiveVideo {
     };
 
     locationDropdown(){
-        cy.get('#location')
+       return cy.get('#location')
     };
 
     oKButton(){
-        cy.get('.confirm')
+        return cy.get('.confirm')
     };
 
     selectCustomerLocationIfPopupOpen(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
