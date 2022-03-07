@@ -12,7 +12,7 @@ export class LiveVideo {
         cy.get('.confirm')
     };
 
-    selectCustomerLocationOnPopupOpen(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
+    selectCustomerLocationIfPopupOpen(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
         cy.wait(2000)
 
         cy.get('body').then((body)=>{
