@@ -5,14 +5,14 @@ export class LiveVideo {
     };
 
     locationDropdown(){
-        cy.get('#location')
+       return cy.get('#location')
     };
 
     oKButton(){
-        cy.get('.confirm')
+        return cy.get('.confirm')
     };
 
-    selectCustomerLocationOnPopupOpen(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
+    selectCustomerLocationIfPopupOpen(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
         cy.wait(2000)
 
         cy.get('body').then((body)=>{
@@ -20,11 +20,11 @@ export class LiveVideo {
             if(body.find('#customer').length === 1){
 
                 this.customerDropdown().select(customer)
-                cy.get('#location').select(location)
-                cy.get('.confirm').click()
+                this.locationDropdown().select(location)
+                this.oKButton().click()
             }else if (body.find('#location').length === 1){
-                cy.get('#location').select(location)
-                cy.get('.confirm').click()
+                this.locationDropdown().select(location)
+                this.oKButton().click()
             }
         })
     };

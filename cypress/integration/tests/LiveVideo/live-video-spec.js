@@ -10,7 +10,7 @@ describe("Live video page",function () {
     beforeEach(function () {
         manualLogin.manualLoginWithPasteCookies()
         cy.visit('/en/Live/Video')
-        liveVideo.selectCustomerLocationOnPopupOpen()
+        liveVideo.selectCustomerLocationIfPopupOpen()
 
     });
 
