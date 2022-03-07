@@ -20,11 +20,11 @@ export class LiveVideo {
             if(body.find('#customer').length === 1){
 
                 this.customerDropdown().select(customer)
-                cy.get('#location').select(location)
-                cy.get('.confirm').click()
+                this.locationDropdown().select(location)
+                this.oKButton().click()
             }else if (body.find('#location').length === 1){
-                cy.get('#location').select(location)
-                cy.get('.confirm').click()
+                this.locationDropdown().select(location)
+                this.oKButton().click()
             }
         })
     };
