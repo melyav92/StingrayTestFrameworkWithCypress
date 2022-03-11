@@ -35,4 +35,20 @@ describe("Gallery page", function (){
         gallery.imageContainer().should('be.visible')
     });
 
+    it('should verify that there is images data successfully loaded for Maturation Count context', function () {
+        gallery.maturationDiagnosticsTypeFilter().click()
+        gallery.customerDropdown().select('Bolaks AS')
+        gallery.locationDropdown().select('Fusavika')
+
+        gallery.imageContainer().should('be.visible')
+    });
+
+    it('should verify that there is images data successfully loaded for Snout damage Count context', function () {
+        gallery.snoutDamageDiagnosticsTypeFilter().click()
+        gallery.customerDropdown().select('Bolaks AS')
+        gallery.locationDropdown().select('Fusavika')
+
+        gallery.imageContainer().should('be.visible')
+    });
+
 })
