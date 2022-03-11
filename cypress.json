@@ -11,7 +11,9 @@
     "penM1Id": "4042",
     "penM2Id": "4043",
     "demoCustomer": "Demo Customer",
-    "demoLocation": "Demo Location"
+    "demoLocation": "Demo Location",
+    "bolaksCustomer": "Bolaks AS",
+    "fusavikaLocation": "Fusavika"
   },
   "pluginsFile": false,
   "chromeWebSecurity": true,

@@ -24,6 +24,7 @@ export class Gallery{
         return cy.get('.scp-diagnostics-type-selector-item').contains('Snout damage')
     };
 
+    //approves observations with lice, ulcers,maturation,snout damage contexts for 07.03.2022
     approveObservationsForAllContexts(){
         cy.request({
             url: '/api/sequence-analyzer/observations?imageBasedAnalysisMode=0',
