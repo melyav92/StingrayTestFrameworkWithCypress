@@ -2,6 +2,13 @@ export class ManualLiceRegister{
     loadingSpinner(){
         return  cy.get('.scp-data-loading-text')
     };
+    customerDropdown(){
+        return cy.get('#scp-customers-list')
+    };
+
+    locationDropdown(){
+        return cy.get('#scp-locations-list')
+    };
 
     calendarPageIsLoaded(){
         return cy.get('#scp-lc-add-btn')
@@ -145,7 +152,25 @@ export class ManualLiceRegister{
             })
         cy.visit(`/en/LiceCount/Edit?locationId=${locationId}&countedDate=${createReportDate}`)
 
-    }
+    };
+
+    selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('bolaksCustomer'), location = Cypress.env('fusavikaLocation')){
+        cy.wait(1500)
+
+        cy.get('body').then((body)=>{
+
+            if(body.find('#scp-customers-list').length === 1){
+
+                this.customerDropdown().select(customer)
+                this.locationDropdown().select(location)
+
+            }else if (body.find('#scp-locations-list').length === 1){
+                this.locationDropdown().select(location)
+
+            }
+        })
+
+    };
 
 
 
