@@ -16,6 +16,7 @@ describe("Manual lice count register page",function (){
         //login.loginToThePage()
         cy.visit('/en/LiceCount/RegisterManual')
         manualLiceRegister.calendarPageIsLoaded()
+        manualLiceRegister.selectCustomerOrAndLocationIfDropdownsExist()
         manualLiceRegister.sendDeleteReportRequest()
 
     })
