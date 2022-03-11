@@ -16,6 +16,14 @@ export class Gallery{
         return cy.get('.scp-diagnostics-type-selector-item').contains('Ulcers')
     };
 
+    maturationDiagnosticsTypeFilter(){
+        return cy.get('.scp-diagnostics-type-selector-item').contains('Maturation')
+    };
+
+    snoutDamageDiagnosticsTypeFilter(){
+        return cy.get('.scp-diagnostics-type-selector-item').contains('Snout damage')
+    };
+
     approveObservationsForAllContexts(){
         cy.request({
             url: '/api/sequence-analyzer/observations?imageBasedAnalysisMode=0',
@@ -350,11 +358,13 @@ export class Gallery{
                 }
             }
         })
-    }
+    };
 
     imageContainer(){
+        cy.intercept('api/prod-ctrl-gallery/get-observations*').as('getObservations')
+        cy.wait('@getObservations').its('response.statusCode').should('eq', 200)
         return cy.get('.scp-image')
-    }
+    };
 
 
 
