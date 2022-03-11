@@ -12,6 +12,10 @@ export class Gallery{
         return cy.get('.scp-diagnostics-type-selector-item').contains('Lice')
     };
 
+    ulcersDiagnosticsTypeFilter(){
+        return cy.get('.scp-diagnostics-type-selector-item').contains('Ulcers')
+    };
+
     approveObservationsForAllContexts(){
         cy.request({
             url: '/api/sequence-analyzer/observations?imageBasedAnalysisMode=0',
