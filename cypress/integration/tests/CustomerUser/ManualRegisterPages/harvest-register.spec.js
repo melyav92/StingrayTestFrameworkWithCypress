@@ -16,6 +16,7 @@ describe('Harvest register',function (){
 
         manualLogin.manualLoginWithPasteCookies()
         cy.visit('/en/Harvest/Register')
+        harvestRegister.selectCustomerOrAndLocationIfDropdownsExist()
        //harvestRegister.pageDataIsLoaded()
        harvestRegister.sendDeleteReportRequest()
 

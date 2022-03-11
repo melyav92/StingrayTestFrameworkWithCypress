@@ -2,8 +2,8 @@ export class TreatmentRegister {
     pageDataIsLoaded(){
         cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
         cy.intercept('GET', '/api/pen/pens-latest-fish-stock-before-date').as('getPenFishStock')
-        cy.wait('@getAllTreatments').its('response.statusCode')
-            .should('eq', 200);
+       // cy.wait('@getAllTreatments').its('response.statusCode')
+       //     .should('eq', 200);
         cy.wait('@getPenFishStock').its('response.statusCode')
             .should('eq', 200);
         cy.get('#loading-spinner-overlay').should('not.be.visible')
@@ -11,6 +11,14 @@ export class TreatmentRegister {
 
     addNewTreatmentButton(){
               return cy.get('#add-new-treatment-btn')
+    };
+
+    customerDropdown(){
+        return cy.get('#customers')
+    };
+
+    locationDropdown(){
+        return cy.get('#locations')
     };
 
     getPenObjectByName(penName){
@@ -91,8 +99,8 @@ export class TreatmentRegister {
     treatmentReportIsLoaded(){
         cy.intercept('GET', '/api/treatments/treatment-dates').as('getAllTreatments')
         cy.intercept('GET', '/api/treatments/treatment?locationId').as('getTreatment')
-        cy.wait('@getAllTreatments').its('response.statusCode')
-            .should('eq', 200);
+       // cy.wait('@getAllTreatments').its('response.statusCode')
+          //  .should('eq', 200);
         cy.wait('@getTreatment').its('response.statusCode')
             .should('eq', 200);
         cy.get('#loading-spinner-overlay').should('not.be.visible')
@@ -129,7 +137,25 @@ export class TreatmentRegister {
           failOnStatusCode: false
 
       })
-  }
+  };
+
+    selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('bolaksCustomer'), location = Cypress.env('fusavikaLocation')) {
+        cy.wait(1500)
+
+        cy.get('body').then((body) => {
+
+            if (body.find('#customers').length === 1) {
+
+                this.customerDropdown().select(customer)
+                this.locationDropdown().select(location)
+
+            } else if (body.find('#locations').length === 1) {
+                this.locationDropdown().select(location)
+
+            }
+        })
+
+    };
 
 }
 

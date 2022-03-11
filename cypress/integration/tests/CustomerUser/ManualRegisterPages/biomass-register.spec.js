@@ -38,8 +38,9 @@ describe('Biomass register',function (){
       // login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
         manualLogin.manualLoginWithPasteCookies()
         cy.visit('/en/Biomass/Register')
+        biomassRegister.selectCustomerOrAndLocationIfDropdownsExist()
 
-      // biomassRegister.pageDataIsLoaded()
+       biomassRegister.pageDataIsLoaded()
        biomassRegister.sendDeleteReportRequest(reportDate,Cypress.env('locationId'))
     })
 
@@ -49,6 +50,7 @@ describe('Biomass register',function (){
 
 
     it('should register biomass report for the current date',function (){
+        biomassRegister.pageDataIsLoaded()
         biomassRegister.addNewBiomassCountButton().click();
         biomassRegister.selectCurrentDate()
         biomassRegister.seaTemperatureInput().type(seaTemperature);

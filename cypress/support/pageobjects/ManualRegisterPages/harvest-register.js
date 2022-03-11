@@ -17,7 +17,16 @@ export class HarvestRegister{
             url: `/api/harvests/harvest?locationId=${locationId}&date=${deleteReportDate}`,
             //failOnStatusCode: false
         })
-    }
+    };
+
+    customerDropdown(){
+        return cy.get('#customers')
+    };
+
+    locationDropdown(){
+        return cy.get('#locations')
+    };
+
     addNewHarvestCountBtn(){
         this.loadingSpinner().should('not.be.visible')
         return cy.get('#add-new-harvest-btn')
@@ -122,7 +131,27 @@ export class HarvestRegister{
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
         //this.pageDataIsLoaded()
-    }
+    };
+
+    selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('bolaksCustomer'), location = Cypress.env('fusavikaLocation')) {
+        cy.wait(1500)
+
+        cy.get('body').then((body) => {
+
+            if (body.find('#customers').length === 1) {
+
+                this.customerDropdown().select(customer)
+                this.locationDropdown().select(location)
+
+            } else if (body.find('#locations').length === 1) {
+                this.locationDropdown().select(location)
+
+            }
+        })
+
+    };
+
+
 
 
 

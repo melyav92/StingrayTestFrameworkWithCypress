@@ -1,14 +1,22 @@
 export class BiomassRegister{
+    customerDropdown(){
+        return cy.get('#customers')
+    };
+
+    locationDropdown(){
+        return cy.get('#locations')
+    };
+
     addNewBiomassCountButton(){
         return cy.get('#add-new-biomass-btn')
-    }
+    };
 
     pageDataIsLoaded(){
-        cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
-        cy.wait('@getPens').its('response.statusCode')
-            .should('eq', 200);
+        //cy.intercept('GET', '/api/biomass').as('getPens')
+       // cy.wait('@getPens').its('response.statusCode')
+          //  .should('eq', 200);
 
-        this.loadingSpinner()
+      return  this.loadingSpinner()
             .should('not.be.visible')
     };
 
@@ -118,9 +126,9 @@ export class BiomassRegister{
     };
 
     biomassReportIsLoaded(){
-        cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
-        cy.wait('@getPens').its('response.statusCode')
-             .should('eq', 200);
+       // cy.intercept('GET', '/api/biomass/get-pens').as('getPens')
+        //cy.wait('@getPens').its('response.statusCode')
+          //   .should('eq', 200);
 
         this.loadingSpinner()
             .should('not.be.visible')
@@ -171,7 +179,25 @@ export class BiomassRegister{
         this.toasterPopup()
             .should('have.text',successfulToasterPopupMessage)
         //this.biomassReportIsLoaded()
-    }
+    };
+
+    selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('bolaksCustomer'), location = Cypress.env('fusavikaLocation')) {
+        cy.wait(1500)
+
+        cy.get('body').then((body) => {
+
+            if (body.find('#customers').length === 1) {
+
+                this.customerDropdown().select(customer)
+                this.locationDropdown().select(location)
+
+            } else if (body.find('#locations').length === 1) {
+                this.locationDropdown().select(location)
+
+            }
+        })
+
+    };
 
 
 }

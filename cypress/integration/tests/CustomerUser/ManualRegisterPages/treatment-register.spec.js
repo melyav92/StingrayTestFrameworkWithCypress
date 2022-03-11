@@ -26,9 +26,11 @@ beforeEach(function (){
    // login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
     manualLogin.manualLoginWithPasteCookies()
     cy.visit('/en/Treatment/Register')
-
-    //treatmentRegister.pageDataIsLoaded()
     treatmentRegister.sendDeleteTreatmentRequest(reportDate,Cypress.env('locationId'))
+    treatmentRegister.selectCustomerOrAndLocationIfDropdownsExist()
+
+    treatmentRegister.pageDataIsLoaded()
+
 })
 
 after(function (){
