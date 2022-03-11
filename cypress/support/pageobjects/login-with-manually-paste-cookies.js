@@ -1,8 +1,8 @@
 export class ManualLoginWithPasteCookies {
 
     manualLoginWithPasteCookies( cookiesValue = ''){
-        return  cy.setCookie(".AspNet.Cookies", cookiesValue),
-                cy.visit('/en')
+        cy.setCookie(".AspNet.Cookies", cookiesValue)
+        return  cy.visit('/en')
 
     }
 

@@ -9,6 +9,7 @@ describe("Shotrecs",function (){
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies()
         cy.visit('/en/ShotRec')
+        shotrecs.selectCustomerOrAndLocationIfDropdownsExist()
 
     })
 
