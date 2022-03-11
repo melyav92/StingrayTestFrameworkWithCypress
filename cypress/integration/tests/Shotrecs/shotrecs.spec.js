@@ -1,5 +1,5 @@
-import {ManualLoginWithPasteCookies} from "../../../../support/pageobjects/login-with-manually-paste-cookies";
-import {Shotrecs} from "../../../../support/pageobjects/Shotrecs/shotrecs";
+import {ManualLoginWithPasteCookies} from "../../../support/pageobjects/login-with-manually-paste-cookies";
+import {Shotrecs} from "../../../support/pageobjects/Shotrecs/shotrecs";
 
 let manualLogin = new ManualLoginWithPasteCookies();
 let shotrecs = new Shotrecs();

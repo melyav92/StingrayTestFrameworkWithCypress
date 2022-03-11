@@ -1,5 +1,5 @@
-import{ManualLoginWithPasteCookies} from "../../../../support/pageobjects/login-with-manually-paste-cookies";
-import {Gallery} from "../../../../support/pageobjects/Gallery/gallery";
+import{ManualLoginWithPasteCookies} from "../../../support/pageobjects/login-with-manually-paste-cookies";
+import {Gallery} from "../../../support/pageobjects/Gallery/gallery";
 
 
 let manualLogin = new ManualLoginWithPasteCookies();
