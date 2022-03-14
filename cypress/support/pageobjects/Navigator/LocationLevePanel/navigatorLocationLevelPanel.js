@@ -39,6 +39,26 @@ export class NavigatorLocationLevelPanel {
         return cy.get('[data-cam-type-value="downCam"]').click()
     };
 
+   getFirstNodeInTheLocationToJump(){
+        cy.request({method: 'GET',
+           url: `/api/navigator/location/streaming-info?locationId=${Cypress.env('locationId')}`})
+           .then(function (response){
+               let getNodeToJump = response.body.nodesInfo[1].SerialNumber
+               return cy.writeFile('cypress/fixtures/Navigator/navigator-data.json', {nodeSerialNumber: getNodeToJump})
+            })
+   };
+
+   jumpToSuNumberInput(){
+       this.getFirstNodeInTheLocationToJump()
+       cy.readFile('cypress/fixtures/Navigator/navigator-data.json')
+
+       return cy.get('#scp-su-number-value')
+   };
+
+    selectedNodeOnNodeLevelPage(){
+        return cy.get('.scp-selected-node-info-value')
+    };
+
 
 
 
@@ -54,7 +74,7 @@ export class NavigatorLocationLevelPanel {
                 this.locationDropdown().select(location)
                 this.setLocationButton().click()
 
-            }else if (body.find('#scp-navigator-locations-list').length === 1){
+            }else if (body.find('select#scp-navigator-locations-list').length === 1){
                 this.locationDropdown().select(location)
                 this.setLocationButton().click()
 
