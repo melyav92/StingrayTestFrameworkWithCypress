@@ -91,6 +91,7 @@ describe('Biomass register',function (){
             successfulToasterPopupMessage,
             reportDate)
 
+        cy.wait(2000)
         biomassRegister.getPenObjectByName(Cypress.env('penM1'))
             .should('contain.text', Cypress.env('penM1'))
         biomassRegister.numberOfFishInput(Cypress.env('penM1'))
@@ -132,6 +133,7 @@ describe('Biomass register',function (){
             successfulToasterPopupMessage,
             reportDate)
 
+        cy.wait(2000)
         biomassRegister.seaTemperatureInput().clear().type(seaTemperatureUpdate)
         biomassRegister.averageWeightInput(Cypress.env('penM1')).clear().type(averageWeightValueForM1Update)
         biomassRegister.numberOfFishInput(Cypress.env('penM1')).clear().type(numberOfFishValueForPenM1Update);
@@ -143,6 +145,7 @@ describe('Biomass register',function (){
         biomassRegister.troutFishTypeCheckBox(Cypress.env('penM2')).click()
         biomassRegister.saveButton().click()
         biomassRegister.biomassReportIsLoaded()
+        cy.wait(2000)
 //pen M1 data
         biomassRegister.getPenObjectByName(Cypress.env('penM1'))
             .should('contain.text', Cypress.env('penM1'))
@@ -184,13 +187,14 @@ describe('Biomass register',function (){
             penM2Comment,
             successfulToasterPopupMessage,
             reportDate)
+        cy.wait(2000)
 
         biomassRegister.biomassReportIsLoaded()
         biomassRegister.expandBiomassReportsListItem().click()
         biomassRegister.deleteBiomassReportItem().click()
         biomassRegister.confirmDeleteReportButton().click()
         biomassRegister.biomassReportIsLoaded()
-
+        cy.wait(2000)
         biomassRegister.reportExistsInTheList(reportDate)
             .should("not.contain", reportDate)
 
@@ -210,11 +214,11 @@ describe('Biomass register',function (){
             reportDate)
 
         biomassRegister.biomassReportIsLoaded()
-
+        cy.wait(2000)
         biomassRegister.deletePenItem(Cypress.env('penM2')).click({timeout:5000})
         biomassRegister.saveButton().click()
         biomassRegister.biomassReportIsLoaded()
-
+        cy.wait(2000)
         biomassRegister.getPenObjectByName(Cypress.env('penM2'))
             .should('not.exist')
     })
@@ -231,7 +235,7 @@ describe('Biomass register',function (){
             penM2Comment,
             successfulToasterPopupMessage,
             reportDate)
-
+        cy.wait(2000)
         biomassRegister.biomassReportIsLoaded()
         biomassRegister.pensDropdown().click();
         biomassRegister.penItem(Cypress.env('penM3')).click();
@@ -241,7 +245,7 @@ describe('Biomass register',function (){
         biomassRegister.commentForPenInput(Cypress.env('penM3')).type(penM1Comment)
         biomassRegister.saveButton().click()
         biomassRegister.biomassReportIsLoaded()
-
+        cy.wait(2000)
         biomassRegister.getPenObjectByName(Cypress.env('penM1'))
             .should('exist')
         biomassRegister.getPenObjectByName(Cypress.env('penM2'))
