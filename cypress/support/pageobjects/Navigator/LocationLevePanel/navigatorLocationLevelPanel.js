@@ -43,7 +43,7 @@ export class NavigatorLocationLevelPanel {
         cy.request({method: 'GET',
            url: `/api/navigator/location/streaming-info?locationId=${Cypress.env('locationId')}`})
            .then(function (response){
-               let getNodeToJump = response.body.nodesInfo[1].SerialNumber
+               let getNodeToJump = response.body.nodesInfo[0].SerialNumber
                return cy.writeFile('cypress/fixtures/Navigator/navigator-data.json', {nodeSerialNumber: getNodeToJump})
             })
    };
