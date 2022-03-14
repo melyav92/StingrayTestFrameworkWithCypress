@@ -164,7 +164,7 @@ export class ManualLiceRegister{
                 this.customerDropdown().select(customer)
                 this.locationDropdown().select(location)
 
-            }else if (body.find('#scp-locations-list').length === 1){
+            }else if (body.find('select#scp-locations-list').length === 1){
                 this.locationDropdown().select(location)
 
             }
