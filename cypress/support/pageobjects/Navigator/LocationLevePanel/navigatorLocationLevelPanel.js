@@ -64,7 +64,7 @@ export class NavigatorLocationLevelPanel {
 
 
     selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
-        cy.wait(1500)
+        cy.wait(1000)
 
         cy.get('body').then((body)=>{
 
@@ -73,10 +73,12 @@ export class NavigatorLocationLevelPanel {
                 this.customerDropdown().select(customer)
                 this.locationDropdown().select(location)
                 this.setLocationButton().click()
+                cy.wait(1000)
 
             }else if (body.find('select#scp-navigator-locations-list').length === 1){
                 this.locationDropdown().select(location)
                 this.setLocationButton().click()
+                cy.wait(1000)
 
             }
         })

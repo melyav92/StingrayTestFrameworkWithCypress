@@ -51,7 +51,7 @@ describe("Navigator location level panel", function (){
             .and('have.attr', 'src')
     });
 
-    it('should veify jump to Su number functionality', function () {
+    it('should verify jump to Su number functionality', function () {
         navigatorLocation.jumpToSuNumberInput().type(`${navigator.nodeSerialNumber}{enter}`)
         navigatorLocation.selectedNodeOnNodeLevelPage().should('contain', navigator.nodeSerialNumber)
     });
