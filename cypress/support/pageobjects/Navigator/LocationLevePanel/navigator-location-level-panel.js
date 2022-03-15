@@ -55,15 +55,7 @@ export class NavigatorLocationLevelPanel {
        return cy.get('#scp-su-number-value')
    };
 
-    selectedNodeOnNodeLevelPage(){
-        return cy.get('.scp-selected-node-info-value')
-    };
-
-
-
-
-
-    selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
+   selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
         cy.wait(1000)
 
         cy.get('body').then((body)=>{
@@ -80,7 +72,7 @@ export class NavigatorLocationLevelPanel {
                 this.setLocationButton().click()
                 cy.wait(1000)
 
-            }
+            } cy.wait(1000)
         })
 
     };
