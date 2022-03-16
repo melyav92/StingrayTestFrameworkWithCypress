@@ -55,6 +55,10 @@ export class NavigatorLocationLevelPanel {
        return cy.get('#scp-su-number-value')
    };
 
+   goToTheNodePageArrow(){
+       return cy.get('.scp-metadata-node-control-button-block').first()
+   }
+
    selectCustomerOrAndLocationIfDropdownsExist(customer = Cypress.env('demoCustomer'), location = Cypress.env('demoLocation')){
         cy.wait(1000)
 
@@ -65,14 +69,14 @@ export class NavigatorLocationLevelPanel {
                 this.customerDropdown().select(customer)
                 this.locationDropdown().select(location)
                 this.setLocationButton().click()
-                cy.wait(1000)
+                cy.wait(1300)
 
             }else if (body.find('select#scp-navigator-locations-list').length === 1){
                 this.locationDropdown().select(location)
                 this.setLocationButton().click()
-                cy.wait(1000)
+                cy.wait(1300)
 
-            } cy.wait(1000)
+            } cy.wait(1300)
         })
 
     };
