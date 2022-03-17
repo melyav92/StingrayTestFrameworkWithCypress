@@ -1,4 +1,5 @@
-{"baseUrl": "https://192.168.10.49:8100",
+{
+  "baseUrl": "https://192.168.10.49:8100",
   "pageLoadTimeout": 60000,
   "defaultCommandTimeout": 25000,
   "env": {
@@ -17,8 +18,7 @@
   },
   "pluginsFile": false,
   "chromeWebSecurity": true,
-  "watchForFileChanges": false,
-
+  "watchForFileChanges": true,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
   "reporter": "mochawesome",
