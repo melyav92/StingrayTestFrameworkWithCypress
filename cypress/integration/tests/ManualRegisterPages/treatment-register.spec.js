@@ -25,11 +25,13 @@ beforeEach(function (){
     //cy.visit('/en/Authentication/Login/?ReturnUrl=%2fen%2fTreatment%2fRegister')
    // login.loginToThePage(Cypress.env('username'), Cypress.env('password'))
     manualLogin.manualLoginWithPasteCookies()
-    cy.visit('/en/Treatment/Register')
     treatmentRegister.sendDeleteTreatmentRequest(reportDate,Cypress.env('locationId'))
+    cy.visit('/en/Treatment/Register')
+    cy.wait(3000)
     treatmentRegister.selectCustomerOrAndLocationIfDropdownsExist()
 
     treatmentRegister.pageDataIsLoaded()
+    cy.wait(3000)
 
 })
 
