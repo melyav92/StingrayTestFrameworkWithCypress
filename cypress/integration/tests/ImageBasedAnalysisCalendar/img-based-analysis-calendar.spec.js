@@ -13,7 +13,7 @@ describe("Image based analysis calendar page",function (){
         manualLogin.manualLoginWithPasteCookies();
         cy.visit('/en/ImageBasedAnalysis/Register?year=2022&imageBasedAnalysisMode=User');
         selectCustomerAndOrLocationDropdown.selectCustomerOrAndLocationIfDropdownsExist();
-        imgBasedAnalysisCalendar.pageDataLoaded()
+        imgBasedAnalysisCalendar.sequencesDataForYearIsLoaded()
 
     });
 

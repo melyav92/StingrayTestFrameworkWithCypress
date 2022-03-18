@@ -1,5 +1,5 @@
 export class ImgBasedAnalysisCalendar {
-    pageDataLoaded(){
+    sequencesDataForYearIsLoaded(){
         cy.intercept({ method:'GET',
             pathName: '/get-location-summary-for-year'}).as('sequencesForYear')
 
