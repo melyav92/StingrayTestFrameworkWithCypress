@@ -12,7 +12,6 @@ describe("Navigator location level panel", function (){
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies();
         cy.visit('/en/Navigator/Location');
-        navigatorLocation.getFirstNodeInTheLocationToJump();
         navigatorLocation.selectCustomerOrAndLocationIfDropdownsExist();
 
     });
@@ -54,8 +53,8 @@ describe("Navigator location level panel", function (){
     });
 
     it('should verify jump to Su number functionality', function () {
+        navigatorLocation.getFirstNodeInTheLocationToJump();
         cy.get('@nodeToJump').then((nodeToJump)=>{
-
             navigatorLocation.jumpToSuNumberInput().type(`${nodeToJump}{enter}`)
             navigatorNode.selectedNodeOnNodeLevelPage().should('contain', nodeToJump)
         })
