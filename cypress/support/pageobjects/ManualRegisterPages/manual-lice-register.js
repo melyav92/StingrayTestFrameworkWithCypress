@@ -161,11 +161,11 @@ export class ManualLiceRegister{
 
             if(body.find('#scp-customers-list').length === 1){
 
-                this.customerDropdown().select(customer)
-                this.locationDropdown().select(location)
+                customer && this.customerDropdown().select(customer);
+                location && this.locationDropdown().select(location);
 
             }else if (body.find('select#scp-locations-list').length === 1){
-                this.locationDropdown().select(location)
+                location && this.locationDropdown().select(location);
 
             }
         })
