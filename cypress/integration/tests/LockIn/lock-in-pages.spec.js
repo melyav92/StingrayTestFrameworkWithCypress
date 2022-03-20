@@ -14,7 +14,7 @@ describe("Lock in pages", function (){
 
     it('should verify Count summary data for locked in week is returned without any errors', function () {
 
-        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=42&year=2019`);
+        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('lockedInWeek')}&year=2019`);
 
         lockIn.lockInStateBox()
             .should('have.text', 'Locked-in')
@@ -43,7 +43,7 @@ describe("Lock in pages", function (){
 
     it('should verify Count summary page for NOT locked in week and page data is returned without any errors', function () {
 
-        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=41&year=2019`);
+        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('notLockedInWeek')}&year=2019`);
 
         lockIn.fishCountInput()
             .should('have.value', '');

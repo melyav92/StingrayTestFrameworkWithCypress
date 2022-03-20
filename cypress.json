@@ -9,6 +9,8 @@
     "penM2": "M2",
     "penM3": "M3",
     "locationId": "2127",
+    "lockedInWeek": "42",
+    "notLockedInWeek": "41",
     "penM1Id": "4042",
     "penM2Id": "4043",
     "demoCustomer": "Demo Customer",
