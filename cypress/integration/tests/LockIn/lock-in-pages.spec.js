@@ -92,12 +92,13 @@ describe("Lock in pages", function (){
 
     });
 
-    it.only('should Lock In history page data is returned without any errors ', function () {
-        cy.visit('/en/ImageBasedAnalysis/Register')
-        selectCustomerAndOrLocationDropdown.selectCustomerOrAndLocationIfDropdownsExist()
-        lockIn.lockInHistoryButton().click()
+    it('should Lock In history page data is returned without any errors ', function () {
+        cy.visit('/en/ImageBasedAnalysis/Register');
+        selectCustomerAndOrLocationDropdown.selectCustomerOrAndLocationIfDropdownsExist();
+        lockIn.lockInHistoryButton().click();
 
-        lockIn.pageTitle().should('have.text', 'Locked-in imagebased licecounts history')
+        lockIn.pageTitle()
+            .should('have.text', 'Locked-in imagebased licecounts history');
 
         lockIn.lockInStateBox()
             .should('have.text', 'Locked-in')
