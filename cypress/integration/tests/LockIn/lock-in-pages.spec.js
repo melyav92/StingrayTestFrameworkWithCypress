@@ -73,7 +73,7 @@ describe("Lock in pages", function (){
 
     it('should verify that user navigates to the Sequences list page for Locked In day by using "View sequence-list" menu item and page data is loaded without errors', function () {
 
-        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('lockedInWeek')}&year=2019`);
+        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('lockedInWeek')}&year=${Cypress.env('lockInYear')}`);
         lockIn.threeDotsMenuItemInDayCell().click();
         lockIn.viewSequenceListMenuItem().click();
 
