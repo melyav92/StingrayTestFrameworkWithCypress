@@ -110,6 +110,7 @@ describe("Lock in pages", function (){
         lockIn.lockInHistoryTable()
             .should('not.have.class', 'react-bs-table-no-data');
 
+
     });
 
 
