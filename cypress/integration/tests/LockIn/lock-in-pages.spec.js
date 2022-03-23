@@ -16,7 +16,7 @@ describe("Lock in pages", function (){
 
     it('should verify Count summary data for locked in week is returned without any errors', function () {
 
-        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('lockedInWeek')}&year=2019`);
+        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('lockedInWeek')}&year=${Cypress.env('lockInYear')}`);
 
         lockIn.lockInStateBox()
             .should('have.text', 'Locked-in')
@@ -48,7 +48,7 @@ describe("Lock in pages", function (){
 
     it('should verify Count summary page for NOT locked in week and page data is returned without any errors', function () {
 
-        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('notLockedInWeek')}&year=2019`);
+        cy.visit(`/en/LockIn/WeekEdit/?locationId=${Cypress.env('locationId')}&week=${Cypress.env('notLockedInWeek')}&year=${Cypress.env('lockInYear')}`);
 
         lockIn.fishCountInput()
             .should('have.value', '');
@@ -105,12 +105,11 @@ describe("Lock in pages", function (){
             .and('be.visible');
 
         lockIn.lockedInWeekExistsInTheHistoryTable()
-            .should('contain', `${Cypress.env('lockedInWeek')}-2019`);
+            .should('contain', `${Cypress.env('lockedInWeek')}-${Cypress.env('lockInYear')}`);
 
         lockIn.lockInHistoryTable()
             .should('not.have.class', 'react-bs-table-no-data');
 
-        
     });
 
 
