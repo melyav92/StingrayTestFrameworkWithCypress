@@ -1,4 +1,4 @@
-import {SequenceAnalyzer} from "../../support/pageobjects/sequence-analyzer";
+import {SequenceAnalyzer} from "../../support/pageobjects/SequenceAnayzerApplication/sequence-analyzer";
 import {LoginPage} from "../../support/pageobjects/login-page";
 
 
