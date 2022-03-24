@@ -12,12 +12,16 @@ let approveObservationsForAllContexts = new Gallery();
 describe("Diagrams",function (){
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies();
+        cy.visit('/en/Results/Diagrams?From=2022-03-01&To=2022-03-23');
+        diagrams.expandMetricsTree().click({multiple:true});
+        diagrams.selectCustomerIfDropdownsExist();
 
     });
 
     it('should verify that Manual lice count metrics: MAN Adult females, MAN Mobiles, MAN Fixed Stages and MAN Calligus data is returned without errors', function () {
         diagrams.sendSaveManualLiceCountReportRequest();
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=ManualAdultFemaleAverage&Ms.M[1]=ManualMobilesAverage&Ms.M[2]=ManualFixedAverage&Ms.M[3]=ManualCalligusAverage&Dss.L[0]=${Cypress.env('locationId')}`)
+        diagrams.manualLiceCountMetricsGroup().click();
+
         diagrams.generateButton().click();
 
         diagrams.manAFLiceMetricInTheLegend()
@@ -36,11 +40,15 @@ describe("Diagrams",function (){
             .should('exist')
             .and('be.visible');
 
+        diagrams.triggerLevel()
+            .should('exist')
+            .and('be.visible');
+
     });
 
     it('should verify that Image based lice count: Adult females and Mobiles metrics data is returned without errors', function () {
-        approveObservationsForAllContexts.approveObservationsForAllContexts()
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=ImageBasedAdultFemalesAverage&Ms.M[1]=ImageBasedMobilesAverage&Dss.L[0]=${Cypress.env('locationId')}`)
+        approveObservationsForAllContexts.approveObservationsForAllContexts();
+        diagrams.imgBasedLiceCountMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.imgAFMetricInLegend()
@@ -51,20 +59,28 @@ describe("Diagrams",function (){
             .should('exist')
             .and('be.visible');
 
+        diagrams.triggerLevel()
+            .should('exist')
+            .and('be.visible');
+
     });
 
     it('should verify that Automated lice: Adult females count metric data is returned without errors', function () {
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=LiceAutomatedCountsAverage&Dss.L[0]=${Cypress.env('locationId')}`)
+        diagrams.automatedLiceCountMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.autAFLiceMetricInTheLegend()
             .should('exist')
             .and('be.visible');
 
+        diagrams.triggerLevel()
+            .should('exist')
+            .and('be.visible');
+
     });
 
     it('should verify that pulses, uptime and fish passings metrics data is returned without errors', function () {
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=PulsesSum&Ms.M[1]=UpTimeAverage&Ms.M[2]=FishPassingsSum&Dss.L[0]=${Cypress.env('locationId')}`)
+        diagrams.operationsMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.pulsesMetricInTheLegend()
@@ -82,8 +98,8 @@ describe("Diagrams",function (){
     });
 
     it('should verify that Customer biometrics: MAN Fish stock, MAN Fish weight and MAN biomass metrics data is returned without errors', function () {
-        diagrams.sendSaveBiomassReportRequest()
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=FishStockSum&Ms.M[1]=FishWeightAverage&Ms.M[2]=BiomassSum&Dss.L[0]=${Cypress.env('locationId')}`)
+        diagrams.sendSaveBiomassReportRequest();
+        diagrams.customerBiometricsMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.manFishStockMetricInTheLegend()
@@ -101,18 +117,18 @@ describe("Diagrams",function (){
     });
 
     it('should verify that automated Stingray biometrics:AUT Fish weight metrics data is returned without errors', function () {
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=StingrayFishWeightAverage&Dss.L[0]=${Cypress.env('locationId')}`)
+        diagrams.stingrayBiometricsMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.autFishWeightMetricInTheLegend()
             .should('exist')
-            .and('be.visible')
+            .and('be.visible');
 
     });
 
     it('should verify that Image based Diagnostics: Fish with ulcers, Mature fish and Snout damage counts metrics data is returned without errors', function () {
-        approveObservationsForAllContexts.approveObservationsForAllContexts()
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=ImageBasedUlcersAverage&Ms.M[1]=ImageBasedMaturationAverage&Ms.M[2]=ImageBasedSnoutDamageAverage&Dss.L[0]=${Cypress.env('locationId')}`)
+        approveObservationsForAllContexts.approveObservationsForAllContexts();
+        diagrams.imageBasedDiagnosticsMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.imgFishWithUlcersMetricInLegend()
@@ -130,7 +146,7 @@ describe("Diagrams",function (){
     });
 
     it('should verify that automated Diagnostics counts metrics data is returned without errors', function () {
-        cy.visit(`/en/Results/Diagrams?CustomerId=48&From=2022-03-01&To=2022-03-23&Ms.M[0]=UlcersAverage&Ms.M[1]=SwimmingSpeedAverage&Ms.M[2]=MaturationAverage&Dss.L[0]=${Cypress.env('locationId')}`)
+        diagrams.automatedDiagnosticsMetricsGroup().click();
         diagrams.generateButton().click();
 
         diagrams.autFishWithUlcersMetricInTheLegend()
