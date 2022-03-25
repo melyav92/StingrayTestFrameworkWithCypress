@@ -22,6 +22,7 @@
   "pluginsFile": false,
   "chromeWebSecurity": true,
   "watchForFileChanges": false,
+  "video": false,
   "viewportWidth": 1920,
   "viewportHeight": 1080,
   "reporter": "mochawesome",
