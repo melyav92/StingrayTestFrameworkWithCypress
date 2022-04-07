@@ -18,6 +18,39 @@ describe("Diagrams",function (){
 
     });
 
+    it('should verify that Pen comments event data is returned without errors and it is displayed on the graph', function () {
+        diagrams.sendSavePenCommentRequest();
+        diagrams.penCommentsEvent().click();
+        diagrams.generateButton().click();
+
+        diagrams.penCommentsEventOnTheGraph()
+            .should('exist')
+            .and('be.visible');
+
+    });
+
+    it('should verify that Harvest event data is returned without errors and it is displayed on the graph', function () {
+        diagrams.sendSaveHarvestReportRequest();
+        diagrams.harvestsEvent().click()
+        diagrams.generateButton().click();
+
+        diagrams.harvestsEventOnTheGraph()
+            .should('exist')
+            .and('be.visible');
+
+    });
+
+    it('should verify that Treatments event data is returned without errors and it is displayed on the graph', function () {
+        diagrams.sendSaveTreatmentsReportRequest()
+        diagrams.treatmentsEvent().click()
+        diagrams.generateButton().click();
+
+        diagrams.treatmentsEventOnTheGraph()
+            .should('exist')
+            .and('be.visible');
+
+    });
+
     it('should verify that Manual lice count metrics: MAN Adult females, MAN Mobiles, MAN Fixed Stages and MAN Calligus data is returned without errors', function () {
         diagrams.sendSaveManualLiceCountReportRequest();
         diagrams.manualLiceCountMetricsGroup().click();

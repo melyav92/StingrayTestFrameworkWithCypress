@@ -62,6 +62,65 @@ export class Diagrams{
             });
     };
 
+    sendSavePenCommentRequest(){
+        cy.request(
+            {
+                method: 'POST',
+                url: '/en/PenComments/AddComment',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "*/*",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: `scp-pen-select=${Cypress.env('penM1Id')}&Date=08%2F03%2F2022&Comment=test+pen+comment&PenIds%5B0%5D=${Cypress.env('penM1Id')}&CustomerId=${Cypress.env('bolaksCustomerId')}&LocationId=${Cypress.env('locationId')}`
+
+            }).its('status').should('eq', 200);
+    };
+
+    sendSaveHarvestReportRequest(){
+        cy.request(
+            {
+                method: 'POST',
+                url: '/api/harvests/harvest',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "*/*",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: `HarvestMaster%5BId%5D=0&HarvestMaster%5BLocationId%5D=${Cypress.env('locationId')}&HarvestMaster%5BFormattedDate%5D=08%2F03%2F2022&HarvestMaster%5BCountedDate%5D=2022-03-08&HarvestMaster%5BOriginalCountedDate%5D=&HarvestItems%5B0%5D%5BId%5D=0&HarvestItems%5B0%5D%5BPenId%5D=${Cypress.env('penM1Id')}&HarvestItems%5B0%5D%5BPenName%5D=${Cypress.env('penM1')}&HarvestItems%5B0%5D%5BFishHarvested%5D=3333&HarvestItems%5B0%5D%5BAverageHarvestWeight%5D=45000&HarvestItems%5B0%5D%5BFishPerPenAfterHarvest%5D=45550&HarvestItems%5B0%5D%5BComment%5D=`
+
+            }).its('status').should('eq', 200);
+    };
+
+    sendSaveTreatmentsReportRequest(){
+        cy.request(
+            {
+                method: 'POST',
+                url: '/api/treatments/treatment',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "*/*",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: `TreatmentMaster%5BId%5D=-1&TreatmentMaster%5BLocationId%5D=${Cypress.env('locationId')}&TreatmentMaster%5BTreatmentDate%5D=2022-03-08&TreatmentMaster%5BOriginalTreatmentDate%5D=Invalid+date&TreatmentMaster%5BFormattedDate%5D=08%2F03%2F2022&TreatmentItems%5B0%5D%5BPenId%5D=${Cypress.env('penM1Id')}&TreatmentItems%5B0%5D%5BPenName%5D=${Cypress.env('penM1')}&TreatmentItems%5B0%5D%5BComment%5D=&TreatmentItems%5B0%5D%5BTreatmentTypeId%5D=15&TreatmentItems%5B0%5D%5BFishPerPen%5D=45550`,
+                failOnStatusCode: false
+
+            });
+    };
+
+//Events tree
+    penCommentsEvent(){
+        return cy.get('.scp-checkable-tree-node-label').contains('Pen comments');
+    };
+
+    harvestsEvent(){
+        return cy.get('.scp-checkable-tree-node-label').contains('Harvests');
+    };
+
+    treatmentsEvent(){
+        return cy.get('.scp-checkable-tree-node-label').contains('Treatments');
+    };
+
 //Metrics tree groups
     manualLiceCountMetricsGroup(){
         return cy.get('.scp-checkable-tree-node-label').contains('Manual lice count');
@@ -94,6 +153,21 @@ export class Diagrams{
     automatedDiagnosticsMetricsGroup(){
         return cy.get('.scp-checkable-tree-node-label').contains('Automated measurements');
     };
+
+//events data on the graph
+    penCommentsEventOnTheGraph(){
+        return cy.get('.c3-xgrid-line').contains('Pen comment');
+    };
+
+    harvestsEventOnTheGraph(){
+        return cy.get('.c3-xgrid-line').contains('Harvest');
+    };
+
+    treatmentsEventOnTheGraph(){
+        return cy.get('.c3-xgrid-line').contains('Treatment');
+    };
+
+
 
 //metrics data in the legend under the graph
     locationObjectInLegend(){
