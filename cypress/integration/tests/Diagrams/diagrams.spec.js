@@ -18,12 +18,23 @@ describe("Diagrams",function (){
 
     });
 
-    it.only('should verify that Pen comments event data is returned without errors', function () {
+    it('should verify that Pen comments event data is returned without errors and it is displayed on the graph', function () {
         diagrams.sendSavePenCommentRequest();
         diagrams.penCommentsEvent().click();
         diagrams.generateButton().click();
 
         diagrams.penCommentsEventOnTheGraph()
+            .should('exist')
+            .and('be.visible');
+
+    });
+
+    it.only('should verify that Harvest event data is returned without errors and it is displayed on the graph', function () {
+        diagrams.sendSaveHarvestReportRequest();
+        diagrams.harvestsEvent().click()
+        diagrams.generateButton().click();
+
+        diagrams.harvestsEventOnTheGraph()
             .should('exist')
             .and('be.visible');
 
