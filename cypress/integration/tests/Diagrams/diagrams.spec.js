@@ -29,12 +29,23 @@ describe("Diagrams",function (){
 
     });
 
-    it.only('should verify that Harvest event data is returned without errors and it is displayed on the graph', function () {
+    it('should verify that Harvest event data is returned without errors and it is displayed on the graph', function () {
         diagrams.sendSaveHarvestReportRequest();
         diagrams.harvestsEvent().click()
         diagrams.generateButton().click();
 
         diagrams.harvestsEventOnTheGraph()
+            .should('exist')
+            .and('be.visible');
+
+    });
+
+    it('should verify that Treatments event data is returned without errors and it is displayed on the graph', function () {
+        diagrams.sendSaveTreatmentsReportRequest()
+        diagrams.treatmentsEvent().click()
+        diagrams.generateButton().click();
+
+        diagrams.treatmentsEventOnTheGraph()
             .should('exist')
             .and('be.visible');
 

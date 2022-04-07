@@ -92,6 +92,22 @@ export class Diagrams{
             }).its('status').should('eq', 200);
     };
 
+    sendSaveTreatmentsReportRequest(){
+        cy.request(
+            {
+                method: 'POST',
+                url: '/api/treatments/treatment',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "*/*",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: `TreatmentMaster%5BId%5D=-1&TreatmentMaster%5BLocationId%5D=${Cypress.env('locationId')}&TreatmentMaster%5BTreatmentDate%5D=2022-03-08&TreatmentMaster%5BOriginalTreatmentDate%5D=Invalid+date&TreatmentMaster%5BFormattedDate%5D=08%2F03%2F2022&TreatmentItems%5B0%5D%5BPenId%5D=${Cypress.env('penM1Id')}&TreatmentItems%5B0%5D%5BPenName%5D=${Cypress.env('penM1')}&TreatmentItems%5B0%5D%5BComment%5D=&TreatmentItems%5B0%5D%5BTreatmentTypeId%5D=15&TreatmentItems%5B0%5D%5BFishPerPen%5D=45550`,
+                failOnStatusCode: false
+
+            });
+    };
+
 //Events tree
     penCommentsEvent(){
         return cy.get('.scp-checkable-tree-node-label').contains('Pen comments');
@@ -101,6 +117,9 @@ export class Diagrams{
         return cy.get('.scp-checkable-tree-node-label').contains('Harvests');
     };
 
+    treatmentsEvent(){
+        return cy.get('.scp-checkable-tree-node-label').contains('Treatments');
+    };
 
 //Metrics tree groups
     manualLiceCountMetricsGroup(){
@@ -142,6 +161,10 @@ export class Diagrams{
 
     harvestsEventOnTheGraph(){
         return cy.get('.c3-xgrid-line').contains('Harvest');
+    };
+
+    treatmentsEventOnTheGraph(){
+        return cy.get('.c3-xgrid-line').contains('Treatment');
     };
 
 
