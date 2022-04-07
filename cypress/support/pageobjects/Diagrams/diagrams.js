@@ -62,6 +62,27 @@ export class Diagrams{
             });
     };
 
+    sendSavePenCommentRequest(){
+        cy.request(
+            {
+                method: 'POST',
+                url: '/en/PenComments/AddComment',
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                    "Accept": "*/*",
+                    "X-Requested-With": "XMLHttpRequest"
+                },
+                body: `scp-pen-select=${Cypress.env('penM1Id')}&Date=08%2F03%2F2022&Comment=test+pen+comment&PenIds%5B0%5D=${Cypress.env('penM1Id')}&CustomerId=${Cypress.env('bolaksCustomerId')}&LocationId=${Cypress.env('locationId')}`
+
+            }).its('status').should('eq', 200);
+    }
+
+//Events tree
+    penCommentsEvent(){
+        return cy.get('.scp-checkable-tree-node-label').contains('Pen comments');
+    }
+
+
 //Metrics tree groups
     manualLiceCountMetricsGroup(){
         return cy.get('.scp-checkable-tree-node-label').contains('Manual lice count');
@@ -94,6 +115,13 @@ export class Diagrams{
     automatedDiagnosticsMetricsGroup(){
         return cy.get('.scp-checkable-tree-node-label').contains('Automated measurements');
     };
+
+//events data on the graph
+    penCommentsEventOnTheGraph(){
+        return cy.get('.c3-xgrid-line').contains('Pen comment');
+    };
+
+
 
 //metrics data in the legend under the graph
     locationObjectInLegend(){

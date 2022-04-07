@@ -18,6 +18,17 @@ describe("Diagrams",function (){
 
     });
 
+    it.only('should verify that Pen comments event data is returned without errors', function () {
+        diagrams.sendSavePenCommentRequest();
+        diagrams.penCommentsEvent().click();
+        diagrams.generateButton().click();
+
+        diagrams.penCommentsEventOnTheGraph()
+            .should('exist')
+            .and('be.visible');
+
+    });
+
     it('should verify that Manual lice count metrics: MAN Adult females, MAN Mobiles, MAN Fixed Stages and MAN Calligus data is returned without errors', function () {
         diagrams.sendSaveManualLiceCountReportRequest();
         diagrams.manualLiceCountMetricsGroup().click();
