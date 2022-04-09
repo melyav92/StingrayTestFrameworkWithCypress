@@ -4,7 +4,7 @@ import {Dashboard} from "../../../support/pageobjects/Dashboard/dashboard";
 let manualLogin = new ManualLoginWithPasteCookies();
 let dashboard = new Dashboard();
 
-describe("Manual lice count register page",function (){
+describe("Dashboard page",function (){
 
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies()

@@ -1,6 +1,5 @@
 import {NavigatorLocationLevelPanel} from "../../../../support/pageobjects/Navigator/LocationLevePanel/navigator-location-level-panel";
 import {ManualLoginWithPasteCookies} from "../../../../support/pageobjects/login-with-manually-paste-cookies";
-import navigator from "../../../../fixtures/Navigator/navigator-data.json";
 import {NavigatorNodeLevelPanel} from "../../../../support/pageobjects/Navigator/NodeLevelPanel/navigator-node-level-panel";
 
 
@@ -54,8 +53,12 @@ describe("Navigator location level panel", function (){
     });
 
     it('should verify jump to Su number functionality', function () {
-        navigatorLocation.jumpToSuNumberInput().type(`${navigator.nodeSerialNumber}{enter}`)
-        navigatorNode.selectedNodeOnNodeLevelPage().should('contain', navigator.nodeSerialNumber)
+        navigatorLocation.getFirstNodeInTheLocationToJump();
+        cy.get('@nodeToJump').then((nodeToJump)=>{
+            navigatorLocation.jumpToSuNumberInput().type(`${nodeToJump}{enter}`)
+            navigatorNode.selectedNodeOnNodeLevelPage().should('contain', nodeToJump)
+        })
+
     });
 
 
