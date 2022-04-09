@@ -7,7 +7,7 @@ let navigatorLocation = new NavigatorLocationLevelPanel();
 let navigatorNode = new NavigatorNodeLevelPanel();
 
 
-describe("Navigator node level panel",function (){
+describe("Navigator node level panel jump to SU number functionality",function (){
 
 
     beforeEach(function (){
