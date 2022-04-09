@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://192.168.10.49:8100",
+  "baseUrl": "https://stingray-dev.vector-software.com",
   "pageLoadTimeout": 60000,
   "defaultCommandTimeout": 25000,
   "env": {
