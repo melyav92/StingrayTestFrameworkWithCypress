@@ -7,21 +7,39 @@ let commands = new NavigatorNodeLevelPanel();
 
 
 describe("Navigator node level commands sending", function (){
+    before(function (){
+        manualLogin.manualLoginWithPasteCookies();
+        commands.sendUnlockCommandRequest();
+    })
+
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies();
-        cy.visit('/en/Navigator/Node?nodeId=186');
-        commands.selectedNodeOnNodeLevelPage().should('contain', 'DEMO-001');
+        cy.visit(`/en/Navigator/Node?nodeId=${Cypress.env('demo-001NodeSoId')}`);
+        commands.selectedNodeOnNodeLevelPage().should('contain', `${Cypress.env('demo-001NodeSerialNumber')}`);
 
     });
 
-    it('should verify that the user is able to send node vertically from "Change absolute" position to section ', function () {
+    it.only('should verify that the user is able to send node vertically from "Change absolute" position to section ', function () {
         commands.verticalDirectionInput().type('2');
         commands.goButton().click();
         commands.yesProceedButtonInThePopup().click();
-        commands.successToasterPopup()
+        commands.toasterPopup()
             .should('be.visible')
             .and('have.class', 'toast-success')
-        //add and with command name
+            .and('have.text', 'Go to position command is successfully created')
+
+        commands.stopMovementButton().click();
+
+    });
+
+    it('should verify that the user is able to send node horizontally from "Change absolute" position to section ', function () {
+        commands.horizontalDirectionInput().type('2');
+        commands.goButton().click();
+        commands.yesProceedButtonInThePopup().click();
+        commands.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Go to position command is successfully created')
 
         commands.stopMovementButton().click();
 

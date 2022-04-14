@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://stingray-dev.vector-software.com",
+  "baseUrl": "https://192.168.10.49:8100",
   "pageLoadTimeout": 60000,
   "defaultCommandTimeout": 25000,
   "env": {
@@ -17,6 +17,9 @@
     "penM2Id": "4043",
     "demoCustomer": "Demo Customer",
     "demoLocation": "Demo Location",
+    "demo-001NodeSerialNumber": "DEMO-001",
+    "demo-001NodeCableId": "1061",
+    "demo-001NodeSoId": "186",
     "bolaksCustomer": "Bolaks AS",
     "fusavikaLocation": "Fusavika"
   },

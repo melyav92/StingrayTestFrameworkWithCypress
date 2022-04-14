@@ -9,7 +9,12 @@ export class NavigatorNodeLevelPanel {
       return cy.get('#scp-vertical-position-input');
     };
 
+    horizontalDirectionInput(){
+        return cy.get('#scp-horizontal-position-input');
+    };
+
     goButton(){
+        this.buDownCamStreamingExists();
         return cy.get('#scp-change-position-button');
     };
 
@@ -17,13 +22,34 @@ export class NavigatorNodeLevelPanel {
         return cy.get('.scp-custom-popup-submit-popup');
     };
 
-    successToasterPopup(){
+    toasterPopup(){
         return cy.get('#toast-container').children();
     };
 
     stopMovementButton(){
-        return cy.get('#scp-nav-stop-command')
-    }
+        return cy.get('#scp-nav-stop-command');
+    };
+
+    buDownCamStreamingExists(){
+        return cy.get('.scp-camera-stream-image').first()
+            .should('have.css', 'display', 'block')
+            .and('have.attr', 'src');
+    };
+
+    sendUnlockCommandRequest(){
+      cy.request(
+          {   method: 'POST',
+              url: `/api/navigator/v4/${Cypress.env('demo-001NodeCableId')}/command`,
+              headers: {
+                  "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
+                  "Accept": "*/*",
+                  "X-Requested-With": "XMLHttpRequest"
+              },
+              body: '{"payloadArg":{"moveArgs":{"locked":false}},"payloadKey":"Nav_Move"}'
+          }
+      ).its('status').should('eq', 200)
+
+    };
 
 
 
