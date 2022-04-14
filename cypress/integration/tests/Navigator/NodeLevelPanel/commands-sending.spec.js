@@ -1,5 +1,6 @@
 import {ManualLoginWithPasteCookies} from "../../../../support/pageobjects/login-with-manually-paste-cookies";
 import {NavigatorNodeLevelPanel} from "../../../../support/pageobjects/Navigator/NodeLevelPanel/navigator-node-level-panel";
+import navigatorData from "/cypress/fixtures/Navigator/navigator-data.js";
 
 
 let manualLogin = new ManualLoginWithPasteCookies();
@@ -19,27 +20,27 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it.only('should verify that the user is able to send node vertically from "Change absolute" position to section ', function () {
-        commands.verticalDirectionInput().type('2');
+    it('should verify that the user is able to send node vertically from "Change absolute" position to section ', function () {
+        commands.verticalDirectionInput().type(navigatorData.verticalPositionValue);
         commands.goButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
             .should('be.visible')
             .and('have.class', 'toast-success')
-            .and('have.text', 'Go to position command is successfully created')
+            .and('have.text', `${navigatorData.goToPositionCommandName} command is successfully created`)
 
         commands.stopMovementButton().click();
 
     });
 
     it('should verify that the user is able to send node horizontally from "Change absolute" position to section ', function () {
-        commands.horizontalDirectionInput().type('2');
+        commands.horizontalDirectionInput().type(navigatorData.horizontalPositionValue);
         commands.goButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
             .should('be.visible')
             .and('have.class', 'toast-success')
-            .and('have.text', 'Go to position command is successfully created')
+            .and('have.text', `${navigatorData.goToPositionCommandName} command is successfully created`)
 
         commands.stopMovementButton().click();
 
