@@ -9,10 +9,12 @@ module.exports = {
     "dockCommandName": "Dock",
     "lockCommandName": "Lock",
     "unLockCommandName": "UnLock",
+    "bUDownLightOnCommandName": "Downlight On",
+    "bUDownLightOffCommandName": "Downlight Off",
     "verticalPositionValue": 2,
     "horizontalPositionValue": 2,
-    "setGranularity1.5m": 'center',
-    "nodeGranularityValue": "1.5"
+    "setGranularity0.5m": 'left',
+    "nodeGranularityValue": "0.5"
 
 
 }

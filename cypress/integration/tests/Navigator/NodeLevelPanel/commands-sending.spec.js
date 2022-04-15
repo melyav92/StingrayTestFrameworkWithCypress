@@ -21,9 +21,9 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to change GRANULARITY value for the node', function () {
-        commands.changeGranularityForTheNode().click('left');
+        commands.changeGranularityForTheNode().click('center');
         commands.currentGranularityValue().should('not.eq', `${navigatorData.nodeGranularityValue}`)
-        commands.changeGranularityForTheNode().click(`${navigatorData["setGranularity1.5m"]}`);
+        commands.changeGranularityForTheNode().click(`${navigatorData["setGranularity0.5m"]}`);
         commands.toasterPopup()
             .should('be.visible')
             .and('have.class', 'toast-success')
@@ -86,7 +86,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send LEFT command by using right arrow from "Controls" section ', function () {
+    it('should verify that the user is able to send LEFT command by using left arrow from "Controls" section ', function () {
         commands.leftArrowButton().click();
         commands.toasterPopup()
             .should('be.visible')
@@ -98,7 +98,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send Down command by using right arrow from "Controls" section ', function () {
+    it('should verify that the user is able to send DOWN command by using down arrow from "Controls" section ', function () {
         commands.downArrowButton().click();
         commands.toasterPopup()
             .should('be.visible')
@@ -110,7 +110,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send UP command by using right arrow from "Controls" section ', function () {
+    it('should verify that the user is able to send UP command by using UP arrow from "Controls" section ', function () {
         commands.upArrowButton().click();
         commands.toasterPopup()
             .should('be.visible')
@@ -122,7 +122,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send AWAY command by using right arrow from "Controls" section ', function () {
+    it('should verify that the user is able to send AWAY command by using away button from "Controls" section ', function () {
         commands.awayButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -134,7 +134,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send HOME command by using right arrow from "Controls" section ', function () {
+    it('should verify that the user is able to send HOME command by using home from "Controls" section ', function () {
         commands.homeButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -146,7 +146,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send DOCK command by using right arrow from "Controls" section ', function () {
+    it('should verify that the user is able to send DOCK command by using dock button from "Controls" section ', function () {
         commands.dockButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -158,7 +158,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send LOCK command by using right arrow from "Controls" section', function () {
+    it('should verify that the user is able to send LOCK command by using lock button from "Controls" section', function () {
         commands.lockButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -170,7 +170,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send UNLOCK command by using right arrow from "Controls" section', function () {
+    it('should verify that the user is able to send UNLOCK command by using unlock button from "Controls" section', function () {
         commands.unLockButton().click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -179,6 +179,11 @@ describe("Navigator node level commands sending", function (){
             .and('have.text', `${navigatorData.unLockCommandName} command is successfully created`)
 
         commands.stopMovementButton().click();
+
+    });
+
+    it('should verify that the user is able to send Light ON/Off command for the node from "Controls" section ', function () {
+        commands.lightButtonFunctionalityTest();
 
     });
 

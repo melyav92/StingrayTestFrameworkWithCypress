@@ -1,3 +1,5 @@
+import navigatorData from "../../../../fixtures/Navigator/navigator-data";
+
 export class NavigatorNodeLevelPanel {
     selectedNodeOnNodeLevelPage(){
         const commandLogTable = cy.get('#scp-commands-log-table_wrapper')
@@ -55,15 +57,48 @@ export class NavigatorNodeLevelPanel {
     };
 
     lockButton(){
+        this.buDownCamStreamingExists();
         return cy.get('.scp-navigator-controls-lock-btn');
     };
 
     unLockButton(){
+        this.buDownCamStreamingExists();
         return cy.get('.scp-navigator-controls-unlock-btn');
     };
 
+    lightButton(){
+        return cy.get('.scp-navigator-controls-down-light-btn');
+    }
+
+    lightButtonFunctionalityTest(){
+        this.buDownCamStreamingExists();
+        cy.get('body').then((body)=>{
+            if(body.find('.scp-down-light-on').length === 1){
+
+                this.lightButton().should('have.class', 'scp-down-light-on');
+                this.lightButton().click();
+                this.toasterPopup()
+                    .should('be.visible')
+                    .and('have.class', 'toast-success')
+                    .and('have.text', `${navigatorData.bUDownLightOffCommandName} command is successfully created`);
+
+                this.lightButton().should('not.have.class', 'scp-down-light-on');
+
+            } else
+
+            this.lightButton().should('not.have.class', 'scp-down-light-on');
+            this.lightButton().click();
+            this.toasterPopup()
+                .should('be.visible')
+                .and('have.class', 'toast-success')
+                .and('have.text', `${navigatorData.bUDownLightOnCommandName} command is successfully created`)
+            this.lightButton().should('have.class', 'scp-down-light-on');
+        });
+    }
+
 
     changeGranularityForTheNode(){
+        this.buDownCamStreamingExists();
         return cy.get('#js-rangeslider-0')
     }
 
