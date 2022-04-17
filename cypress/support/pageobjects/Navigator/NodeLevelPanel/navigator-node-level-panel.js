@@ -94,16 +94,15 @@ export class NavigatorNodeLevelPanel {
                 .and('have.text', `${navigatorData.bUDownLightOnCommandName} command is successfully created`)
             this.lightButton().should('have.class', 'scp-down-light-on');
         });
-    }
-
+    };
 
     changeGranularityForTheNode(){
         this.buDownCamStreamingExists();
-        return cy.get('#js-rangeslider-0')
-    }
+        return cy.get('#js-rangeslider-0');
+    };
 
     currentGranularityValue() {
-        return  cy.get('.scp-granulatiry-slider-value').invoke('text');
+        return cy.get('.scp-granulatiry-slider-value').invoke('text');
     };
 
     getCurrentGranularityValue() {
@@ -136,6 +135,14 @@ export class NavigatorNodeLevelPanel {
         return cy.get('.scp-command-target-value');
     };
 
+    goToFavoritePositionButton(positionType){
+        this.buDownCamStreamingExists();
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('.scp-fav-positions-go-btn');
+    };
+
     sendUnlockCommandRequest(){
       cy.request(
           {   method: 'POST',
@@ -150,10 +157,5 @@ export class NavigatorNodeLevelPanel {
       ).its('status').should('eq', 200)
 
     };
-
-
-
-
-
 
 }
