@@ -13,8 +13,8 @@ module.exports = {
     "bUDownLightOffCommandName": "Downlight Off",
     "verticalPositionValue": 2,
     "horizontalPositionValue": 2,
-    "setGranularity0.5m": 'left',
-    "nodeGranularityValue": "0.5"
+    "setGranularity0.5m": 'left'
+
 
 
 }

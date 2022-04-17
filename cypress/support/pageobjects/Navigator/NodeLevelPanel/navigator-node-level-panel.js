@@ -106,6 +106,14 @@ export class NavigatorNodeLevelPanel {
         return  cy.get('.scp-granulatiry-slider-value').invoke('text');
     };
 
+    getCurrentGranularityValue() {
+       return cy.get('.scp-granulatiry-slider-value')
+             .invoke('text')
+             .then((text)=>{
+                 cy.wrap(parseFloat(text)).as('granularity');
+        });
+    };
+
     yesProceedButtonInThePopup(){
         return cy.get('.scp-custom-popup-submit-popup');
     };
