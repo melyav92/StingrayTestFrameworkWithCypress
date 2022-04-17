@@ -22,13 +22,16 @@ describe("Navigator node level commands sending", function (){
 
     it('should verify that the user is able to change GRANULARITY value for the node', function () {
         commands.changeGranularityForTheNode().click('center');
-        commands.currentGranularityValue().should('not.eq', `${navigatorData.nodeGranularityValue}`)
         commands.changeGranularityForTheNode().click(`${navigatorData["setGranularity0.5m"]}`);
         commands.toasterPopup()
-            .should('be.visible')
-            .and('have.class', 'toast-success')
-            .and('have.text', 'Granularity value is saved successfully')
-        commands.currentGranularityValue().should('eq', `${navigatorData.nodeGranularityValue}`)
+           .should('be.visible')
+           .and('have.class', 'toast-success')
+           .and('have.text', 'Granularity value is saved successfully');
+
+        commands.getCurrentGranularityValue();
+        cy.get('@granularity').then((granularity)=>{
+            commands.currentGranularityValue().should('eq', `${granularity}`)
+        });
 
     });
 
@@ -80,7 +83,11 @@ describe("Navigator node level commands sending", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', `${navigatorData.rightArrowCommandName} command is successfully created`)
-        commands.executingCommandTarget().should('contain', `${navigatorData.nodeGranularityValue}`)
+
+        commands.getCurrentGranularityValue();
+        cy.get('@granularity').then((granularity)=>{
+            commands.executingCommandTarget().should('contain', `${granularity}`)
+        });
 
         commands.stopMovementButton().click();
 
@@ -92,7 +99,10 @@ describe("Navigator node level commands sending", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', `${navigatorData.leftArrowCommandName} command is successfully created`)
-        commands.executingCommandTarget().should('contain', `${navigatorData.nodeGranularityValue}`)
+        commands.getCurrentGranularityValue();
+        cy.get('@granularity').then((granularity)=>{
+            commands.executingCommandTarget().should('contain', `${granularity}`)
+        });
 
         commands.stopMovementButton().click();
 
@@ -104,7 +114,10 @@ describe("Navigator node level commands sending", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', `${navigatorData.downArrowCommandName} command is successfully created`);
-        commands.executingCommandTarget().should('contain', `${navigatorData.nodeGranularityValue}`);
+        commands.getCurrentGranularityValue();
+        cy.get('@granularity').then((granularity)=>{
+            commands.executingCommandTarget().should('contain', `${granularity}`)
+        });
 
         commands.stopMovementButton().click();
 
@@ -116,7 +129,10 @@ describe("Navigator node level commands sending", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', `${navigatorData.upArrowCommandName} command is successfully created`);
-        commands.executingCommandTarget().should('contain', `${navigatorData.nodeGranularityValue}`);
+        commands.getCurrentGranularityValue();
+        cy.get('@granularity').then((granularity)=>{
+            commands.executingCommandTarget().should('contain', `${granularity}`)
+        });
 
         commands.stopMovementButton().click();
 
