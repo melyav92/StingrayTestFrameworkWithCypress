@@ -4,7 +4,7 @@ import {SequenceAnalyzer} from "../../../support/pageobjects/SequenceAnayzerAppl
 let manualLogin = new ManualLoginWithPasteCookies();
 let sequenceAnalyzer = new SequenceAnalyzer();
 
-describe("", function (){
+describe("Sequence Analyzer application", function (){
     beforeEach(function (){
         manualLogin.manualLoginWithPasteCookies();
         cy.visit(`/en/SequenceAnalyzer?locationId=${Cypress.env('locationId')}&countedDate=2019-11-19`);
