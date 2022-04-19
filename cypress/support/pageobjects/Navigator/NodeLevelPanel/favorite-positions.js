@@ -39,6 +39,15 @@ export class FavoritePositions {
         return cy.get('#scp-save-button');
     };
 
+    editFavoritePositionPencilItem(positionType){
+        cy.reload();
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('[data-original-title="Edit favorite position"]');
+    }
+
     sendSwitchOffThrustersModeRequest() {
         cy.request(
             {   method: 'POST',
