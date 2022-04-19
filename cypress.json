@@ -18,7 +18,7 @@
     "demoCustomer": "Demo Customer",
     "demoLocation": "Demo Location",
     "demo-001NodeSerialNumber": "DEMO-001",
-    "demo-001NodeCableId": "1061",
+    "demo-001NodeCableId": "329",
     "demo-001NodeSoId": "186",
     "bolaksCustomer": "Bolaks AS",
     "fusavikaLocation": "Fusavika"
@@ -35,5 +35,13 @@
     "overwrite": false,
     "html": true,
     "json": true
-  }
+  },
+  "ignoreTestFiles": [
+
+    "**/auth0-login.spec.js",
+    "**/sequence-analyzer-approve-sequences.spec.js",
+    "**/SA-with-Auth0.spec.js",
+    "**/login-page.spec.js"
+
+  ]
 }
