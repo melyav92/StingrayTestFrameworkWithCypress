@@ -16,8 +16,8 @@ describe("Favorite Positions CRUD", function (){
         nodePage.selectedNodeOnNodeLevelPage().should('contain', `${Cypress.env('demo-001NodeSerialNumber')}`);
     });
 
-    it('should verify that the user is able to create DAY favorite position with thrusters "OFF" state', function () {
-        favoritePosition.sendSwitchOffThrustersModeRequest();
+    it('should verify that the user is able to create DAY favorite position', function () {
+        favoritePosition.sendSwitchOnThrustersStingrayManualModeRequest();
         favoritePosition.storeCurrentPositionAsFavoriteButton().click();
         favoritePosition.descriptionInput().type(favoritePositionData.dayPositionType)
         favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.dayPositionType).click();
@@ -34,8 +34,8 @@ describe("Favorite Positions CRUD", function (){
         favoritePosition.sendCreteFavoritePositionRequest(navigatorData.dayPosition);
         favoritePosition.editFavoritePositionPencilItem(favoritePositionData.dayPositionType).click();
         favoritePosition.descriptionInput().clear().type(favoritePositionData.dayPositionType)
-        favoritePosition.thrustersOffButton().click();
         favoritePosition.verticalPositionInput().clear().type(favoritePositionData.verticalPositionValue);
+        favoritePosition.thrustersOffButton().click();
         favoritePosition.horizontalPositionInput().clear().type(favoritePositionData.horizontalPositionValue);
 
         favoritePosition.saveButton().click();
@@ -51,7 +51,7 @@ describe("Favorite Positions CRUD", function (){
     });
 
     it('should verify that the user is able to create NIGHT favorite position', function () {
-        favoritePosition.sendSwitchOffThrustersModeRequest();
+        favoritePosition.sendSwitchOnThrustersStingrayManualModeRequest();
         favoritePosition.storeCurrentPositionAsFavoriteButton().click();
         favoritePosition.descriptionInput().type(favoritePositionData.nightPositionType)
         favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.nightPositionType).click();

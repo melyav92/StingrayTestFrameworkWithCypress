@@ -206,7 +206,7 @@ describe("Navigator node level commands sending", function (){
 
     });
 
-    it('should verify that the user is able to send the node to the DAY favorite position by clicking on "GO" button in the favorite positions table', function () {
+    it.only('should verify that the user is able to send the node to the DAY favorite position by clicking on "GO" button in the favorite positions table', function () {
         positions.sendCreteFavoritePositionRequest(navigatorData.dayPosition);
         commands.goToFavoritePositionButton(favoritePositions.dayPositionType).click();
         commands.yesProceedButtonInThePopup().click();

@@ -1,7 +1,7 @@
 {
   "baseUrl": "https://192.168.10.49:8100",
   "pageLoadTimeout": 60000,
-  "defaultCommandTimeout": 25000,
+  "defaultCommandTimeout": 27000,
   "env": {
     "username": "bolacslu",
     "password": "123456",

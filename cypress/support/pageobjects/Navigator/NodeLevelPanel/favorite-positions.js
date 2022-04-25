@@ -40,7 +40,6 @@ export class FavoritePositions {
     };
 
     editFavoritePositionPencilItem(positionType){
-        cy.reload();
         cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
         return cy.get('#scp-favorite-positions-table td')
             .contains(`${positionType}`)
@@ -48,7 +47,7 @@ export class FavoritePositions {
             .find('[data-original-title="Edit favorite position"]');
     }
 
-    sendSwitchOffThrustersModeRequest() {
+    sendSwitchOnThrustersStingrayManualModeRequest() {
         cy.request(
             {   method: 'POST',
                 url: `/api/navigator/v4/${Cypress.env('demo-001NodeCableId')}/command`,
@@ -57,7 +56,7 @@ export class FavoritePositions {
                     "Accept": "*/*",
                     "X-Requested-With": "XMLHttpRequest"
                 },
-                body: '{"payloadArg":{"thrusterArgs":{"mode":"Off"}},"payloadKey":"Nav_Thruster_Control"}',
+                body: '{"payloadArg":{"thrusterArgs":{"mode":"Manual","target":56}},"payloadKey":"Nav_Thruster_Control"}',
             }
         ).its('status').should('eq', 200);
 
@@ -66,14 +65,37 @@ export class FavoritePositions {
     sendCreteFavoritePositionRequest(positionType) {
         cy.request(
             {   method: 'POST',
-                url: `/api/navigator/v4/favorite-position?cableId=${Cypress.env('demo-001NodeCableId')}`,
+                url: '/api/navigator/v4/favorite-positions',
                 headers: {
                     "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
                     "Accept": "*/*",
                     "X-Requested-With": "XMLHttpRequest"
                 },
-                body: `{"favoriteName":"${positionType}","active":true,"type":"${positionType}","favoritePosition":{"moveArgs":{"locked":null,"horizontal":{"direction":"Abs","distCm":1000},"vertical":{"direction":"Abs","distCm":1000}},"thrusterArgs":null},"note":""}`,
-                failOnStatusCode: false
+                body: `[{
+                "item": {
+                "favoriteName": "${positionType}",
+                "active": true,
+                "type": "${positionType}",
+                "favoritePosition": {
+                "moveArgs": {
+                    "locked": null,
+                    "horizontal": {
+                        "direction": "Abs",
+                        "distCm": 1100
+                    },
+                    "vertical": {
+                        "direction": "Abs",
+                        "distCm": 1000
+                    }
+                },
+                "thrusterArgs": null
+                },
+                 "note": ""
+                 },
+                 "cableId": ${Cypress.env('demo-001NodeCableId')}
+            }
+            ]`,
+                //failOnStatusCode: false
             }
         );
         cy.reload()
