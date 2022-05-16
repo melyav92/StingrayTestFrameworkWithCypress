@@ -2,7 +2,7 @@ import {ManualLoginWithPasteCookies} from "../../../../support/pageobjects/login
 import {FavoritePositions} from "../../../../support/pageobjects/Navigator/NodeLevelPanel/favorite-positions";
 import {NavigatorNodeLevelPanel} from "../../../../support/pageobjects/Navigator/NodeLevelPanel/navigator-node-level-panel";
 import favoritePositionData from "/cypress/fixtures/Navigator/favorite-positions.js";
-import navigatorData from "/cypress/fixtures/Navigator/navigator-data";
+
 
 
 let manualLogin = new ManualLoginWithPasteCookies();
@@ -31,7 +31,7 @@ describe("Favorite Positions CRUD", function (){
     });
 
     it('should verify that the user is able to EDIT DAY favorite position with new VERTICAL, HORIZONTAL AND THRUSTERS "OFF" state', function () {
-        favoritePosition.sendCreteFavoritePositionRequest(navigatorData.dayPosition);
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.dayPosition);
         favoritePosition.editFavoritePositionPencilItem(favoritePositionData.dayPositionType).click();
         favoritePosition.descriptionInput().clear().type(favoritePositionData.dayPositionType)
         favoritePosition.verticalPositionInput().clear().type(favoritePositionData.verticalPositionValue);
