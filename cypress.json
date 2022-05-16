@@ -1,7 +1,8 @@
 {
-  "baseUrl": "https://192.168.10.49:8100",
+  "baseUrl": "https://stingray-dev.vector-software.com/",
   "pageLoadTimeout": 60000,
-  "defaultCommandTimeout": 25000,
+  "defaultCommandTimeout": 30000,
+  "responseTimeout": 60000,
   "env": {
     "username": "bolacslu",
     "password": "123456",
@@ -18,7 +19,7 @@
     "demoCustomer": "Demo Customer",
     "demoLocation": "Demo Location",
     "demo-001NodeSerialNumber": "DEMO-001",
-    "demo-001NodeCableId": "1061",
+    "demo-001NodeCableId": "329",
     "demo-001NodeSoId": "186",
     "bolaksCustomer": "Bolaks AS",
     "fusavikaLocation": "Fusavika"
@@ -35,5 +36,16 @@
     "overwrite": false,
     "html": true,
     "json": true
-  }
+  },
+  "ignoreTestFiles": [
+
+    "**/biomass-register.spec.js",
+    "**/treatment-register.spec.js",
+    "**/harvest-register.spec.js",
+    "**/auth0-login.spec.js",
+    "**/sequence-analyzer-approve-sequences.spec.js",
+    "**/SA-with-Auth0.spec.js",
+    "**/login-page.spec.js "
+
+  ]
 }
