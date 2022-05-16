@@ -207,7 +207,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the DAY favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.dayPosition);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.dayPosition);
         commands.goToFavoritePositionButton(favoritePositions.dayPositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -220,7 +220,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the NIGHT favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.nightPosition);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.nightPosition);
         commands.goToFavoritePositionButton(favoritePositions.nightPositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -233,7 +233,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the STORM favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.stormPosition);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.stormPosition);
         commands.goToFavoritePositionButton(favoritePositions.stormPositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -246,7 +246,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the CLEAN favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.cleanPosition);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.cleanPosition);
         commands.goToFavoritePositionButton(favoritePositions.cleanPositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -271,7 +271,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the ALT-1 favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.alt1Position);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.alt1Position);
         commands.goToFavoritePositionButton(favoritePositions.alt1PositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -284,7 +284,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the ALT-2 favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.alt2Position);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.alt2Position);
         commands.goToFavoritePositionButton(favoritePositions.alt2PositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
@@ -297,7 +297,7 @@ describe("Navigator node level commands sending", function (){
     });
 
     it('should verify that the user is able to send the node to the CUSTOM favorite position by clicking on "GO" button in the favorite positions table', function () {
-        positions.sendCreteFavoritePositionRequest(navigatorData.customPosition);
+        positions.sendCreteFavoritePositionRequest(favoritePositions.customPosition);
         commands.goToFavoritePositionButton(favoritePositions.customPositionType).click();
         commands.yesProceedButtonInThePopup().click();
         commands.toasterPopup()
