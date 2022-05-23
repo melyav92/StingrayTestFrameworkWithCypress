@@ -38,6 +38,12 @@ export class FavoritePositions {
     saveButton(){
         return cy.get('#scp-save-button');
     };
+//Favorite positions table objects
+    favoritePositionRawInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`);
+    };
 
     editFavoritePositionPencilItem(positionType){
         cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
@@ -45,7 +51,45 @@ export class FavoritePositions {
             .contains(`${positionType}`)
             .parents('tr')
             .find('[data-original-title="Edit favorite position"]');
-    }
+    };
+
+    descriptionValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(2);
+    };
+
+    verticalPositionValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(3);
+    };
+
+    horizontalPositionValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(4);
+    };
+
+    thrustersValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(5);
+    };
+
+
 
     sendSwitchOnThrustersStingrayManualModeRequest() {
         cy.request(
@@ -72,34 +116,44 @@ export class FavoritePositions {
                     "X-Requested-With": "XMLHttpRequest"
                 },
                 body: `[{
-                "item": {
-                "favoriteName": "${positionType}",
-                "active": true,
-                "type": "${positionType}",
-                "favoritePosition": {
-                "moveArgs": {
-                    "locked": null,
-                    "horizontal": {
-                        "direction": "Abs",
-                        "distCm": 1100
+                    "item": {
+                        "favoriteName": "${positionType}",
+                        "active": true,
+                        "type": "${positionType}",
+                        "favoritePosition": {
+                            "moveArgs": {
+                                "locked": null,
+                                "horizontal": {
+                                    "direction": "Abs",
+                                    "distCm": 1100
+                                },
+                                "vertical": {
+                                    "direction": "Abs",
+                                    "distCm": 1000
+                                }
+                            },
+                            "thrusterArgs": null
+                        },
+                        "note": ""
                     },
-                    "vertical": {
-                        "direction": "Abs",
-                        "distCm": 1000
-                    }
-                },
-                "thrusterArgs": null
-                },
-                 "note": ""
-                 },
-                 "cableId": ${Cypress.env('demo-001NodeCableId')}
+                    "cableId": ${Cypress.env('demo-001NodeCableId')}
             }
-            ]`,
-                //failOnStatusCode: false
+         ]`,
             }
         );
         cy.reload()
 
     };
+
+    sendDeleteFavoritePositionRequest(){
+        cy.request(
+            {   method: 'DELETE',
+                url: `api/navigator/v4/favorite-positions?cableId=${Cypress.env('demo-001NodeCableId')}&favoritePositionId=6282943e625403475f65ec40`
+            }
+        ).its('status').should('eq', 200);
+    };
+
+
+
 
 }

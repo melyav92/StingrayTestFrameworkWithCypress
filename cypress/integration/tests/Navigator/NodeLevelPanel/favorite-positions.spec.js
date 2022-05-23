@@ -17,7 +17,6 @@ describe("Favorite Positions CRUD", function (){
     });
 
     it('should verify that the user is able to create DAY favorite position', function () {
-        favoritePosition.sendSwitchOnThrustersStingrayManualModeRequest();
         favoritePosition.storeCurrentPositionAsFavoriteButton().click();
         favoritePosition.descriptionInput().type(favoritePositionData.dayPositionType)
         favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.dayPositionType).click();
@@ -27,6 +26,10 @@ describe("Favorite Positions CRUD", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', 'Favorite position is added successfully');
+        cy.reload();
+        favoritePosition.favoritePositionRawInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('exist')
+            .and('be.visible');
 
     });
 
@@ -35,8 +38,9 @@ describe("Favorite Positions CRUD", function (){
         favoritePosition.editFavoritePositionPencilItem(favoritePositionData.dayPositionType).click();
         favoritePosition.descriptionInput().clear().type(favoritePositionData.dayPositionType)
         favoritePosition.verticalPositionInput().clear().type(favoritePositionData.verticalPositionValue);
-        favoritePosition.thrustersOffButton().click();
         favoritePosition.horizontalPositionInput().clear().type(favoritePositionData.horizontalPositionValue);
+        favoritePosition.thrustersOrientationInput().click();
+        favoritePosition.thrustersOffButton().click();
 
         favoritePosition.saveButton().click();
         nodePage.yesProceedButtonInThePopup().click();
@@ -45,7 +49,16 @@ describe("Favorite Positions CRUD", function (){
             .and('have.class', 'toast-success')
             .and('have.text', 'Favorite position is updated successfully');
 
-        //need to add position values checking
+        cy.reload();
+        favoritePosition.descriptionValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.dayPositionType);
+        favoritePosition.verticalPositionValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.verticalPositionValue + '.0m');
+        favoritePosition.horizontalPositionValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.horizontalPositionValue + '.0m');
+        favoritePosition.thrustersValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.thrustersOffValue);
+
 
 
     });
@@ -61,6 +74,10 @@ describe("Favorite Positions CRUD", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', 'Favorite position is added successfully');
+        cy.reload();
+        favoritePosition.favoritePositionRawInTheFavPosTable(favoritePositionData.nightPositionType)
+            .should('exist')
+            .and('be.visible');
 
     });
 

@@ -16,6 +16,7 @@ module.exports =  {
   "customPosition": "Custom",
   "verticalPositionValue": 7,
   "horizontalPositionValue": 9,
-  "thrustersPositionValue": 255
+  "thrustersOrientationValue": 255,
+  "thrustersOffValue": "Off"
 
 }
