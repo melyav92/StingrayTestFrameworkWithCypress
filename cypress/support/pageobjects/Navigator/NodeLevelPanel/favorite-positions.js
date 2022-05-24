@@ -6,7 +6,7 @@ export class FavoritePositions {
         navigatorNode.buDownCamStreamingExists();
         return cy.get('#scp-store-current-position-link-btn');
     };
-
+    //add/edit popup objects
     descriptionInput(){
         return cy.get('#scp-description-input');
     };
@@ -39,13 +39,87 @@ export class FavoritePositions {
         return cy.get('#scp-save-button');
     };
 
+    deleteButton(){
+        return cy.get('#scp-delete-button')
+    };
+
+    dockButton(){
+        return cy.get('#scp-dock-state-button');
+    };
+
+    lockButton(){
+        return cy.get('#scp-lock-state-button');
+    };
+
+    homeButton(){
+        return cy.get('#scp-home-state-button');
+    };
+
+    awayButton(){
+        return cy.get('#scp-away-state-button');
+    };
+
+
+
+//Favorite positions table objects
+    favoritePositionRawInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`);
+    };
+
     editFavoritePositionPencilItem(positionType){
         cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
         return cy.get('#scp-favorite-positions-table td')
             .contains(`${positionType}`)
             .parents('tr')
             .find('[data-original-title="Edit favorite position"]');
-    }
+    };
+
+    descriptionValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(2);
+    };
+
+    verticalPositionValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(3);
+    };
+
+    horizontalPositionValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(4);
+    };
+
+    thrustersValueInTheFavPosTable(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('td')
+            .eq(5);
+    };
+
+    deleteFavPosTrashCanItem(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('[data-original-title="Delete favorite position"]');
+    };
+
 
     sendSwitchOnThrustersStingrayManualModeRequest() {
         cy.request(
@@ -72,34 +146,64 @@ export class FavoritePositions {
                     "X-Requested-With": "XMLHttpRequest"
                 },
                 body: `[{
-                "item": {
-                "favoriteName": "${positionType}",
-                "active": true,
-                "type": "${positionType}",
-                "favoritePosition": {
-                "moveArgs": {
-                    "locked": null,
-                    "horizontal": {
-                        "direction": "Abs",
-                        "distCm": 1100
+                    "item": {
+                        "favoriteName": "${positionType}",
+                        "active": true,
+                        "type": "${positionType}",
+                        "favoritePosition": {
+                            "moveArgs": {
+                                "locked": null,
+                                "horizontal": {
+                                    "direction": "Abs",
+                                    "distCm": 1100
+                                },
+                                "vertical": {
+                                    "direction": "Abs",
+                                    "distCm": 1000
+                                }
+                            },
+                            "thrusterArgs": null
+                        },
+                        "note": ""
                     },
-                    "vertical": {
-                        "direction": "Abs",
-                        "distCm": 1000
-                    }
-                },
-                "thrusterArgs": null
-                },
-                 "note": ""
-                 },
-                 "cableId": ${Cypress.env('demo-001NodeCableId')}
+                    "cableId": ${Cypress.env('demo-001NodeCableId')}
             }
-            ]`,
-                //failOnStatusCode: false
+         ]`,
             }
         );
         cy.reload()
 
     };
+
+   checkThatFavoritePositionDoesNotExist(position){
+        cy.request(
+            {   method: 'GET',
+                url: `api/navigator/v4/favorite-positions?cableId=${Cypress.env('demo-001NodeCableId')}`
+            }
+        ).then((resp) => {
+            expect(resp.status).to.eq(200)
+            let availablePositionsForTheNode = []
+
+            for(let i = 0; i < resp.body.items.length; i++){
+               availablePositionsForTheNode.push(resp.body.items[i].type)
+              }
+            expect(availablePositionsForTheNode).not.include(position);
+
+            //let findPositionInResponse = resp.body.items.find(({type}) => type === position)
+            //cy.log(findPositionInResponse)
+            //expect(findPositionInResponse.type).not.include(position)
+        });
+    };
+
+    sendDeleteFavoritePositionRequest(){
+        cy.request(
+            {   method: 'DELETE',
+                url: `api/navigator/v4/favorite-positions?cableId=${Cypress.env('demo-001NodeCableId')}&favoritePositionId=6282943e625403475f65ec40`
+            }
+        ).its('status').should('eq', 200);
+    };
+
+
+
 
 }

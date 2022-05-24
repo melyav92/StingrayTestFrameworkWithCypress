@@ -17,7 +17,6 @@ describe("Favorite Positions CRUD", function (){
     });
 
     it('should verify that the user is able to create DAY favorite position', function () {
-        favoritePosition.sendSwitchOnThrustersStingrayManualModeRequest();
         favoritePosition.storeCurrentPositionAsFavoriteButton().click();
         favoritePosition.descriptionInput().type(favoritePositionData.dayPositionType)
         favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.dayPositionType).click();
@@ -27,6 +26,10 @@ describe("Favorite Positions CRUD", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', 'Favorite position is added successfully');
+        cy.reload();
+        favoritePosition.favoritePositionRawInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('exist')
+            .and('be.visible');
 
     });
 
@@ -35,8 +38,9 @@ describe("Favorite Positions CRUD", function (){
         favoritePosition.editFavoritePositionPencilItem(favoritePositionData.dayPositionType).click();
         favoritePosition.descriptionInput().clear().type(favoritePositionData.dayPositionType)
         favoritePosition.verticalPositionInput().clear().type(favoritePositionData.verticalPositionValue);
-        favoritePosition.thrustersOffButton().click();
         favoritePosition.horizontalPositionInput().clear().type(favoritePositionData.horizontalPositionValue);
+        favoritePosition.thrustersOrientationInput().click();
+        favoritePosition.thrustersOffButton().click();
 
         favoritePosition.saveButton().click();
         nodePage.yesProceedButtonInThePopup().click();
@@ -45,13 +49,45 @@ describe("Favorite Positions CRUD", function (){
             .and('have.class', 'toast-success')
             .and('have.text', 'Favorite position is updated successfully');
 
-        //need to add position values checking
-
+        cy.reload();
+        favoritePosition.descriptionValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.dayPositionType);
+        favoritePosition.verticalPositionValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.verticalPositionValue + '.0m');
+        favoritePosition.horizontalPositionValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.horizontalPositionValue + '.0m');
+        favoritePosition.thrustersValueInTheFavPosTable(favoritePositionData.dayPositionType)
+            .should('have.text', favoritePositionData.thrustersOffValue);
 
     });
 
+    it("should verify that the user is able to DELETE DAY favorite position by using delete 'TRASH CAN' in the favorite position table",function (){
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.dayPosition);
+        favoritePosition.deleteFavPosTrashCanItem(favoritePositionData.dayPositionType).click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is removed successfully');
+
+        favoritePosition.checkThatFavoritePositionDoesNotExist(favoritePositionData.dayPosition)
+
+    });
+
+    it("should verify that the user is able to DELETE DAY favorite position by using 'DELETE' button in the edit favorite position popup",function (){
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.dayPosition);
+        favoritePosition.editFavoritePositionPencilItem(favoritePositionData.dayPositionType).click();
+        favoritePosition.deleteButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is removed successfully');
+
+        favoritePosition.checkThatFavoritePositionDoesNotExist(favoritePositionData.dayPosition)
+    })
+
     it('should verify that the user is able to create NIGHT favorite position', function () {
-        favoritePosition.sendSwitchOnThrustersStingrayManualModeRequest();
         favoritePosition.storeCurrentPositionAsFavoriteButton().click();
         favoritePosition.descriptionInput().type(favoritePositionData.nightPositionType)
         favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.nightPositionType).click();
@@ -61,8 +97,181 @@ describe("Favorite Positions CRUD", function (){
             .should('be.visible')
             .and('have.class', 'toast-success')
             .and('have.text', 'Favorite position is added successfully');
+        cy.reload();
+        favoritePosition.favoritePositionRawInTheFavPosTable(favoritePositionData.nightPositionType)
+            .should('exist')
+            .and('be.visible');
 
     });
+
+    it('should verify that the user is able to UPDATE NIGHT favorite position with new VERTICAL, HORIZONTAL(HOME) AND THRUSTERS "Orientation" mode', function () {
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.nightPosition);
+        favoritePosition.editFavoritePositionPencilItem(favoritePositionData.nightPositionType).click();
+        favoritePosition.descriptionInput().clear().type(favoritePositionData.nightPositionType)
+        favoritePosition.verticalPositionInput().clear().type(favoritePositionData.verticalPositionValue);
+        favoritePosition.homeButton().click();
+        favoritePosition.thrustersOrientationInput().clear().type(favoritePositionData.thrustersOrientationValue);
+
+        favoritePosition.saveButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is updated successfully');
+
+        cy.reload();
+        favoritePosition.descriptionValueInTheFavPosTable(favoritePositionData.nightPositionType)
+            .should('have.text', favoritePositionData.nightPositionType);
+        favoritePosition.verticalPositionValueInTheFavPosTable(favoritePositionData.nightPositionType)
+            .should('have.text', favoritePositionData.verticalPositionValue + '.0m');
+        favoritePosition.horizontalPositionValueInTheFavPosTable(favoritePositionData.nightPositionType)
+            .should('have.text', favoritePositionData.homeState);
+        favoritePosition.thrustersValueInTheFavPosTable(favoritePositionData.nightPositionType)
+            .should('have.text', favoritePositionData.thrustersOrientationValue + '°');
+
+    });
+
+    it("should verify that the user is able to DELETE NIGHT favorite position by using delete 'TRASH CAN' in the favorite position table",function (){
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.nightPosition);
+        favoritePosition.deleteFavPosTrashCanItem(favoritePositionData.nightPositionType).click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is removed successfully');
+
+        favoritePosition.checkThatFavoritePositionDoesNotExist(favoritePositionData.nightPosition)
+
+    });
+
+    it("should verify that the user is able to DELETE NIGHT favorite position by using 'DELETE' button in the edit favorite position popup",function (){
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.nightPosition);
+        favoritePosition.editFavoritePositionPencilItem(favoritePositionData.nightPositionType).click();
+        favoritePosition.deleteButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is removed successfully');
+
+        favoritePosition.checkThatFavoritePositionDoesNotExist(favoritePositionData.nightPosition)
+    });
+
+    it('should verify that the user is able to create STORM favorite position', function () {
+        favoritePosition.storeCurrentPositionAsFavoriteButton().click();
+        favoritePosition.descriptionInput().type(favoritePositionData.stormPositionType)
+        favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.stormPositionType).click();
+        favoritePosition.saveButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is added successfully');
+        cy.reload();
+        favoritePosition.favoritePositionRawInTheFavPosTable(favoritePositionData.stormPositionType)
+            .should('exist')
+            .and('be.visible');
+
+    });
+
+    it('should verify that the user is able to UPDATE STORM favorite position with new VERTICAL(Docked), HORIZONTAL AND THRUSTERS "N/A" state', function () {
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.stormPosition);
+        favoritePosition.editFavoritePositionPencilItem(favoritePositionData.stormPositionType).click();
+        favoritePosition.descriptionInput().clear().type(favoritePositionData.stormPositionType)
+        favoritePosition.dockButton().click();
+        favoritePosition.horizontalPositionInput().clear().type(favoritePositionData.horizontalPositionValue);
+        favoritePosition.thrustersOrientationInput().click();
+        favoritePosition.thrustersOrientationButton().click();
+
+        favoritePosition.saveButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is updated successfully');
+
+        cy.reload();
+        favoritePosition.descriptionValueInTheFavPosTable(favoritePositionData.stormPositionType)
+            .should('have.text', favoritePositionData.stormPositionType);
+        favoritePosition.verticalPositionValueInTheFavPosTable(favoritePositionData.stormPositionType)
+            .should('have.text', favoritePositionData.dockedState);
+        favoritePosition.horizontalPositionValueInTheFavPosTable(favoritePositionData.stormPositionType)
+            .should('have.text', favoritePositionData.horizontalPositionValue + '.0m');
+        favoritePosition.thrustersValueInTheFavPosTable(favoritePositionData.stormPositionType)
+            .should('have.text', favoritePositionData.thrustersNAValue);
+
+    });
+
+    it("should verify that the user is able to DELETE STORM favorite position by using delete 'TRASH CAN' in the favorite position table",function (){
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.stormPosition);
+        favoritePosition.deleteFavPosTrashCanItem(favoritePositionData.stormPositionType).click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is removed successfully');
+
+        favoritePosition.checkThatFavoritePositionDoesNotExist(favoritePositionData.stormPosition)
+
+    });
+
+    it("should verify that the user is able to DELETE STORM favorite position by using 'DELETE' button in the edit favorite position popup",function (){
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.stormPosition);
+        favoritePosition.editFavoritePositionPencilItem(favoritePositionData.stormPositionType).click();
+        favoritePosition.deleteButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is removed successfully');
+
+        favoritePosition.checkThatFavoritePositionDoesNotExist(favoritePositionData.stormPosition)
+    })
+
+    it('should verify that the user is able to create CLEAN favorite position', function () {
+        favoritePosition.storeCurrentPositionAsFavoriteButton().click();
+        favoritePosition.descriptionInput().type(favoritePositionData.cleanPositionType)
+        favoritePosition.favoritePositionCategoryTypeLabel(favoritePositionData.cleanPositionType).click();
+        favoritePosition.saveButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is added successfully');
+        cy.reload();
+        favoritePosition.favoritePositionRawInTheFavPosTable(favoritePositionData.cleanPositionType)
+            .should('exist')
+            .and('be.visible');
+
+    });
+
+    it('should verify that the user is able to UPDATE CLEAN favorite position with new VERTICAL, HORIZONTAL(AWAY) AND THRUSTERS "Orientation" mode', function () {
+        favoritePosition.sendCreteFavoritePositionRequest(favoritePositionData.cleanPosition);
+        favoritePosition.editFavoritePositionPencilItem(favoritePositionData.cleanPositionType).click();
+        favoritePosition.descriptionInput().clear().type(favoritePositionData.cleanPositionType);
+        favoritePosition.awayButton().click();
+        favoritePosition.thrustersOrientationInput().clear().type(favoritePositionData.thrustersOrientationValue);
+
+        favoritePosition.saveButton().click();
+        nodePage.yesProceedButtonInThePopup().click();
+        nodePage.toasterPopup()
+            .should('be.visible')
+            .and('have.class', 'toast-success')
+            .and('have.text', 'Favorite position is updated successfully');
+
+        cy.reload();
+        favoritePosition.descriptionValueInTheFavPosTable(favoritePositionData.cleanPositionType)
+            .should('have.text', favoritePositionData.cleanPositionType);
+        favoritePosition.verticalPositionValueInTheFavPosTable(favoritePositionData.cleanPositionType)
+            .should('have.text', favoritePositionData.dockedState + ' & ' + favoritePositionData.lockedState);
+        favoritePosition.horizontalPositionValueInTheFavPosTable(favoritePositionData.cleanPositionType)
+            .should('have.text', favoritePositionData.awayState);
+        favoritePosition.thrustersValueInTheFavPosTable(favoritePositionData.cleanPositionType)
+            .should('have.text', favoritePositionData.thrustersOrientationValue + '°');
+
+    });
+
+
 
 
 })
