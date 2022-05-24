@@ -17,6 +17,12 @@ module.exports =  {
   "verticalPositionValue": 7,
   "horizontalPositionValue": 9,
   "thrustersOrientationValue": 255,
-  "thrustersOffValue": "Off"
+  "thrustersOffValue": "Off",
+  "thrustersNAValue": "N/A",
+  "dockedState": "DOCKED",
+  "lockedState": "LOCKED",
+  "awayState": "AWAY",
+  "homeState": "HOME"
+
 
 }

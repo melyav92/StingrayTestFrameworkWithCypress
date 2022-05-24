@@ -6,7 +6,7 @@ export class FavoritePositions {
         navigatorNode.buDownCamStreamingExists();
         return cy.get('#scp-store-current-position-link-btn');
     };
-
+    //add/edit popup objects
     descriptionInput(){
         return cy.get('#scp-description-input');
     };
@@ -38,6 +38,29 @@ export class FavoritePositions {
     saveButton(){
         return cy.get('#scp-save-button');
     };
+
+    deleteButton(){
+        return cy.get('#scp-delete-button')
+    };
+
+    dockButton(){
+        return cy.get('#scp-dock-state-button');
+    };
+
+    lockButton(){
+        return cy.get('#scp-lock-state-button');
+    };
+
+    homeButton(){
+        return cy.get('#scp-home-state-button');
+    };
+
+    awayButton(){
+        return cy.get('#scp-away-state-button');
+    };
+
+
+
 //Favorite positions table objects
     favoritePositionRawInTheFavPosTable(positionType){
         cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
@@ -89,6 +112,13 @@ export class FavoritePositions {
             .eq(5);
     };
 
+    deleteFavPosTrashCanItem(positionType){
+        cy.get('[data-original-title="Edit favorite position"]').should('be.visible');
+        return cy.get('#scp-favorite-positions-table td')
+            .contains(`${positionType}`)
+            .parents('tr')
+            .find('[data-original-title="Delete favorite position"]');
+    };
 
 
     sendSwitchOnThrustersStingrayManualModeRequest() {
@@ -143,6 +173,26 @@ export class FavoritePositions {
         );
         cy.reload()
 
+    };
+
+   checkThatFavoritePositionDoesNotExist(position){
+        cy.request(
+            {   method: 'GET',
+                url: `api/navigator/v4/favorite-positions?cableId=${Cypress.env('demo-001NodeCableId')}`
+            }
+        ).then((resp) => {
+            expect(resp.status).to.eq(200)
+            let availablePositionsForTheNode = []
+
+            for(let i = 0; i < resp.body.items.length; i++){
+               availablePositionsForTheNode.push(resp.body.items[i].type)
+              }
+            expect(availablePositionsForTheNode).not.include(position);
+
+            //let findPositionInResponse = resp.body.items.find(({type}) => type === position)
+            //cy.log(findPositionInResponse)
+            //expect(findPositionInResponse.type).not.include(position)
+        });
     };
 
     sendDeleteFavoritePositionRequest(){
