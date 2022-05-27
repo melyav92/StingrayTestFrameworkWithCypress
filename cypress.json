@@ -43,7 +43,7 @@
     "**/treatment-register.spec.js",
     "**/harvest-register.spec.js",
     "**/auth0-login.spec.js",
-    "**/sequence-analyzer-approve-sequences.spec.js",
+
     "**/SA-with-Auth0.spec.js",
     "**/login-page.spec.js "
 
